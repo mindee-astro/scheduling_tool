@@ -1,0 +1,18 @@
+{
+  "brianna_chang": { 
+    "display_name" : "Brianna Chang", 
+    "join_date": "DD/MM/YYYY",
+    "username": "CPSPEISH", 
+    "password" : "xxxxxx", 
+    "elective_modules": ["Innovation", "Architecture", "Analytics", "External Assignments"],
+    "program_completion_status": "0"
+  }, 
+   "akmaluddin": { 
+    "display_name" : "Ahmad Akmaluddin", 
+    "join_date": "DD/MM/YYYY",
+    "username": "CPSPEISH", 
+    "password" : "xxxxxx", 
+    "elective_modules": ["Innovation", "Architecture", "Systems", "External Assignments"],
+    "program_completion_status": "0"
+  }
+}

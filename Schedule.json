@@ -1,95 +1,117 @@
 {
   "brianna_chang": { 
-    "display name" : "Brianna Chang", 
-    "current rotation": {
-      "rotation name": "Security", 
-      "start of rotation" : "DD/MM/YYYY",
-      "end of ratation" : "DD/MM/YYYY" 
+    "display_name" : "Brianna Chang", 
+    "1" : { 
+      "rotation_name": "Project Management", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
     },
-    "next rotation": {
-      "rotation name": "Broadcast", 
-      "start of rotation" : "DD/MM/YYYY",
-      "end of ratation" : "DD/MM/YYYY",
-      "due" : "DD days"
+    "2": {
+      "rotation_name": "Software Engineering", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
     },
-    "upcoming rotations": [
-      {
-        "rotation name": "Broadcast", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY",
-        "due" : "DD days"
-      }, 
-      {
-        "rotation name": "Architecture", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY",
-        "due" : "DD days"
-      },
-      {
-        "rotation name": "Systems", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY",
-        "due" : "DD days"
-      }
-    ],
-    "previous rotations": [
-      {
-        "rotation name": "TFM", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY"
-      },
-      {
-        "rotation name": "Product Engineering", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY"
-      }
-    ]
+    "3": {
+      "rotation_name": "Product Management", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
+    }, 
+    "4": {
+      "rotation_name": "Product Engineering", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
+    }, 
+    "5": {
+      "rotation_name": "TFM", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
+    }, 
+    "6": {
+      "rotation_name": "Security", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "0"
+    }, 
+    "7": {
+      "rotation_name": "Innovation", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "0"
+    }, 
+    "8": {
+      "rotation_name": "Architecture", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "0"
+    }, 
+    "9": {
+      "rotation_name": "External Assignment", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "0"
+    }, 
   }, 
-   "Akmaluddin": { 
-    "display name" : "Akmaluddin", 
-    "current rotation": {
-      "rotation name": "Security", 
-      "start of rotation" : "DD/MM/YYYY",
-      "end of ratation" : "DD/MM/YYYY" 
+   "akmaluddin": { 
+    "display_name" : "Ahmad Akmaluddin", 
+    "1" : { 
+      "rotation_name": "Project Management", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
     },
-    "next rotation": {
-      "rotation name": "Broadcast", 
-      "start of rotation" : "DD/MM/YYYY",
-      "end of ratation" : "DD/MM/YYYY",
-      "due" : "DD days"
+    "2": {
+      "rotation_name": "Product Management", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
     },
-    "upcoming rotations": [
-      {
-        "rotation name": "Broadcast", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY",
-        "due" : "DD days"
-      }, 
-      {
-        "rotation name": "Architecture", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY",
-        "due" : "DD days"
-      },
-      {
-        "rotation name": "Systems", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY",
-        "due" : "DD days"
-      }
-    ],
-    "previous rotations": [
-      {
-        "rotation name": "TFM", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY"
-      },
-      {
-        "rotation name": "Product Engineering", 
-        "start of rotation" : "DD/MM/YYYY",
-        "end of ratation" : "DD/MM/YYYY"
-      }
-    ]
+    "3": {
+      "rotation_name": "Security", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
+    }, 
+    "4": {
+      "rotation_name": "Product Engineering", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
+    }, 
+    "5": {
+      "rotation_name": "Broadcast", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
+    }, 
+    "6": {
+      "rotation_name": "TFM", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "1"
+    }, 
+    "7": {
+      "rotation_name": "Systems", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "0"
+    }, 
+    "8": {
+      "rotation_name": "Architecture", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "0"
+    }, 
+    "9": {
+      "rotation_name": "External Assignment", 
+      "start_date": "DD/MM/YYYY",
+      "end_date" : "DD/MM/YYY",
+      "completion_status": "0"
+    }, 
   }
 }
 
