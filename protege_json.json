@@ -4,7 +4,7 @@
     "join_date": "DD/MM/YYYY",
     "username": "CPSPEISH", 
     "password" : "xxxxxx", 
-    "elective_modules": ["Innovation", "Architecture", "Analytics", "External Assignments"]
+    "elective_modules": ["Innovation", "Architecture", "Analytics", "External Assignments"],
     "program_completion_status": "0"
   }, 
    "akmaluddin": { 
@@ -12,7 +12,7 @@
     "join_date": "DD/MM/YYYY",
     "username": "CPSPEISH", 
     "password" : "xxxxxx", 
-    "elective_modules": ["Innovation", "Architecture", "Systems", "External Assignments"]
+    "elective_modules": ["Innovation", "Architecture", "Systems", "External Assignments"],
     "program_completion_status": "0"
   }
 }
