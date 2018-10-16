@@ -1,3 +1,95 @@
 {
-  "current_date":"DD/MM/YYYY",
+  "brianna_chang": { 
+    "display name" : "Brianna Chang", 
+    "current rotation": {
+      "rotation name": "Security", 
+      "start of rotation" : "DD/MM/YYYY",
+      "end of ratation" : "DD/MM/YYYY" 
+    },
+    "next rotation": {
+      "rotation name": "Broadcast", 
+      "start of rotation" : "DD/MM/YYYY",
+      "end of ratation" : "DD/MM/YYYY",
+      "due" : "DD days"
+    },
+    "upcoming rotations": [
+      {
+        "rotation name": "Broadcast", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY",
+        "due" : "DD days"
+      }, 
+      {
+        "rotation name": "Architecture", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY",
+        "due" : "DD days"
+      },
+      {
+        "rotation name": "Systems", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY",
+        "due" : "DD days"
+      }
+    ],
+    "previous rotations": [
+      {
+        "rotation name": "TFM", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY"
+      },
+      {
+        "rotation name": "Product Engineering", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY"
+      }
+    ]
+  }, 
+   "Akmaluddin": { 
+    "display name" : "Akmaluddin", 
+    "current rotation": {
+      "rotation name": "Security", 
+      "start of rotation" : "DD/MM/YYYY",
+      "end of ratation" : "DD/MM/YYYY" 
+    },
+    "next rotation": {
+      "rotation name": "Broadcast", 
+      "start of rotation" : "DD/MM/YYYY",
+      "end of ratation" : "DD/MM/YYYY",
+      "due" : "DD days"
+    },
+    "upcoming rotations": [
+      {
+        "rotation name": "Broadcast", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY",
+        "due" : "DD days"
+      }, 
+      {
+        "rotation name": "Architecture", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY",
+        "due" : "DD days"
+      },
+      {
+        "rotation name": "Systems", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY",
+        "due" : "DD days"
+      }
+    ],
+    "previous rotations": [
+      {
+        "rotation name": "TFM", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY"
+      },
+      {
+        "rotation name": "Product Engineering", 
+        "start of rotation" : "DD/MM/YYYY",
+        "end of ratation" : "DD/MM/YYYY"
+      }
+    ]
+  }
 }
+
