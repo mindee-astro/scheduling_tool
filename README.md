@@ -12,4 +12,4 @@ Fun fact, this readme is written in HTML, you can take a look at the file to und
 <li>There will be two main branches, namely master and staging</li>
 <li>Master will be production branch</li>
 <li>For every new feature and pages, <b><u>please branch from staging and raise pull request to be merge to staging</u></b>
-<li>Staging will host the components required for each page;</li><br>If you require a custom component, create a branch name with the prefix component/$component_name and proceed to create the components</li>
+<li>Staging will host the components required for each page;</li><br><i>If you require a custom component, create a branch name with the prefix component/$component_name and proceed to create the components</i></li>
