@@ -3,6 +3,11 @@ import Navbar from '../components/Navbar';
 import AppContainer from '../app/index';
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
+import Sidebar from '../components/Sidebar';
+import {
+  toggleSideBar,
+  updatedisplayName,
+} from '../actions/index';
 
 class App extends Component {
 
@@ -11,24 +16,31 @@ class App extends Component {
     this.state = {
       navbar: props.navbar,
       navtext: props.navtext,
-      loggedInUser: props.loggedIn
+      theme: props.theme,
+      sidebar: props.sidebar,
+      displayname: props.displayName,
     }
+  }
+
+  toggleSideBar = () => {
+    this.props.toggleSideBar(!this.state.sidebar)
   }
 
   render() {
     return (
       <div>
-      {console.log(this.state)}
-        <Navbar state={this.state}/>
+        {console.log(this.state)}
+        <Navbar toggleSideBar={this.toggleSideBar}/>
+        <Sidebar/>
         <AppContainer/> 
       </div>
     );
   }
 }
 
-const mapStateToProps = ({load}) => {
-    const {navbar, navtext, loggedIn} = load;
-    return{navbar, navtext, loggedIn}
+const mapStateToProps = ({page}) => {
+    const {navbar, theme, sidebar, displayName, navTitle} = page;
+    return{navbar, theme, sidebar, displayName, navTitle}
 };
 
-export default connect(mapStateToProps)(App);
+export default connect(mapStateToProps, {toggleSideBar, updatedisplayName})(App);

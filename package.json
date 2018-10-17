@@ -26,5 +26,7 @@
   },
   "description": "Revision 1",
   "main": "index.js",
-  "license": "MIT"
+  "license": "MIT",
+  "repository": "https://github.com/akmaluddin/scheduling_tool.git",
+  "author": "ahmadakmaluddin <ahmad-akmaluddin_ahmad@astro.com.my>"
 }
