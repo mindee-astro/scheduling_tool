@@ -1,6 +1,5 @@
 import {
 	TOGGLE_SIDEBAR,
-	SET_DISPLAY_NAME,
 	SET_NAV_TITLE,
 } from '../constants/Actions';
 
@@ -9,8 +8,7 @@ const INIT_STATE = {
 	loggedIn: false,
 	sidebar: false,
 	theme: "default",
-	displayName: "",
-	navTitle: ""
+	navTitle: "Home"
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -19,13 +17,6 @@ export default (state=INIT_STATE, action)=>{
 			return{
 				...state,
 				sidebar: action.payload,
-			}
-		}
-
-		case SET_DISPLAY_NAME: {
-			return{
-				...state,
-				displayName: action.payload,
 			}
 		}
 

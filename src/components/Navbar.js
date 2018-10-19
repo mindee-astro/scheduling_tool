@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -9,6 +9,9 @@ import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
 import {connect} from 'react-redux';
+import Menu from '@material-ui/core/Menu';
+import MenuItem from '@material-ui/core/MenuItem';
+import {withRouter} from 'react-router-dom';
 
 const styles = {
   root: {
@@ -36,43 +39,88 @@ const styles = {
   }
 };
 
-function Navbar(props) {
-  const { classes } = props;
 
 
-  return (
-    <div className={classes.root}>
-      {console.log(props)}
-      <AppBar position="static" className={(props.theme==='optional') ? classes.appBarDefault : classes.appBarOptional}>
-        <Toolbar>
-          <IconButton className={classes.menuButton} color="inherit" aria-label="Menu" onClick={props.toggleSideBar}>
-            <MenuIcon />
-          </IconButton>
-          <Typography variant="title" color="inherit" className={classes.grow} >
-          	{props.navTitle} 
-          </Typography>
-          <div className={classes.rightGroup}>
-            <Typography variant="subheading" color='inherit' className={classes.grow} style={{padding: '10px'}}>
-              Hello, {props.displayName}
-              <Button className={classes.accButton} color='inherit'>
-                <AccountCircle/>
-              </Button>
+class Navbar extends Component {
+  
+  constructor(props){
+    super(props)
+    console.log(props)
+    this.state = {
+      classes: props.classes,
+      anchorEl: null,
+    }
+  }
+
+  handleClick = event => {
+    this.setState({ anchorEl: event.currentTarget });
+  };
+
+  handleClose = () => {
+    this.setState({ anchorEl: null });
+  };
+
+
+  render(){
+
+    const title = (this.props.location.pathname == '/elective') ? (<span>Elective</span>) : 
+    (this.props.location.pathname == '/schedule') ? (<span>Schedules</span>) : 
+    (this.props.location.pathname == '/welcome') ? (<span>Home</span>) :
+    (<span/>)
+
+    return (
+      <div className={this.state.classes.root}>
+        {console.log(this.props)}
+        <AppBar position="static" className={(this.props.theme==='optional') ? this.state.classes.appBarDefault : this.state.classes.appBarOptional}>
+          <Toolbar>
+            <IconButton className={this.state.classes.menuButton} color="inherit" aria-label="Menu" onClick={this.props.toggleSideBar}>
+              <MenuIcon />
+            </IconButton>
+            <Typography variant="title" color="inherit" className={this.state.classes.grow} >
+            	{title} 
             </Typography>
-            
-          </div>
-        </Toolbar>
-      </AppBar>
-    </div>
-  );
+            <div className={this.state.classes.rightGroup}>
+              <Typography variant="subheading" color='inherit' className={this.state.classes.grow} style={{padding: '10px'}}>
+                <span style={{paddingRight: '10px'}}>Hello, {this.props.displayname}</span>
+                <IconButton className={this.state.classes.accButton} color='inherit'
+                    aria-owns={this.state.anchorEl ? 'simple-menu' : null}
+                    aria-haspopup="true"
+                    onClick={this.handleClick}
+                >
+                  <AccountCircle/>
+                </IconButton>
+                <Menu
+                  id="simple-menu"
+                  anchorEl={this.state.anchorEl}
+                  open={Boolean(this.state.anchorEl)}
+                  onClose={this.handleClose}
+                  PaperProps={{
+                    style: {
+                      width: 200,
+                    },
+                  }}
+                >
+                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                </Menu>
+              </Typography>
+              
+            </div>
+          </Toolbar>
+        </AppBar>
+      </div>
+    )
+  }
 }
 
 Navbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-const mapStateToProps = ({page}) => {
-  const {displayName, theme, navTitle} = page;
-  return {displayName, theme, navTitle}
+const mapStateToProps = ({page, auth}) => {
+  const {theme, navTitle} = page;
+  const {displayname} = auth;
+  return {displayname, theme, navTitle}
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(Navbar));
+export default withRouter(connect(mapStateToProps)(withStyles(styles)(Navbar)));

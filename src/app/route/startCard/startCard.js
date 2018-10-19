@@ -18,7 +18,7 @@ function startCard (props) {
 		<div>
 			<Card style={{padding: '10px'}}>
 				<CardContent style={{textAlign: 'center'}}>
-					Welcome
+					Home
 				</CardContent>
 			</Card>
 		</div>
