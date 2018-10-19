@@ -11,6 +11,7 @@ import TableChart from '@material-ui/icons/TableChart';
 import People from '@material-ui/icons/People';
 import {NavLink, withRouter} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
+import IconButton from '@material-ui/core/IconButton';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
 	toggleSideBar,
@@ -24,6 +25,9 @@ const styles = {
   avatar: {
   	height: '60px',
   	width: '60px'
+  },
+  inactive: {
+  	textDecoration: 'none'
   }
 };
 
@@ -52,12 +56,23 @@ class Sidebar extends Component {
 	} 
 
 	handleClick = (Title) =>() => {
-		this.props.setNavTitle(Title)
+	 	if (Title=='Schedules') {
+			this.props.history.push('/schedule')
+		}
+		else if (Title=='Profile') {
+			this.props.history.push('/profile')
+		}
+		else if (Title=='Proteges') {
+			this.props.history.push('/elective')
+		}
+		else {
+			this.props.history.push('/welcome')
+		}
 	}
 
 	render() {
 
-		
+
 		return( 
 			<MuiThemeProvider theme={theme}>
 			<div>
@@ -77,41 +92,43 @@ class Sidebar extends Component {
 			        		<div>
 			        			<div
 			        				style={{
-			        					paddingLeft: '70px',
+			        					paddingLeft: '60px',
 			        				}}
 			        			>
-			        				<Avatar 
-			        					className={
-			        						this.state.classes.avatar
-			        					}
-			        				>{this.props.displayname[0].toUpperCase()}{this.props.displayname[1].toLowerCase()}</Avatar>
+			        				<IconButton onClick={this.handleClick('Profile')}>
+				        				<Avatar 
+				        					className={
+				        						this.state.classes.avatar
+				        					}
+				        				>{this.props.displayname[0].toUpperCase()}{this.props.displayname[1].toLowerCase()}</Avatar>
+			        				</IconButton>
 			        			</div>
-					        	<div style={{color: "orange"}}>
-					        		<List style={{color: "orange"}}>
-					        		<NavLink to="/welcome">
+					        	<div style={{color: "purple"}}>
+					        		<List>
 					        			<ListItem button onClick={this.handleClick("Home")}>
 					        				<ListItemIcon>
 									        	<HomeIcon />
 									        </ListItemIcon>
 					        				<ListItemText primary="Home"/>
 					        			</ListItem>
-					        		</NavLink>
-					        		<NavLink to="/schedule">
 					        			<ListItem button onClick={this.handleClick("Schedules")}>
 					        				<ListItemIcon>
 									        	<TableChart />
 									        </ListItemIcon>
 					        				<ListItemText primary="Schedule"/>
 					        			</ListItem>
-					        		</NavLink>
-					        		<NavLink to="/elective">
 					        			<ListItem button onClick={this.handleClick("Proteges")}>
 					        				<ListItemIcon>
 									        	<People />
 									        </ListItemIcon>
 					        				<ListItemText primary="Proteges"/>
 					        			</ListItem>
-					        		</NavLink>
+					        			<ListItem button onClick={this.handleClick("Proteges")}>
+					        				<ListItemIcon>
+									        	<People />
+									        </ListItemIcon>
+					        				<ListItemText primary="Proteges"/>
+					        			</ListItem>
 					        		</List>
 					        	</div>	
 					        </div>

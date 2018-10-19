@@ -60,6 +60,13 @@ class Navbar extends Component {
     this.setState({ anchorEl: null });
   };
 
+  handleNavigate = (options) => {
+    if (options=='Profile') {
+      this.props.history.push('/profile')
+      this.setState({ anchorEl: null })
+    }
+  }
+
 
   render(){
 
@@ -70,8 +77,7 @@ class Navbar extends Component {
 
     return (
       <div className={this.state.classes.root}>
-        {console.log(this.props)}
-        <AppBar position="static" className={(this.props.theme==='optional') ? this.state.classes.appBarDefault : this.state.classes.appBarOptional}>
+        <AppBar position="fixed" className={(this.props.theme==='optional') ? this.state.classes.appBarDefault : this.state.classes.appBarOptional}>
           <Toolbar>
             <IconButton className={this.state.classes.menuButton} color="inherit" aria-label="Menu" onClick={this.props.toggleSideBar}>
               <MenuIcon />
@@ -100,7 +106,7 @@ class Navbar extends Component {
                     },
                   }}
                 >
-                  <MenuItem onClick={this.handleClose}>Profile</MenuItem>
+                  <MenuItem onClick={()=>this.handleNavigate('Profile')}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>Logout</MenuItem>
                 </Menu>
               </Typography>

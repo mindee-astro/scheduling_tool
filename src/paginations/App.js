@@ -32,7 +32,7 @@ class App extends Component {
         {console.log(this.props.setDisplayName)}
         <Navbar toggleSideBar={this.toggleSideBar}/>
         <Sidebar/>
-        <div style={{padding: '2%'}}>
+        <div style={{padding: '2%', paddingTop: '100px'}}>
           <AppContainer/> 
         </div>
       </div>

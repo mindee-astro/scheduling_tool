@@ -6,13 +6,13 @@ import {
 } from '../constants/Actions';
 
 const INIT_STATE = {
-	username: "XXXXXXXX",
-	displayname: "None",
+	username: "Dummy DATA",
+	displayname: "Dummy DATA",
 	joindate: "DD/MM/YYYY",
-	mentor: "XX",
+	mentor: "Dummy DATA",
 	accesslevel: "",
-	email: "xx@astro.com.my",
-	mentoremail: "xx@astro.com.my",
+	email: "DummyDATA@astro.com.my",
+	mentoremail: "DummyDATA@astro.com.my",
 }
 
 export default (state=INIT_STATE, action)=>{

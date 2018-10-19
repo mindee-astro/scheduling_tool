@@ -5,7 +5,6 @@ import { withStyles } from '@material-ui/core/styles';
 import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import {
-	setNavTitle,
 } from '../../../actions/index';
 
 const styles = {
@@ -29,4 +28,4 @@ const mapStateToProps = ({}) => {
     return{}
 };
 
-export default connect(mapStateToProps, {setNavTitle})(withStyles(styles)(timetableCard));
+export default connect(mapStateToProps)(withStyles(styles)(timetableCard));
