@@ -3,6 +3,7 @@ import {
 	GET_DISPLAY_NAME,
 	LOG_IN_USER,
 	CREATE_USER,
+	SET_USER_AUTH,
 } from '../constants/Actions';
 
 const INIT_STATE = {
@@ -33,6 +34,12 @@ export default (state=INIT_STATE, action)=>{
 				mentoremail: action.payload.mentoremail,
 				email: action.payload.email
 			}
+		case SET_USER_AUTH:
+			return {
+				...state,
+				accesslevel: action.payload
+			}
+
 		default:
 			return state
 	}

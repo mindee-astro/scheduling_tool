@@ -19,7 +19,7 @@ class App extends Component {
   }
 
   componentDidMount(){
-    this.props.setDisplayName("Admin")
+    this.props.setDisplayName("Akmaluddin")
   }
 
   toggleSideBar = () => {
@@ -29,7 +29,6 @@ class App extends Component {
   render() {
     return (
       <div>
-        {console.log(this.props.setDisplayName)}
         <Navbar toggleSideBar={this.toggleSideBar}/>
         <Sidebar/>
         <div style={{padding: '2%', paddingTop: '100px'}}>

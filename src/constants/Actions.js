@@ -7,3 +7,4 @@ export const SET_DISPLAY_NAME = 'set_display_name';
 export const GET_DISPLAY_NAME = 'get_display_name';
 export const LOG_IN_USER = 'log_in_user';
 export const CREATE_USER = 'create_user';
+export const SET_USER_AUTH = 'set_user_auth';

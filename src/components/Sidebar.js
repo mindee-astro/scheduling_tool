@@ -12,6 +12,7 @@ import People from '@material-ui/icons/People';
 import {NavLink, withRouter} from 'react-router-dom';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
+import Settings from '@material-ui/icons/Settings';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import {
 	toggleSideBar,
@@ -65,13 +66,33 @@ class Sidebar extends Component {
 		else if (Title=='Proteges') {
 			this.props.history.push('/elective')
 		}
+		else if (Title=='Settings') {
+			this.props.history.push('/configuration')
+		}
 		else {
 			this.props.history.push('/welcome')
 		}
 	}
 
 	render() {
-
+		const allowedLinks = (
+			(this.props.accesslevel==="Admin") ? (
+				<div>
+	    			<ListItem button onClick={this.handleClick("Proteges")}>
+	    				<ListItemIcon>
+				        	<People />
+				        </ListItemIcon>
+	    				<ListItemText primary="Proteges"/>
+	    			</ListItem>
+	    			<ListItem button onClick={this.handleClick("Settings")}>
+	    				<ListItemIcon>
+				        	<Settings />
+				        </ListItemIcon>
+	    				<ListItemText primary="Configuration"/>
+	    			</ListItem>
+    			</div>
+			) : (<div/>)
+		)
 
 		return( 
 			<MuiThemeProvider theme={theme}>
@@ -117,18 +138,7 @@ class Sidebar extends Component {
 									        </ListItemIcon>
 					        				<ListItemText primary="Schedule"/>
 					        			</ListItem>
-					        			<ListItem button onClick={this.handleClick("Proteges")}>
-					        				<ListItemIcon>
-									        	<People />
-									        </ListItemIcon>
-					        				<ListItemText primary="Proteges"/>
-					        			</ListItem>
-					        			<ListItem button onClick={this.handleClick("Proteges")}>
-					        				<ListItemIcon>
-									        	<People />
-									        </ListItemIcon>
-					        				<ListItemText primary="Proteges"/>
-					        			</ListItem>
+					        			{allowedLinks}
 					        		</List>
 					        	</div>	
 					        </div>
@@ -143,8 +153,8 @@ class Sidebar extends Component {
 
 const mapStateToProps = ({page, auth}) => {
 	const {sidebar} = page;
-	const {displayname} = auth;
-	return {sidebar, displayname}
+	const {displayname, accesslevel} = auth;
+	return {sidebar, displayname, accesslevel}
 };
 
 export default withRouter(connect(mapStateToProps, {toggleSideBar, setNavTitle})(withStyles(styles)(Sidebar)));

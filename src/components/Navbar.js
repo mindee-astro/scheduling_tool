@@ -12,6 +12,7 @@ import {connect} from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import {withRouter} from 'react-router-dom';
+import AdminToggle from './ToggleAdmin';
 
 const styles = {
   root: {
@@ -73,6 +74,8 @@ class Navbar extends Component {
     const title = (this.props.location.pathname == '/elective') ? (<span>Elective</span>) : 
     (this.props.location.pathname == '/schedule') ? (<span>Schedules</span>) : 
     (this.props.location.pathname == '/welcome') ? (<span>Home</span>) :
+    (this.props.location.pathname == '/profile') ? (<span>Profile</span>) :
+    (this.props.location.pathname == '/configuration') ? (<span>Configuration</span>) :
     (<span/>)
 
     return (
@@ -108,6 +111,9 @@ class Navbar extends Component {
                 >
                   <MenuItem onClick={()=>this.handleNavigate('Profile')}>Profile</MenuItem>
                   <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <AdminToggle/>
+                  </MenuItem>
                 </Menu>
               </Typography>
               
