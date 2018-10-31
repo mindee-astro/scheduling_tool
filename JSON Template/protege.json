@@ -4,13 +4,15 @@
     "join_date": "DD/MM/YYYY",
     "username": "CPSPEISH",  
     "elective_modules": ["Innovation", "Architecture", "Analytics", "External Assignments"],
-    "program_completion_status": "0"
+    "program_completion_status": "0",
+    "dirty" : "true"
   }, 
    "HHKAHMAD": { 
     "display_name" : "Ahmad Akmaluddin", 
     "join_date": "DD/MM/YYYY",
     "username": "HHKAHMAD",  
     "elective_modules": ["Innovation", "Architecture", "Systems", "External Assignments"],
-    "program_completion_status": "0"
+    "program_completion_status": "0",
+     "dirty" : "true"
   }
 }

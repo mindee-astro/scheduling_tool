@@ -1,117 +1,65 @@
 {
   "CPSPEISH": { 
     "display_name" : "Brianna Chang", 
-    "1" : { 
-      "rotation_name": "Project Management", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    },
-    "2": {
-      "rotation_name": "Software Engineering", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    },
-    "3": {
-      "rotation_name": "Product Management", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    }, 
-    "4": {
-      "rotation_name": "Product Engineering", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    }, 
-    "5": {
-      "rotation_name": "TFM", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    }, 
-    "6": {
-      "rotation_name": "Security", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "ongoing"
-    }, 
-    "7": {
-      "rotation_name": "Innovation", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "false"
-    }, 
-    "8": {
-      "rotation_name": "Architecture", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "false"
-    }, 
-    "9": {
-      "rotation_name": "External Assignment", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "false"
-    } 
   }, 
-  "HHKAHMAD": { 
+  "HHKAHMAD": {
     "display_name" : "Ahmad Akmaluddin", 
-    "1" : { 
-      "rotation_name": "Project Management", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    },
-    "2": {
-      "rotation_name": "Product Management", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    },
-    "3": {
-      "rotation_name": "Security", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    }, 
-    "4": {
-      "rotation_name": "Product Engineering", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    }, 
-    "5": {
-      "rotation_name": "Broadcast", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    }, 
-    "6": {
-      "rotation_name": "TFM", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "true"
-    }, 
-    "7": {
-      "rotation_name": "Systems", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "ongoing"
-    }, 
-    "8": {
-      "rotation_name": "Architecture", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "false"
-    }, 
-    "9": {
-      "rotation_name": "External Assignment", 
-      "start_date": "DD/MM/YYYY",
-      "end_date" : "DD/MM/YYY",
-      "completion_status": "false"
-    } 
+    "rotation_list" : [
+      { 
+        "rotation_name": "Project Management", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "true"
+      },
+      {
+        "rotation_name": "Product Management", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "true"
+      },
+      {
+        "rotation_name": "Security", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "true"
+      }, 
+      {
+        "rotation_name": "Product Engineering", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "true"
+      }, 
+      {
+        "rotation_name": "Broadcast", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "true"
+      }, 
+      {
+        "rotation_name": "TFM", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "true"
+      }, 
+      {
+        "rotation_name": "Systems", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "ongoing"
+      }, 
+      {
+        "rotation_name": "Architecture", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "false"
+      }, 
+      {
+        "rotation_name": "External Assignment", 
+        "start_date": "DD/MM/YYYY",
+        "end_date" : "DD/MM/YYY",
+        "completion_status": "false"
+      } 
+    ]
   }
 }
 
