@@ -6,7 +6,7 @@ import {connect} from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import {
   toggleSideBar,
-  updatedisplayName,
+  setDisplayName,
 } from '../actions/index';
 
 class App extends Component {
@@ -14,12 +14,12 @@ class App extends Component {
   constructor(props){
     super(props)
     this.state = {
-      navbar: props.navbar,
-      navtext: props.navtext,
-      theme: props.theme,
-      sidebar: props.sidebar,
-      displayname: props.displayName,
+      sidebar: props.sidebar
     }
+  }
+
+  componentDidMount(){
+    this.props.setDisplayName("Akmaluddin")
   }
 
   toggleSideBar = () => {
@@ -29,18 +29,19 @@ class App extends Component {
   render() {
     return (
       <div>
-        {console.log(this.state)}
         <Navbar toggleSideBar={this.toggleSideBar}/>
         <Sidebar/>
-        <AppContainer/> 
+        <div style={{padding: '2%', paddingTop: '100px'}}>
+          <AppContainer/> 
+        </div>
       </div>
     );
   }
 }
 
 const mapStateToProps = ({page}) => {
-    const {navbar, theme, sidebar, displayName, navTitle} = page;
-    return{navbar, theme, sidebar, displayName, navTitle}
+    const { sidebar } = page;
+    return{ sidebar }
 };
 
-export default connect(mapStateToProps, {toggleSideBar, updatedisplayName})(App);
+export default connect(mapStateToProps, {toggleSideBar, setDisplayName})(App);

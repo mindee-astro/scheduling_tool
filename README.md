@@ -5,7 +5,7 @@
 <li>Redux is a state management, not necessarily needed but might as well in case of expansion</li>
 <li>For reference you can visit : https://reactjs.org/docs/getting-started.html</li>
 
-</br><h3>How to start</h3></br><li>For linux users use npm</li><li>Windows probably use Visual Studio</li></br>
+</br><h3>How to start</h3></br><li>For linux users use <i><b>yarn</b></i></li><li>Windows use Visual Studio and install <i><b>yarn</b></i> through chocolatey or scoop</li></br>https://chocolatey.org</br>
 Fun fact, this readme is written in HTML, you can take a look at the file to understand using <i><b>tags</i></b>
 
 </br><h4>Housekeeping</h4>

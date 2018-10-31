@@ -1,62 +1,6 @@
 {
   "CPSPEISH": { 
     "display_name" : "Brianna Chang", 
-    "rotation_list": [
-      { 
-        "rotation_name": "Project Management", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "true" 
-      },
-      {
-        "rotation_name": "Software Engineering", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-       "completion_status": "true"
-      },
-      {
-        "rotation_name": "Product Management", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "true"
-      }, 
-      {
-        "rotation_name": "Product Engineering", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "true"
-      }, 
-      {
-        "rotation_name": "TFM", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "true"
-      }, 
-      {
-        "rotation_name": "Security", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "ongoing"
-      }, 
-      {
-        "rotation_name": "Innovation", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "false"
-      }, 
-      {
-        "rotation_name": "Architecture", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "false"
-      }, 
-      {
-        "rotation_name": "External Assignment", 
-        "start_date": "DD/MM/YYYY",
-        "end_date" : "DD/MM/YYY",
-        "completion_status": "false"
-      }
-    ]
   }, 
   "HHKAHMAD": {
     "display_name" : "Ahmad Akmaluddin", 
