@@ -4,6 +4,7 @@ import {
 	LOG_IN_USER,
 	CREATE_USER,
 	SET_USER_AUTH,
+	GET_PROFILE_DATA_SUCCESS
 } from '../constants/Actions';
 
 const INIT_STATE = {
@@ -14,6 +15,7 @@ const INIT_STATE = {
 	accesslevel: "",
 	email: "DummyDATA@astro.com.my",
 	mentoremail: "DummyDATA@astro.com.my",
+	data: ""
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -39,6 +41,13 @@ export default (state=INIT_STATE, action)=>{
 				...state,
 				accesslevel: action.payload
 			}
+
+		case GET_PROFILE_DATA_SUCCESS:
+			return {
+				...state,
+				data: action.payload
+			}
+			
 
 		default:
 			return state

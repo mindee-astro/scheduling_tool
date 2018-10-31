@@ -72,6 +72,7 @@ class AdminToggle extends Component {
 					onClick={()=>{this.handleToggle("Protege")}}
 			        className={(this.state.accesslevel==="Protege") ? this.state.classes.bootstrapSelected : this.state.classes.bootstrapRoot}
 			   	>Protege</Button>
+			   	
 			</div>
 		)
 	}

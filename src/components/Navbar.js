@@ -14,6 +14,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import {withRouter} from 'react-router-dom';
 import AdminToggle from './ToggleAdmin';
 
+import {getProfileData, getProfileDataSuccess} from '../actions/index';
+
 const styles = {
   root: {
     flexGrow: 1,
@@ -26,7 +28,7 @@ const styles = {
     marginRight: 20,
   },
   appBarDefault: {
-    background: 'linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)',
+    background: '#60004F',
   },
   appBarOptional: {
     background: 'linear-gradient(45deg, #0519ff 9%, #9f74fc 97%)',
@@ -68,19 +70,25 @@ class Navbar extends Component {
     }
   }
 
+  handleTest = () => {
+    this.props.getProfileData('null')
+  }
+
 
   render(){
 
-    const title = (this.props.location.pathname == '/elective') ? (<span>Elective</span>) : 
+    const title = (this.props.location.pathname == '/elective') ? (<span>Modules</span>) : 
     (this.props.location.pathname == '/schedule') ? (<span>Schedules</span>) : 
     (this.props.location.pathname == '/welcome') ? (<span>Home</span>) :
     (this.props.location.pathname == '/profile') ? (<span>Profile</span>) :
-    (this.props.location.pathname == '/configuration') ? (<span>Configuration</span>) :
+    (this.props.location.pathname == '/configuration') ? (<span>User Management</span>) :
+    (this.props.location.pathname == '/protege') ? (<span>Proteges</span>) : 
+    (this.props.location.pathname == '/rotation') ? (<span>Rotations</span>) :
     (<span/>)
 
     return (
       <div className={this.state.classes.root}>
-        <AppBar position="fixed" className={(this.props.theme==='optional') ? this.state.classes.appBarDefault : this.state.classes.appBarOptional}>
+        <AppBar position="fixed" className={(this.props.theme==='default') ? this.state.classes.appBarDefault : this.state.classes.appBarOptional}>
           <Toolbar>
             <IconButton className={this.state.classes.menuButton} color="inherit" aria-label="Menu" onClick={this.props.toggleSideBar}>
               <MenuIcon />
@@ -109,10 +117,17 @@ class Navbar extends Component {
                     },
                   }}
                 >
-                  <MenuItem onClick={()=>this.handleNavigate('Profile')}>Profile</MenuItem>
+                  <MenuItem onClick={this.handleClose}>Change Password</MenuItem>
                   <MenuItem onClick={this.handleClose}>Logout</MenuItem>
                   <MenuItem onClick={this.handleClose}>
                     <AdminToggle/>
+                  </MenuItem>
+                  <MenuItem onClick={this.handleClose}>
+                    <Button 
+                      onClick={this.handleTest}
+                    >
+                      Test API Call
+                    </Button>
                   </MenuItem>
                 </Menu>
               </Typography>
@@ -135,4 +150,4 @@ const mapStateToProps = ({page, auth}) => {
   return {displayname, theme, navTitle}
 };
 
-export default withRouter(connect(mapStateToProps)(withStyles(styles)(Navbar)));
+export default withRouter(connect(mapStateToProps, {getProfileData, getProfileDataSuccess})(withStyles(styles)(Navbar)));

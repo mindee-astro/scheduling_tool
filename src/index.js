@@ -10,6 +10,7 @@ const theme = createMuiTheme(
 	  	},
 	  	typography: {
 		  	fontFamily: [
+		  	  'roboto',
 		      '-apple-system',
 		      'BlinkMacSystemFont',
 		      '"Segoe UI"',
@@ -21,12 +22,12 @@ const theme = createMuiTheme(
 		      '"Segoe UI Emoji"',
 		      '"Segoe UI Symbol"',
 		    ].join(','),
-		    fontSize: 15,
 		},
 		overrides: {
 		    MuiButton: {
 		      	root: {
 		      		fontFamily: [
+		      		  'roboto',
 				      '-apple-system',
 				      'BlinkMacSystemFont',
 				      '"Segoe UI"',
@@ -46,12 +47,13 @@ const theme = createMuiTheme(
 		    },
 		    MuiCard: {
 		      	root: {
-			        borderRadius: 5,
+			        borderRadius: 12,
 			        border: 0,
 			        color: 'black',
 			        padding: '0 30px',
 			        boxShadow: '0 3px 5px 2px rgba(100, 100, 100, .3)',
 			        fontFamily: [
+			          'roboto',
 				      '-apple-system',
 				      'BlinkMacSystemFont',
 				      '"Segoe UI"',
@@ -64,6 +66,13 @@ const theme = createMuiTheme(
 				      '"Segoe UI Symbol"',
 				    ].join(','),
 		      	},
+		    },
+		    MuiIconButton: {
+		    	root: {
+		    		'&:hover': {
+				    	backgroundColor: 'rgba(0, 0, 0, .3)',
+				    },
+		    	},
 		    },
 	  	},
 	}

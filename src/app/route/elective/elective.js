@@ -17,7 +17,7 @@ function electiveCard (props) {
 		<div>
 			<Card style={{padding: '10px'}}>
 				<CardContent style={{textAlign: 'center'}}>
-					Schedule
+					Module Selection
 				</CardContent>
 			</Card>
 		</div>

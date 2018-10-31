@@ -24,7 +24,7 @@ class configurationCard extends Component {
 			<div>
 				<Card style={{padding: '10px'}}>
 					<CardContent style={{textAlign: 'center'}}>
-						Confuguration
+						User Management
 					</CardContent>
 				</Card>
 			</div>
@@ -36,4 +36,4 @@ const mapStateToProps = ({}) => {
     return{}
 };
 
-export default connect(mapStateToProps)(withStyles(styles)(configurationCard));
+export default connect(mapStateToProps)(configurationCard);
