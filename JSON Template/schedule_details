@@ -1,0 +1,68 @@
+{ 
+  "product_management" : {
+    "name": "Product Management", 
+    "rotation_length": "3",
+    "rotation_type": "core", 
+    "maximum_capacity" : "2"
+  },
+  "project_management": {
+    "name": "Project Management", 
+    "rotation_length": "3",
+    "rotation_type": "core",
+    "maximum_capacity" : "4" 
+  },
+  "product_eng": {
+    "name": "Product Engineering ", 
+    "rotation_length": "3",
+    "rotation_type": "core",
+    "maximum_capacity" : "2"
+  },
+  "software_eng": {
+    "name": "Software Engineering ", 
+    "rotation_length": "3",
+    "rotation_type": "core",
+    "maximum_capacity" : "2"
+  },
+  "architecture": {
+    "name": "Architecture", 
+    "rotation_length": "3",
+    "rotation_type": "elective",
+    "maximum_capacity" : "2"
+  },
+  "broadcast": {
+    "name": "Broadcast", 
+    "rotation_length": "3",
+    "rotation_type": "elective",
+    "maximum_capacity" : "2"
+  },
+  "systems": {
+    "name": "Systems Enterprise", 
+    "rotation_length": "3",
+    "rotation_type": "elective",
+    "maximum_capacity" : "2"
+  },
+  "analytics": {
+    "name": "Analytics", 
+    "rotation length": "2",
+    "rotation type": "elective",
+    "maximum_capacity" : "2"
+  },
+  "innovation": {
+    "name": "Digital Innovation", 
+    "rotation_length": "3",
+    "rotation_type": "elective",
+    "maximum_capacity" : "2"
+  },
+  "external_assignment": {
+    "name": "External Attachment", 
+    "rotation_length": "2",
+    "rotation_length": "elective",
+    "maximum_capacity" : "2"
+  },
+  "security": {
+    "name": "IT Security", 
+    "rotation_length": "1",
+    "rotation_type": "elective",
+    "maximum_capacity" : "1"
+  }
+}
