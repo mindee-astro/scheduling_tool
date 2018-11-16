@@ -31,7 +31,7 @@ class App extends Component {
       <div>
         <Navbar toggleSideBar={this.toggleSideBar}/>
         <Sidebar/>
-        <div style={{padding: '2%', paddingTop: '100px'}}>
+        <div style={{padding: '2%', paddingTop: '80px'}}>
           <AppContainer/> 
         </div>
       </div>

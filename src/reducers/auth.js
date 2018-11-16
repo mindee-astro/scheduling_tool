@@ -4,7 +4,11 @@ import {
 	LOG_IN_USER,
 	CREATE_USER,
 	SET_USER_AUTH,
-	GET_PROFILE_DATA_SUCCESS
+	GET_PROFILE_DATA_SUCCESS,
+	LOG_IN_USER_SUCCESS,
+	CREATE_USER_SUCCESS,
+	UPDATE_USER_SUCCESS,
+	GET_ALL_USER_SUCCESS
 } from '../constants/Actions';
 
 const INIT_STATE = {
@@ -15,7 +19,10 @@ const INIT_STATE = {
 	accesslevel: "",
 	email: "DummyDATA@astro.com.my",
 	mentoremail: "DummyDATA@astro.com.my",
-	data: ""
+	data: "",
+	Token: "invalid",
+	listUser: {},
+	isLoggedIn: false
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -28,13 +35,6 @@ export default (state=INIT_STATE, action)=>{
 		case LOG_IN_USER:
 			return {
 				...state,
-				displayname: action.payload.displayname,
-				username: action.payload.username,
-				joindate: action.payload.joindate,
-				accesslevel: action.payload.accesslevel,
-				mentor: action.payload.mentor,
-				mentoremail: action.payload.mentoremail,
-				email: action.payload.email
 			}
 		case SET_USER_AUTH:
 			return {
@@ -47,7 +47,18 @@ export default (state=INIT_STATE, action)=>{
 				...state,
 				data: action.payload
 			}
-			
+		
+		case LOG_IN_USER_SUCCESS:
+			return {
+				...state,
+				isLoggedIn: action.payload
+			}	
+
+		case GET_ALL_USER_SUCCESS:
+			return {
+				...state,
+				listUser: action.payload
+			}
 
 		default:
 			return state

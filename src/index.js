@@ -43,14 +43,17 @@ const theme = createMuiTheme(
 			        border: 1,
 			        color: 'black',
 			        padding: '0 30px',
+			        '&:hover': {
+				    	backgroundColor: 'rgba(0, 100, 0, .3)',
+				    },
 		      	},
 		    },
 		    MuiCard: {
 		      	root: {
 			        borderRadius: 12,
-			        border: 0,
+			        border: 1,
 			        color: 'black',
-			        padding: '0 30px',
+			        padding: '10px',
 			        boxShadow: '0 3px 5px 2px rgba(100, 100, 100, .3)',
 			        fontFamily: [
 			          'roboto',
@@ -72,6 +75,11 @@ const theme = createMuiTheme(
 		    		'&:hover': {
 				    	backgroundColor: 'rgba(0, 0, 0, .3)',
 				    },
+		    	},
+		    },
+		    MuiFormControl: {
+		    	root: {
+		    		top: '-10px',
 		    	},
 		    },
 	  	},
