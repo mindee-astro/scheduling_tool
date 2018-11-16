@@ -254,11 +254,6 @@ class apiCard extends Component {
 						<CardContent style={{textAlign: 'center'}}>
 							Config
 							<br/><br/>
-							
-							<Button variant="outlined">
-								Get All Rotations
-								
-							</Button>
 						</CardContent>
 					</Card>
 
