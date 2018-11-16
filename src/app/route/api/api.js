@@ -352,9 +352,6 @@ class apiCard extends Component {
 								</Button>
 							</div>
 							<br/><br/>
-							<Button variant="outlined">
-								Update User
-							</Button>
 						</CardContent>
 					</Card>
 				</div>
