@@ -56,7 +56,6 @@ function* getAllUsersAsync() {
 function* loginUserAsync({payload}) {
 	const {username, password} = payload
 	const response = yield call(fetchLoginUser, username, password)
-	yield(console.log(response))
 	yield put(loginUserSuccess(true))
 
 } 

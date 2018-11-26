@@ -15,6 +15,10 @@ import {
 	updateUser,
 	createUser,
 	logOutUser,
+	getAllRotations,
+	addRotation,
+	updateRotation,
+	removeRotation
 } from '../../../actions/index';
 
 const styles = {
@@ -149,8 +153,8 @@ class apiCard extends Component {
 			displayname: '',
 			joindate: '',
 			status: 'active',
+			rotationID: '12345',
 			data: {
-
 			  "username": "hhkahmad",
 			  "displayName": "string",
 			  "password": "string",
@@ -160,8 +164,15 @@ class apiCard extends Component {
 			  ],
 			  "status": "active",
 			  "mentor": "string"
-
-			}
+			},
+			rotationData: [
+			  {
+			    "name": "string",
+			    "duration": 0,
+			    "category": "core",
+			    "capacity": 0
+			  }
+			]
 		}
 	}
 
@@ -187,7 +198,12 @@ class apiCard extends Component {
 				...this.state,
 				response: JSON.stringify(this.props.listUser)
 			})
-		}
+		} else if (prevProps.rotations != this.props.rotations) {
+			this.setState({
+				...this.state,
+				response: JSON.stringify(this.props.rotations)
+			})
+		} 
 	}
 
 	handleClick(name){
@@ -205,7 +221,6 @@ class apiCard extends Component {
 	}
 
 	handleApiCall(){
-		console.log(this.state.responseLabel)
 		switch(this.state.responseLabel){
 			case 'schedule.allSchedule':
 				return(
@@ -241,6 +256,26 @@ class apiCard extends Component {
 						this.props.createUser(this.state.data)
 					)
 
+			case 'config.rotations':
+				return(
+						this.props.getAllRotations()
+					)
+
+			case 'config.addRotation':
+				return(
+						this.props.addRotation(this.state.rotationData)
+					)
+
+			case 'config.updateRotation':
+				return(
+						this.props.updateRotation(this.state.rotationID, this.state.rotationData)
+					)
+
+			case 'config.removeRotation':
+				return(
+						this.props.removeRotation(this.state.rotationID)
+					)
+
 			default:
 				return(
 					this.setState({
@@ -265,6 +300,37 @@ class apiCard extends Component {
 						<CardContent style={{textAlign: 'center'}}>
 							Config
 							<br/><br/>
+							<div style={{borderStyle: 'solid', padding: '10px'}}>
+								<span>Data: <br/>{JSON.stringify(this.state.rotationData)}</span><br/>
+								<Button variant="outlined" onClick={()=>this.handleClick('config.addRotation')}>
+									Add new rotation
+								</Button>
+							</div>
+							<br/><br/>
+							<Button variant="outlined" onClick={()=>this.handleClick('config.rotations')}>
+								List all rotation
+							</Button><br/><br/>
+							<div style={{borderStyle: 'solid', padding: '10px'}}>
+								<span>Rotation ID : </span><TextField
+						          defaultValue={this.state.rotationID}
+						          onChange={this.handleChange('rotationID')}
+						        />
+						        <br/>
+								<span>Data: <br/>{JSON.stringify(this.state.rotationData)}</span><br/>
+								<Button variant="outlined" onClick={()=>{this.handleClick('config.updateRotation')}}>	
+									Update Rotation
+								</Button>
+							</div>
+							<br/><br/>
+							<div style={{borderStyle: 'solid', padding: '10px'}}>
+								<span>Rotation ID : </span><TextField
+						          defaultValue={this.state.rotationID}
+						          onChange={this.handleChange('rotationID')}
+						        />
+								<Button variant="outlined" onClick={()=>{this.handleClick('config.removeRotation')}}>	
+									Delete Rotation
+								</Button>
+							</div>
 						</CardContent>
 					</Card>
 
@@ -372,10 +438,11 @@ class apiCard extends Component {
 	}
 }
 
-const mapStateToProps = ({schedule, auth}) => {
+const mapStateToProps = ({schedule, auth, rotation}) => {
 	const {allSchedule, userSchedule} = schedule;
 	const {isLoggedIn, listUser} = auth;
-    return{allSchedule, userSchedule, isLoggedIn, listUser};
+	const {rotations} = rotation;
+    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations};
 };
 
-export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser})(withStyles(styles)(apiCard));
+export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation})(withStyles(styles)(apiCard));

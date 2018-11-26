@@ -6,6 +6,7 @@ import rotationSaga from './RotationSaga';
 export default function* rootSaga(getState) {
     yield all([
         authSaga(),
-        scheduleSaga()
+        scheduleSaga(),
+        rotationSaga()
     ]);
 }
