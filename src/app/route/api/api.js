@@ -154,7 +154,7 @@ class apiCard extends Component {
 			  "username": "hhkahmad",
 			  "displayName": "string",
 			  "password": "string",
-			  "joinDate": "string",
+			  "joinDate": "2018-11-26",
 			  "electives": [
 			    "string"
 			  ],
