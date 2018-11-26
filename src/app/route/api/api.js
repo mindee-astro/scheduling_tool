@@ -151,7 +151,7 @@ class apiCard extends Component {
 			status: 'active',
 			data: {
 
-			  "username": "string",
+			  "username": "hhkahmad",
 			  "displayName": "string",
 			  "password": "string",
 			  "joinDate": "string",
@@ -329,15 +329,7 @@ class apiCard extends Component {
 							<br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
 								<span>User Id: </span><TextField defaultValue={this.state.userid} onChange={this.handleChange('userid')}/><br/>
-								<span>data: "username": "string",<br/>
-			  					"displayName": "string",<br/>
-			  					"password": "string",<br/>
-			  					"joinDate": "string",<br/>
-							  	"electives": [<br/>
-							    "string"<br/>
-							  	],<br/>
-							  	"status": "active",<br/>
-							  	"mentor": "string"<br/>
+								<span>data: <br/>{JSON.stringify(this.state.data)}
 							  	</span>
 								<br/>
 								<Button variant="outlined" onClick={()=>this.handleClick('auth.updateUser')}>
@@ -346,16 +338,7 @@ class apiCard extends Component {
 							</div>
 							<br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
-								<span>data: "username": "string",<br/>
-				  					"displayName": "string",<br/>
-				  					"password": "string",<br/>
-				  					"joinDate": "string",<br/>
-								  	"electives": [<br/>
-								    "string"<br/>
-								  	],<br/>
-								  	"status": "active",<br/>
-								  	"mentor": "string"<br/>
-								  	</span>
+								<span>data: <br/>{JSON.stringify(this.state.data)}</span>
 									<br/>
 								<Button variant="outlined" onClick={()=>this.handleClick('auth.createUser')}>
 									Create User
