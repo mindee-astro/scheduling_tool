@@ -28,7 +28,7 @@ export const updateUser = async (userid, data) => {
 	return (axios({
 		method: 'PUT',
 		url: baseUrl+"user/"+userid,
-		headers: { "Access-Control-Allow-Origin": "*", },
+		//headers: { "Access-Control-Allow-Origin": "*", },
 		data: data
 	}))
 }
