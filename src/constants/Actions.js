@@ -18,10 +18,20 @@ export const SET_PROFILE_DATA = 'set_profile_data';
 export const SET_PROFILE_DATA_SUCCESS = 'set_profile_data_success';
 export const GET_ALL_USER = 'get_all_user';
 export const GET_ALL_USER_SUCCESS = 'get_all_user_success';
-
+export const LOG_OUT_USER = 'log_out_user';
 
 //Schedule Actions
 export const GET_ALL_SCHEDULE = 'get_all_schedule';
 export const GET_ALL_SCHEDULE_SUCCESS = 'get_all_schedule_success';
 export const GET_USER_SCHEDULE = 'get_user_schedule';
 export const GET_USER_SCHEDULE_SUCCESS = 'get_user_schedule_success';
+
+//Config Actions
+export const ADD_ROTATION = 'add_rotation';
+export const ADD_ROTATION_SUCCESS = 'add_rotation_success';
+export const GET_ALL_ROTATION = 'get_all_rotation';
+export const GET_ALL_ROTATION_SUCCESS = 'get_all_rotation_success';
+export const UPDATE_ROTATION = 'update_rotation';
+export const UPDATE_ROTATION_SUCCESS = 'update_rotation_success';
+export const REMOVE_ROTATION = 'remove_rotation';
+export const REMOVE_ROTATION_SUCCESS = 'remove_rotation_success';

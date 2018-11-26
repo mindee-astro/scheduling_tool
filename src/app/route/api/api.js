@@ -12,7 +12,13 @@ import {
 	getUserSchedule,
 	loginUser,
 	getAllUser,
-	updateUser
+	updateUser,
+	createUser,
+	logOutUser,
+	getAllRotations,
+	addRotation,
+	updateRotation,
+	removeRotation
 } from '../../../actions/index';
 
 const styles = {
@@ -147,19 +153,26 @@ class apiCard extends Component {
 			displayname: '',
 			joindate: '',
 			status: 'active',
+			rotationID: '12345',
 			data: {
-
-			  "username": "string",
+			  "username": "hhkahmad",
 			  "displayName": "string",
 			  "password": "string",
-			  "joinDate": "string",
+			  "joinDate": "2018-11-26",
 			  "electives": [
 			    "string"
 			  ],
 			  "status": "active",
 			  "mentor": "string"
-
-			}
+			},
+			rotationData: [
+			  {
+			    "name": "string",
+			    "duration": 0,
+			    "category": "core",
+			    "capacity": 0
+			  }
+			]
 		}
 	}
 
@@ -185,7 +198,12 @@ class apiCard extends Component {
 				...this.state,
 				response: JSON.stringify(this.props.listUser)
 			})
-		}
+		} else if (prevProps.rotations != this.props.rotations) {
+			this.setState({
+				...this.state,
+				response: JSON.stringify(this.props.rotations)
+			})
+		} 
 	}
 
 	handleClick(name){
@@ -203,7 +221,6 @@ class apiCard extends Component {
 	}
 
 	handleApiCall(){
-		console.log(this.props)
 		switch(this.state.responseLabel){
 			case 'schedule.allSchedule':
 				return(
@@ -219,6 +236,10 @@ class apiCard extends Component {
 				return(
 					this.props.loginUser(this.state.username, this.state.password)
 				)
+			case 'auth.isLoggedIn?':
+				return(
+					this.props.logOutUser()
+				)
 
 			case 'auth.listUser':
 				return(
@@ -229,6 +250,31 @@ class apiCard extends Component {
 				return(
 					this.props.updateUser(this.state.userid, this.state.data)
 				)
+
+			case 'auth.createUser':
+				return(
+						this.props.createUser(this.state.data)
+					)
+
+			case 'config.rotations':
+				return(
+						this.props.getAllRotations()
+					)
+
+			case 'config.addRotation':
+				return(
+						this.props.addRotation(this.state.rotationData)
+					)
+
+			case 'config.updateRotation':
+				return(
+						this.props.updateRotation(this.state.rotationID, this.state.rotationData)
+					)
+
+			case 'config.removeRotation':
+				return(
+						this.props.removeRotation(this.state.rotationID)
+					)
 
 			default:
 				return(
@@ -254,11 +300,37 @@ class apiCard extends Component {
 						<CardContent style={{textAlign: 'center'}}>
 							Config
 							<br/><br/>
-							
-							<Button variant="outlined">
-								Get All Rotations
-								
-							</Button>
+							<div style={{borderStyle: 'solid', padding: '10px'}}>
+								<span>Data: <br/>{JSON.stringify(this.state.rotationData)}</span><br/>
+								<Button variant="outlined" onClick={()=>this.handleClick('config.addRotation')}>
+									Add new rotation
+								</Button>
+							</div>
+							<br/><br/>
+							<Button variant="outlined" onClick={()=>this.handleClick('config.rotations')}>
+								List all rotation
+							</Button><br/><br/>
+							<div style={{borderStyle: 'solid', padding: '10px'}}>
+								<span>Rotation ID : </span><TextField
+						          defaultValue={this.state.rotationID}
+						          onChange={this.handleChange('rotationID')}
+						        />
+						        <br/>
+								<span>Data: <br/>{JSON.stringify(this.state.rotationData)}</span><br/>
+								<Button variant="outlined" onClick={()=>{this.handleClick('config.updateRotation')}}>	
+									Update Rotation
+								</Button>
+							</div>
+							<br/><br/>
+							<div style={{borderStyle: 'solid', padding: '10px'}}>
+								<span>Rotation ID : </span><TextField
+						          defaultValue={this.state.rotationID}
+						          onChange={this.handleChange('rotationID')}
+						        />
+								<Button variant="outlined" onClick={()=>{this.handleClick('config.removeRotation')}}>	
+									Delete Rotation
+								</Button>
+							</div>
 						</CardContent>
 					</Card>
 
@@ -315,19 +387,15 @@ class apiCard extends Component {
 								<Button variant="outlined" onClick={()=>this.handleClick('auth.isLoggedIn')} disabled={this.props.isLoggedIn}>
 									Login
 								</Button>
+							<br/><br/>
+								<Button variant="outlined" onClick={()=>this.handleClick('auth.isLoggedIn?')} disabled={!this.props.isLoggedIn}>
+									Log Out
+								</Button>
 							</div>
 							<br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
 								<span>User Id: </span><TextField defaultValue={this.state.userid} onChange={this.handleChange('userid')}/><br/>
-								<span>data: "username": "string",<br/>
-			  					"displayName": "string",<br/>
-			  					"password": "string",<br/>
-			  					"joinDate": "string",<br/>
-							  	"electives": [<br/>
-							    "string"<br/>
-							  	],<br/>
-							  	"status": "active",<br/>
-							  	"mentor": "string"<br/>
+								<span>data: <br/>{JSON.stringify(this.state.data)}
 							  	</span>
 								<br/>
 								<Button variant="outlined" onClick={()=>this.handleClick('auth.updateUser')}>
@@ -336,32 +404,20 @@ class apiCard extends Component {
 							</div>
 							<br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
-								<span>data: "username": "string",<br/>
-				  					"displayName": "string",<br/>
-				  					"password": "string",<br/>
-				  					"joinDate": "string",<br/>
-								  	"electives": [<br/>
-								    "string"<br/>
-								  	],<br/>
-								  	"status": "active",<br/>
-								  	"mentor": "string"<br/>
-								  	</span>
+								<span>data: <br/>{JSON.stringify(this.state.data)}</span>
 									<br/>
 								<Button variant="outlined" onClick={()=>this.handleClick('auth.createUser')}>
 									Create User
 								</Button>
 							</div>
 							<br/><br/>
-							<Button variant="outlined">
-								Update User
-							</Button>
 						</CardContent>
 					</Card>
 				</div>
 				<div style={{paddingTop: '10px'}}>
 					<Card>
 						<CardContent style={{textAlign: 'center'}}>
-							State
+							State Stored (Use redux tools for more)
 							<br/><br/>
 							
 							<span style={{
@@ -382,10 +438,11 @@ class apiCard extends Component {
 	}
 }
 
-const mapStateToProps = ({schedule, auth}) => {
+const mapStateToProps = ({schedule, auth, rotation}) => {
 	const {allSchedule, userSchedule} = schedule;
 	const {isLoggedIn, listUser} = auth;
-    return{allSchedule, userSchedule, isLoggedIn, listUser};
+	const {rotations} = rotation;
+    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations};
 };
 
-export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser})(withStyles(styles)(apiCard));
+export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation})(withStyles(styles)(apiCard));
