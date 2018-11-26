@@ -89,6 +89,9 @@ class Sidebar extends Component {
 		else if (Title=='Modules') {
 			this.props.history.push('/elective')
 		}
+		else if (Title=='API') {
+			this.props.history.push('/api')
+		}
 		else {
 			this.props.history.push('/schedule')
 		}
@@ -174,6 +177,9 @@ class Sidebar extends Component {
 						        				<ListItemText primary="Schedule"/>
 						        			</ListItem>
 						        			{allowedLinks}
+						        			<ListItem button onClick={this.handleClick("API")}>
+						        				<ListItemText primary="APIs"/>
+						        			</ListItem>
 						        		</List>
 						        	</div>	
 						        </div>
