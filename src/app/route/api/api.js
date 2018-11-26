@@ -12,7 +12,9 @@ import {
 	getUserSchedule,
 	loginUser,
 	getAllUser,
-	updateUser
+	updateUser,
+	createUser,
+	logOutUser,
 } from '../../../actions/index';
 
 const styles = {
@@ -203,7 +205,7 @@ class apiCard extends Component {
 	}
 
 	handleApiCall(){
-		console.log(this.props)
+		console.log(this.state.responseLabel)
 		switch(this.state.responseLabel){
 			case 'schedule.allSchedule':
 				return(
@@ -219,6 +221,10 @@ class apiCard extends Component {
 				return(
 					this.props.loginUser(this.state.username, this.state.password)
 				)
+			case 'auth.isLoggedIn?':
+				return(
+					this.props.logOutUser()
+				)
 
 			case 'auth.listUser':
 				return(
@@ -229,6 +235,11 @@ class apiCard extends Component {
 				return(
 					this.props.updateUser(this.state.userid, this.state.data)
 				)
+
+			case 'auth.createUser':
+				return(
+						this.props.createUser(this.state.data)
+					)
 
 			default:
 				return(
@@ -310,6 +321,10 @@ class apiCard extends Component {
 								<Button variant="outlined" onClick={()=>this.handleClick('auth.isLoggedIn')} disabled={this.props.isLoggedIn}>
 									Login
 								</Button>
+							<br/><br/>
+								<Button variant="outlined" onClick={()=>this.handleClick('auth.isLoggedIn?')} disabled={!this.props.isLoggedIn}>
+									Log Out
+								</Button>
 							</div>
 							<br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
@@ -353,7 +368,7 @@ class apiCard extends Component {
 				<div style={{paddingTop: '10px'}}>
 					<Card>
 						<CardContent style={{textAlign: 'center'}}>
-							State
+							State Stored (Use redux tools for more)
 							<br/><br/>
 							
 							<span style={{
@@ -380,4 +395,4 @@ const mapStateToProps = ({schedule, auth}) => {
     return{allSchedule, userSchedule, isLoggedIn, listUser};
 };
 
-export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser})(withStyles(styles)(apiCard));
+export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser})(withStyles(styles)(apiCard));

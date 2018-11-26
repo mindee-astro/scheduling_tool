@@ -11,7 +11,8 @@ import {
 	GET_PROFILE_DATA,
 	GET_PROFILE_DATA_SUCCESS,
 	GET_ALL_USER,
-	GET_ALL_USER_SUCCESS
+	GET_ALL_USER_SUCCESS,
+	LOG_OUT_USER
 } from '../constants/Actions';
 
 export const setDisplayName = (name) => {
@@ -72,7 +73,7 @@ export const updateUserSuccess = () => {
 export const createUser = (data) => {
 	return {
 		type: CREATE_USER,
-		payload: data
+		payload: {data}
 	}
 }
 
@@ -94,5 +95,12 @@ export const getAllUserSuccess = (data) => {
 		payload: data
 	}
 }
+
+export const logOutUser = () => {
+	return {
+		type: LOG_OUT_USER
+	}
+}
+
 
 
