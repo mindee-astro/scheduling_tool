@@ -9,185 +9,96 @@ import Grid from '@material-ui/core/Grid';
 import Typography from '@material-ui/core/Typography';
 import {
 	getAllSchedule,
-	getUserSchedule
+	getUserSchedule,
+	setNotificationSnackbar
 } from '../../../actions/index';
 
 const styles = {
 
 };
 
-const temp2 = [
-	{
-	    "endDate": "endDate",
-	    "rotationID": "rotationID",
-	    "startDate": "startDate",
-	    "status": "pending"
-  	},
-  	{
-	    "endDate": "endDate",
-	    "rotationID": "rotationID",
-	    "startDate": "startDate",
-	    "status": "pending"
-  	},
-]
 
-const temp = [
-	{
-		HHKAHMAD:[
-			{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	}
-		  ],
-	},
-	{
-		 CPSHEISH:[
-		 	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  ],
+
+
+class timetableCard extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			allSchedule: [],
+			schdeuleLength: 0
+		}
 	}
-];
 
+	componentDidMount() {
+		this.props.getAllSchedule();
+		this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please go to Modules and select your
+		elective modules by DD/MM/YY<br/>Note: You will no longer be able to edit your choices after this date</span>)})
+	}
 
-function timetableCard (props) {
-	const renderinfo = (props.allSchedule.length>=1) ? (
-		<div>
-			{(temp.map((n, index) => {
-				 return(
-				 	Object.entries(n).map(([key, value])=>{
-				 		return(
-					 		<Grid container spacing={8} style={{paddingTop: '10px', overflowX: 'scroll'}} key={key}>
-					 			{
-					 				Object.entries(value).map(([ind, value])=>{
-								 			return(
-								 				<Grid item xs key={ind}>
-										 			<Card>
-										 				<CardContent>
-										 					<Typography>{key}</Typography>
-										 				</CardContent>
-									 				</Card>
-									 			</Grid>
-									 		)
-								 	})
-								 }
-					 		</Grid>
-				 		)			 	
-					})
-			 	)
-			}))}
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.allSchedule != this.props.allSchedule)
+		{
+			this.setState({
+				...this.state,
+				allSchedule: this.props.allSchedule,
+				schdeuleLength: this.props.allSchedule.length
+			})
+		}
+	}
 
-		</div>
-	) : (<div/>)
+	componentWillUnmount(){
+		this.props.setNotificationSnackbar({isOpen: false, message:""})
+	}
 
-	return(
-		<div style={{padding: '10px'}}>
-			<Card >
-				<CardContent style={{textAlign: 'center'}}>
-					Time Table
-					
-					<Button variant="outlined" onClick={()=>props.getAllSchedule(123)}>
-						Get All Schedule
-						
-					</Button>
+	render() {
 
-				</CardContent>
-			</Card>
+		const renderinfo = (this.state.schdeuleLength>=1) ? (
+			<div style={{width: '100%', overflowX: 'scroll', height: '100%', padding: '10px'}}>
+				{(this.state.allSchedule.map((n, index) => {
+					 return(
+					 	Object.entries(n).map(([key, value])=>{
+					 		return(
+						 		<Grid container gutter={0} spacing={8} style={{width: '240%'}} key={key}>
+						 			{
+						 				Object.entries(value).map(([ind, value])=>{
+									 			return(
+									 				<Grid item xs key={ind} style={{paddingTop: '10px', maxWidth: '20vw', minWidth: '180px'}}>
+											 			<Card>
+											 				<CardContent>
+											 					<Typography>{key}</Typography>
+											 					<Typography variant='caption'>{value.rotationID}</Typography>
+											 					<Typography variant='caption'>Start: {value.startDate}</Typography>
+											 					<Typography variant='caption'>End: {value.endDate}</Typography>
+											 					<Typography variant='caption'>Status: {value.status}</Typography>
+											 				</CardContent>
+										 				</Card>
+										 			</Grid>
+										 		)
+									 	})
+									 }
+						 		</Grid>
+					 		)			 	
+						})
+				 	)
+				}))}
 
-			
-			{renderinfo}
-			
-		</div>
-	)
+			</div>
+		) : (<div/>)
+
+		return(
+			<div style={{padding: '10px'}}>
+				<Card >
+					<CardContent style={{textAlign: 'center'}}>
+						Time Table
+
+					</CardContent>
+				</Card>
+
+				{renderinfo}
+				
+			</div>
+		)
+	}
 }
 
 const mapStateToProps = ({schedule}) => {
@@ -195,4 +106,4 @@ const mapStateToProps = ({schedule}) => {
     return{allSchedule, userSchedule, totalSchedule}
 };
 
-export default connect(mapStateToProps, {getAllSchedule, getUserSchedule})(withStyles(styles)(timetableCard));
+export default connect(mapStateToProps, {getAllSchedule, getUserSchedule, setNotificationSnackbar})(withStyles(styles)(timetableCard));
