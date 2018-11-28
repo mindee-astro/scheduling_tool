@@ -18,8 +18,6 @@ const styles = {
 };
 
 
-
-
 class timetableCard extends Component {
 	constructor(props) {
 		super(props)
