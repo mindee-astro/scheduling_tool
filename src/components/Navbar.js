@@ -28,7 +28,7 @@ const styles = {
     marginRight: 20,
   },
   appBarDefault: {
-    background: '#60004F',
+    background: 'primary',
   },
   appBarOptional: {
     background: 'linear-gradient(45deg, #0519ff 9%, #9f74fc 97%)',
@@ -93,7 +93,7 @@ class Navbar extends Component {
             <IconButton className={this.state.classes.menuButton} color="inherit" aria-label="Menu" onClick={this.props.toggleSideBar}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={this.state.classes.grow} >
+            <Typography variant="title" className={this.state.classes.grow} >
             	{title} 
             </Typography>
             <div className={this.state.classes.rightGroup}>

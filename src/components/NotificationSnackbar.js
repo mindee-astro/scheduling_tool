@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
-import { withStyles } from '@material-ui/core/styles';
+import { withTheme } from '@material-ui/core/styles';
 import SnackbarContent from '@material-ui/core/SnackbarContent';
 import Snackbar from '@material-ui/core/Snackbar';
 import {connect} from 'react-redux';
@@ -37,7 +37,29 @@ class NotificationSnackbar extends Component {
 	constructor(props){
 		super(props)
 		this.state={
-			classes:props.classes,
+			classes:{
+				snackbar: {
+			    marginTop:  '80px',
+			  	},
+			  	snackbarContent: {
+			  	maxWidth: '80vw',
+			  	minWidth: '30vw',
+			  	background: '#000080',
+			  	opacity: '0.7'
+			  	},
+			  	button: {
+			  	background: 'white',
+			  	opacity: '0.6',
+			  	'&:hover': {
+			    	opacity: '1',
+			    	background: 'white'
+			    },
+			  	},
+			  	buttonlabel: {
+			    textTransform: 'capitalize',
+			    fontSize: '12px'
+			  	},
+			},
 			notificationSnackbar:props.notificationSnackbar,
 		}
 	}
@@ -69,12 +91,15 @@ class NotificationSnackbar extends Component {
 
 		return(
 			<div>
+				{console.log(this.props)}
 		    	<Snackbar
 		    		className = {this.state.classes.snackbar}
 		    		anchorOrigin={{ vertical:'top', horizontal:'center' }}
 		        	open={this.state.notificationSnackbar.isOpen}
 		      	>
+
 		      		<SnackbarContent className={this.state.classes.snackbarContent} message={this.state.notificationSnackbar.message} action={action}/>
+		      		
 		      	</Snackbar>
 			</div>
 		)
@@ -90,4 +115,4 @@ NotificationSnackbar.propTypes = {
   classes: PropTypes.object.isRequired,
 };
 
-export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles(styles)(NotificationSnackbar));
+export default connect(mapStateToProps, {setNotificationSnackbar})(withTheme(styles)(NotificationSnackbar));

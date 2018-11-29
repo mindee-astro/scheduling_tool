@@ -63,7 +63,7 @@ class timetableCard extends Component {
 									 				<Grid item xs key={ind} style={{paddingTop: '10px', maxWidth: '20vw', minWidth: '180px'}}>
 											 			<Card>
 											 				<CardContent>
-											 					<Typography>{key}</Typography>
+											 					<Typography color='primary'>{key}</Typography>
 											 					<Typography variant='caption'>{value.rotationID}</Typography>
 											 					<Typography variant='caption'>Start: {value.startDate}</Typography>
 											 					<Typography variant='caption'>End: {value.endDate}</Typography>
