@@ -5,62 +5,69 @@ import CssBaseline from '@material-ui/core/CssBaseline';
 
 const rootEl = document.getElementById('root');
 
-const primary = '#B85560';
-const secondary = '#6C5B7B';
-const paper = '#C06C84';
-const error = '#FF1C3C';
-const info = '#25381D';
-const stdfontsize = 14;
-const smllfontsize = 12;
-const lrgfontsize = 20;
-const cardbg = '#FFFFF3';
-const appbg = '#FFE1EC';
-//const bg = 'rgba(108, 91, 123, 0.1)';
-const buttonbg = 'rgba(108, 91, 123, 0.8)';
-const buttonHover = 'rgba(53, 92, 125, 2.6)'
-const disabledButton = 'rgba(255, 143, 0, 0.1)';
+const colorPalette = {
+	primary: '#205493',
+	secondary: '#6C5B7B',
+	error: '#FF1C3C',
+	info: '#25381D',
+	sideBar: '#112E51',
+	cardBG: '#D6D7D9',
+	appBG: '#323A45',
+	buttonBG: 'rgba(252, 88, 64, 0.5)',
+	buttonHover: 'rgba(252, 88, 64, 2.6)',
+	disabledButton: 'rgba(252, 88, 0, 0.1)'
+}
+
+const size = {
+	standardFont: 14,
+	smallFont: 12,
+	largeFont: 20,
+	borderRadius: 12
+}
+
+const fontFamily = [
+	'roboto',
+	'-apple-system',
+	'BlinkMacSystemFont',
+	'"Segoe UI"',
+	'Roboto',
+	'"Helvetica Neue"',
+	'Arial',
+	'sans-serif',
+	'"Apple Color Emoji"',
+	'"Segoe UI Emoji"',
+	'"Segoe UI Symbol"',
+].join(',')
 
 const theme = createMuiTheme(
 	{
 		palette: {
 	    	type: 'light', // Switching the dark mode on is a single property value change.
 	    	primary: {
-	    		main: primary,
+	    		main: colorPalette.primary,
 	    	},
 	    	secondary: {
-	    		main: secondary,
+	    		main: colorPalette.secondary,
 	    	},
 	    	error: {
-	    		main: error,
+	    		main: colorPalette.error,
 	    	},
 	    	info: {
-	    		main: info,
+	    		main: colorPalette.info,
 	    	},
 		    background: {
-		      default: appbg,
+		      default: colorPalette.appBG,
 		    }
 	  	},
 	  	typography: {
-		  	fontFamily: [
-		  	  'roboto',
-		      '-apple-system',
-		      'BlinkMacSystemFont',
-		      '"Segoe UI"',
-		      'Roboto',
-		      '"Helvetica Neue"',
-		      'Arial',
-		      'sans-serif',
-		      '"Apple Color Emoji"',
-		      '"Segoe UI Emoji"',
-		      '"Segoe UI Symbol"',
-		    ].join(','),
-		    fontSize: stdfontsize,
+		  	fontFamily: fontFamily,
+		    fontSize: size.standardFont,
 		    caption: {
-		    	fontSize: smllfontsize,
+		    	fontSize: size.smallFont,
 		    	color: 'black',
 		    },
 		    title: {
-		    	fontSize: lrgfontsize,
+		    	fontSize: size.largeFont,
 		    	color: 'white',
 		    },
 		    subheading: {
@@ -71,30 +78,18 @@ const theme = createMuiTheme(
 		overrides: {
 		    MuiButton: {
 		      	root: {
-		      		fontFamily: [
-		      		  'roboto',
-				      '-apple-system',
-				      'BlinkMacSystemFont',
-				      '"Segoe UI"',
-				      'Roboto',
-				      '"Helvetica Neue"',
-				      'Arial',
-				      'sans-serif',
-				      '"Apple Color Emoji"',
-				      '"Segoe UI Emoji"',
-				      '"Segoe UI Symbol"',
-				    ].join(','),
-			        borderRadius: 15,
+		      		fontFamily: fontFamily,
+			        borderRadius: size.borderRadius,
 			        border: 0,
 			        color: 'black',
 			        padding: '0 30px',
-			        backgroundColor: buttonbg,
+			        backgroundColor: colorPalette.buttonBG,
 			        '&:hover': {
-				    	backgroundColor: buttonHover,
+				    	backgroundColor: colorPalette.buttonHover,
 				    	color: 'white',
 				    },
 				    '&:disabled': {
-				    	backgroundColor: disabledButton,
+				    	backgroundColor: colorPalette.disabledButton,
 				    },
 		      	},
 		    },
@@ -103,22 +98,10 @@ const theme = createMuiTheme(
 			        borderRadius: 12,
 			        border: 1,
 			        color: 'black',
-			        backgroundColor: cardbg,
+			        backgroundColor: colorPalette.cardBG,
 			        padding: '10px',
 			        boxShadow: '0 3px 5px 2px rgba(100, 100, 100, .3)',
-			        fontFamily: [
-			          'roboto',
-				      '-apple-system',
-				      'BlinkMacSystemFont',
-				      '"Segoe UI"',
-				      'Roboto',
-				      '"Helvetica Neue"',
-				      'Arial',
-				      'sans-serif',
-				      '"Apple Color Emoji"',
-				      '"Segoe UI Emoji"',
-				      '"Segoe UI Symbol"',
-				    ].join(','),
+			        fontFamily: fontFamily,
 		      	},
 		    },
 		    MuiIconButton: {
@@ -135,17 +118,32 @@ const theme = createMuiTheme(
 		    },
 		    MuiDrawer: {
 		      	paper: {
-		      		backgroundColor: paper,
+		      		backgroundColor: colorPalette.sideBar,
 		      	},
 		    },
 		    MuiMenu: {
 		      	paper: {
-		      		backgroundColor: paper,
+		      		backgroundColor: colorPalette.sideBar,
 		      	},
 		    },
 		    MuiListItemIcon: {
 		    	root: {
 		    		color: 'white'
+		    	}
+		    },
+		    MuiTableHead: {
+		    	root: {
+		    		backgroundColor: colorPalette.secondary,
+		    	}
+		    },
+		    MuiTableCell: {
+		    	head: {
+		    		color: 'white',
+		    		fontSize: size.standardFont,
+		    	},
+		    },
+		    MuiTable: {
+		    	root: {
 		    	}
 		    }
 	  	},
