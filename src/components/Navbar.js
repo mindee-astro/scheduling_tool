@@ -113,7 +113,7 @@ class Navbar extends Component {
                   onClose={this.handleClose}
                   PaperProps={{
                     style: {
-                      width: 200,
+                      width: 220,
                     },
                   }}
                 >
