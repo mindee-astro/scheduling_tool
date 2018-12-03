@@ -2,10 +2,17 @@ import {
 	SET_DISPLAY_NAME,
 	GET_DISPLAY_NAME,
 	LOG_IN_USER,
+	LOG_IN_USER_SUCCESS,
 	CREATE_USER,
+	CREATE_USER_SUCCESS,
+	UPDATE_USER,
+	UPDATE_USER_SUCCESS,
 	SET_USER_AUTH,
 	GET_PROFILE_DATA,
-	GET_PROFILE_DATA_SUCCESS
+	GET_PROFILE_DATA_SUCCESS,
+	GET_ALL_USER,
+	GET_ALL_USER_SUCCESS,
+	LOG_OUT_USER
 } from '../constants/Actions';
 
 export const setDisplayName = (name) => {
@@ -35,3 +42,65 @@ export const getProfileDataSuccess = (data) => {
 		payload: data
 	}
 }
+
+export const loginUser = (username, password) => {
+	return {
+		type: LOG_IN_USER,
+		payload: {username, password}
+	}
+}
+
+export const loginUserSuccess = (token) => {
+	return {
+		type: LOG_IN_USER_SUCCESS,
+		payload: token
+	}
+}
+
+export const updateUser = (userid, data) => {
+	return {
+		type: UPDATE_USER,
+		payload: {userid, data}
+	}
+}
+
+export const updateUserSuccess = () => {
+	return {
+		type: UPDATE_USER_SUCCESS
+	}
+} 
+
+export const createUser = (data) => {
+	return {
+		type: CREATE_USER,
+		payload: {data}
+	}
+}
+
+export const createUserSuccess = () => {
+	return {
+		type: CREATE_USER_SUCCESS
+	}
+}
+
+export const getAllUser = () => {
+	return {
+		type: GET_ALL_USER
+	}
+}
+
+export const getAllUserSuccess = (data) => {
+	return {
+		type: GET_ALL_USER_SUCCESS,
+		payload: data
+	}
+}
+
+export const logOutUser = () => {
+	return {
+		type: LOG_OUT_USER
+	}
+}
+
+
+
