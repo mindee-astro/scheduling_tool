@@ -1,6 +1,6 @@
 export const colorPalette = {
 	primary: '#205493',
-	secondary: '#9D49E8',
+	secondary: '#28055C',
 	error: '#FF1C3C',
 	info: '#25381D',
 	sideBar: '#112E51',
