@@ -304,24 +304,6 @@ class apiCard extends Component {
 						</CardContent>
 					</Card>
 				</div>
-				<div style={{paddingTop: '10px'}}>
-					<Card>
-						<CardContent style={{textAlign: 'center'}}>
-							State Stored (Use redux tools for more)
-							<br/><br/>
-							
-							<span style={{
-								fontFamily: 'Courier New',
-								fontSize: '0.7em'
-							}}>
-								<span style={{color: 'green'}}>{this.state.responseLabel}:</span>
-								<br/>
-								{this.state.response}
-							</span>
-
-						</CardContent>
-					</Card>
-				</div>
 
 			</div>
 		)

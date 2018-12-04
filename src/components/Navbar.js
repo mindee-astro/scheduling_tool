@@ -48,7 +48,6 @@ class Navbar extends Component {
   
   constructor(props){
     super(props)
-    console.log(props)
     this.state = {
       classes: props.classes,
       anchorEl: null,
@@ -97,15 +96,15 @@ class Navbar extends Component {
             	{title} 
             </Typography>
             <div className={this.state.classes.rightGroup}>
-              <Typography variant="subheading" color='inherit' className={this.state.classes.grow} style={{padding: '10px'}}>
+              <Typography variant="headline" color='inherit' className={this.state.classes.grow} style={{padding: '10px'}}>
                 <span style={{paddingRight: '10px'}}>Hello, {this.props.displayname}</span>
-                <IconButton className={this.state.classes.accButton} color='inherit'
-                    aria-owns={this.state.anchorEl ? 'simple-menu' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleClick}
-                >
-                  <AccountCircle/>
-                </IconButton>
+                  <IconButton className={this.state.classes.accButton} color='inherit'
+                      aria-owns={this.state.anchorEl ? 'simple-menu' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleClick}
+                  >
+                    <AccountCircle/>
+                  </IconButton>
                 <Menu
                   id="simple-menu"
                   anchorEl={this.state.anchorEl}

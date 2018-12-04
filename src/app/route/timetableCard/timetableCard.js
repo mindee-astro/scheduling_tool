@@ -6,24 +6,37 @@ import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import GridList from '@material-ui/core/GridList';
 import Typography from '@material-ui/core/Typography';
 import {
 	getAllSchedule,
 	getUserSchedule,
 	setNotificationSnackbar
 } from '../../../actions/index';
+import { scheduleVariation } from '../../../themeconfig'
 
 const styles = {
-
-};
-
+	root: {	
+	    display: 'flex',
+	    flexWrap: 'wrap',
+	    justifyContent: 'space-around',
+	    overflow: 'hidden',
+	},
+	gridList: {
+	    flexWrap: 'nowrap',
+	    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+	    transform: 'translateZ(0)',
+  	},
+}
 
 class timetableCard extends Component {
 	constructor(props) {
 		super(props)
 		this.state = {
 			allSchedule: [],
-			schdeuleLength: 0
+			protegeNum: 0,
+			maxLength: 12,
+			classes: this.props.classes,
 		}
 	}
 
@@ -34,12 +47,12 @@ class timetableCard extends Component {
 	}
 
 	componentDidUpdate(prevProps, prevState) {
-		if (prevState.allSchedule != this.props.allSchedule)
+		if (prevState.allSchedule != this.props.allSchedule && this.props.allSchedule.length > 0)
 		{
 			this.setState({
 				...this.state,
 				allSchedule: this.props.allSchedule,
-				schdeuleLength: this.props.allSchedule.length
+				protegeNum: this.props.allSchedule.length
 			})
 		}
 	}
@@ -50,47 +63,49 @@ class timetableCard extends Component {
 
 	render() {
 
-		const renderinfo = (this.state.schdeuleLength>=1) ? (
-			<div style={{width: '100%', overflowX: 'scroll', height: '100%', padding: '10px'}}>
+		const renderinfo = (this.state.protegeNum>=1) ? (
+			<div className={this.state.classes.root}>
 				{(this.state.allSchedule.map((n, index) => {
 					 return(
 					 	Object.entries(n).map(([key, value])=>{
 					 		return(
-						 		<Grid container gutter={0} spacing={8} style={{width: '240%'}} key={key}>
+						 		<GridList className={this.state.classes.gridList} cols={1.5} key={key}>
 						 			{
 						 				Object.entries(value).map(([ind, value])=>{
 									 			return(
-									 				<Grid item xs key={ind} style={{paddingTop: '10px', maxWidth: '20vw', minWidth: '180px'}}>
-											 			<Card>
+									 				<Grid item xs key={ind} style={{paddingTop: '10px', width: '170px'}}>
+											 			<Card style={scheduleVariation[value.status]}>
 											 				<CardContent>
-											 					<Typography color='primary'>{key}</Typography>
-											 					<Typography variant='caption'>{value.rotationID}</Typography>
-											 					<Typography variant='caption'>Start: {value.startDate}</Typography>
-											 					<Typography variant='caption'>End: {value.endDate}</Typography>
-											 					<Typography variant='caption'>Status: {value.status}</Typography>
+											 					<Typography style={scheduleVariation[value.status].primary} noWrap>{key}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>{value.rotationID}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>Start: {value.startDate}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>End: {value.endDate}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>Status: {value.status}</Typography>
 											 				</CardContent>
 										 				</Card>
 										 			</Grid>
 										 		)
 									 	})
 									 }
-						 		</Grid>
+						 		</GridList>
 					 		)			 	
 						})
 				 	)
 				}))}
 
 			</div>
-		) : (<div/>)
+		) : (
+		<div>
+			<Card>
+				<CardContent>
+					<Typography>No available schedules available</Typography>
+				</CardContent>
+			</Card>
+		</div>
+		)
 
 		return(
 			<div style={{padding: '10px'}}>
-				<Card >
-					<CardContent style={{textAlign: 'center'}}>
-						Time Table
-
-					</CardContent>
-				</Card>
 
 				{renderinfo}
 				

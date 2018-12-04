@@ -15,19 +15,19 @@ const temp = [
 			    "endDate": "endDate",
 			    "rotationID": "rotationID",
 			    "startDate": "startDate",
-			    "status": "pending"
+			    "status": "complete"
 		  	},
 		  	{
 			    "endDate": "endDate",
 			    "rotationID": "rotationID",
 			    "startDate": "startDate",
-			    "status": "pending"
+			    "status": "complete"
 		  	},
 		  	{
 			    "endDate": "endDate",
 			    "rotationID": "rotationID",
 			    "startDate": "startDate",
-			    "status": "pending"
+			    "status": "ongoing"
 		  	},
 		  	{
 			    "endDate": "endDate",
@@ -85,7 +85,25 @@ const temp = [
 			    "endDate": "endDate",
 			    "rotationID": "rotationID",
 			    "startDate": "startDate",
-			    "status": "pending"
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "ongoing"
 		  	},
 		  	{
 			    "endDate": "endDate",
@@ -135,23 +153,75 @@ const temp = [
 			    "startDate": "startDate",
 			    "status": "pending"
 		  	},
-		  	{
+		  ],
+	},
+	{
+		 LEFTGONE:[
+		 	{
 			    "endDate": "endDate",
 			    "rotationID": "rotationID",
 			    "startDate": "startDate",
-			    "status": "pending"
+			    "status": "suspend"
 		  	},
 		  	{
 			    "endDate": "endDate",
 			    "rotationID": "rotationID",
 			    "startDate": "startDate",
-			    "status": "pending"
+			    "status": "suspend"
 		  	},
 		  	{
 			    "endDate": "endDate",
 			    "rotationID": "rotationID",
 			    "startDate": "startDate",
-			    "status": "pending"
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
 		  	},
 		  ],
 	}

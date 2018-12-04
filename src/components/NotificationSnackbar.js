@@ -65,7 +65,6 @@ class NotificationSnackbar extends Component {
 	}
 
 	componentDidMount(){
-		console.log(this.state)
 	}
 
 	componentDidUpdate(prevProps, prevState){
@@ -84,21 +83,19 @@ class NotificationSnackbar extends Component {
 
 	render(){
 		const action = (
-			<Button classes={{root:this.state.classes.button, label:this.state.classes.buttonlabel}} onClick={()=>{this.handleClose()}}>
+			<Button onClick={()=>{this.handleClose()}}>
 				Dismiss
 			</Button>
 		)
 
 		return(
 			<div>
-				{console.log(this.props)}
 		    	<Snackbar
-		    		className = {this.state.classes.snackbar}
 		    		anchorOrigin={{ vertical:'top', horizontal:'center' }}
 		        	open={this.state.notificationSnackbar.isOpen}
 		      	>
 
-		      		<SnackbarContent className={this.state.classes.snackbarContent} message={this.state.notificationSnackbar.message} action={action}/>
+		      		<SnackbarContent message={this.state.notificationSnackbar.message} action={action}/>
 		      		
 		      	</Snackbar>
 			</div>
@@ -111,8 +108,5 @@ const mapStateToProps = ({page}) => {
 	return{notificationSnackbar}
 };
 
-NotificationSnackbar.propTypes = {
-  classes: PropTypes.object.isRequired,
-};
 
 export default connect(mapStateToProps, {setNotificationSnackbar})(withTheme(styles)(NotificationSnackbar));

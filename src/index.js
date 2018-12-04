@@ -2,42 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { colorPalette, size, fontFamily } from './themeconfig';
 
 const rootEl = document.getElementById('root');
-
-const colorPalette = {
-	primary: '#205493',
-	secondary: '#6C5B7B',
-	error: '#FF1C3C',
-	info: '#25381D',
-	sideBar: '#112E51',
-	cardBG: '#D6D7D9',
-	appBG: '#323A45',
-	buttonBG: 'rgba(252, 88, 64, 0.5)',
-	buttonHover: 'rgba(252, 88, 64, 2.6)',
-	disabledButton: 'rgba(252, 88, 0, 0.1)'
-}
-
-const size = {
-	standardFont: 14,
-	smallFont: 12,
-	largeFont: 20,
-	borderRadius: 12
-}
-
-const fontFamily = [
-	'roboto',
-	'-apple-system',
-	'BlinkMacSystemFont',
-	'"Segoe UI"',
-	'Roboto',
-	'"Helvetica Neue"',
-	'Arial',
-	'sans-serif',
-	'"Apple Color Emoji"',
-	'"Segoe UI Emoji"',
-	'"Segoe UI Symbol"',
-].join(',')
 
 const theme = createMuiTheme(
 	{
@@ -73,13 +40,17 @@ const theme = createMuiTheme(
 		    subheading: {
 		    	color: 'white',
 		    },
+		    headline: {
+		    	fontSize: size.standardFont,
+		    	color: 'white',
+		    }
 
 		},
 		overrides: {
 		    MuiButton: {
 		      	root: {
 		      		fontFamily: fontFamily,
-			        borderRadius: size.borderRadius,
+			        borderRadius: size.buttonRadius,
 			        border: 0,
 			        color: 'black',
 			        padding: '0 30px',
@@ -95,7 +66,7 @@ const theme = createMuiTheme(
 		    },
 		    MuiCard: {
 		      	root: {
-			        borderRadius: 12,
+			        borderRadius: size.borderRadius,
 			        border: 1,
 			        color: 'black',
 			        backgroundColor: colorPalette.cardBG,
