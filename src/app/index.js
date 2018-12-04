@@ -15,7 +15,6 @@ class AppContainer extends Component {
 
 		return(
 			<div>
-				{console.log(this.props)}
 				<Route exact path={`${match.url}`} render={() => (
 			    	<Redirect to={`${match.url}schedule`}/>
 				)}/>

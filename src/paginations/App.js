@@ -4,6 +4,7 @@ import AppContainer from '../app/index';
 import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Sidebar from '../components/Sidebar';
+import NotificationSnackbar from '../components/NotificationSnackbar';
 import {
   toggleSideBar,
   setDisplayName,
@@ -29,8 +30,10 @@ class App extends Component {
   render() {
     return (
       <div>
+        <NotificationSnackbar/>
         <Navbar toggleSideBar={this.toggleSideBar}/>
         <Sidebar/>
+
         <div style={{padding: '2%', paddingTop: '80px'}}>
           <AppContainer/> 
         </div>

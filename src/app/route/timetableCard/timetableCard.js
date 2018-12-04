@@ -6,188 +6,112 @@ import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
+import GridList from '@material-ui/core/GridList';
 import Typography from '@material-ui/core/Typography';
 import {
 	getAllSchedule,
-	getUserSchedule
+	getUserSchedule,
+	setNotificationSnackbar
 } from '../../../actions/index';
+import { scheduleVariation } from '../../../themeconfig'
 
 const styles = {
-
-};
-
-const temp2 = [
-	{
-	    "endDate": "endDate",
-	    "rotationID": "rotationID",
-	    "startDate": "startDate",
-	    "status": "pending"
-  	},
-  	{
-	    "endDate": "endDate",
-	    "rotationID": "rotationID",
-	    "startDate": "startDate",
-	    "status": "pending"
-  	},
-]
-
-const temp = [
-	{
-		HHKAHMAD:[
-			{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	}
-		  ],
+	root: {	
+	    display: 'flex',
+	    flexWrap: 'wrap',
+	    justifyContent: 'space-around',
+	    overflow: 'hidden',
 	},
-	{
-		 CPSHEISH:[
-		 	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  ],
+	gridList: {
+	    flexWrap: 'nowrap',
+	    // Promote the list into his own layer on Chrome. This cost memory but helps keeping high FPS.
+	    transform: 'translateZ(0)',
+  	},
+}
+
+class timetableCard extends Component {
+	constructor(props) {
+		super(props)
+		this.state = {
+			allSchedule: [],
+			protegeNum: 0,
+			maxLength: 12,
+			classes: this.props.classes,
+		}
 	}
-];
 
+	componentDidMount() {
+		this.props.getAllSchedule();
+		this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please go to Modules and select your
+		elective modules by DD/MM/YY<br/>Note: You will no longer be able to edit your choices after this date</span>)})
+	}
 
-function timetableCard (props) {
-	const renderinfo = (props.allSchedule.length>=1) ? (
+	componentDidUpdate(prevProps, prevState) {
+		if (prevState.allSchedule != this.props.allSchedule && this.props.allSchedule.length > 0)
+		{
+			this.setState({
+				...this.state,
+				allSchedule: this.props.allSchedule,
+				protegeNum: this.props.allSchedule.length
+			})
+		}
+	}
+
+	componentWillUnmount(){
+		this.props.setNotificationSnackbar({isOpen: false, message:""})
+	}
+
+	render() {
+
+		const renderinfo = (this.state.protegeNum>=1) ? (
+			<div className={this.state.classes.root}>
+				{(this.state.allSchedule.map((n, index) => {
+					 return(
+					 	Object.entries(n).map(([key, value])=>{
+					 		return(
+						 		<GridList className={this.state.classes.gridList} cols={1.5} key={key}>
+						 			{
+						 				Object.entries(value).map(([ind, value])=>{
+									 			return(
+									 				<Grid item xs key={ind} style={{paddingTop: '10px', width: '170px'}}>
+											 			<Card style={scheduleVariation[value.status]}>
+											 				<CardContent>
+											 					<Typography style={scheduleVariation[value.status].primary} noWrap>{key}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>{value.rotationID}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>Start: {value.startDate}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>End: {value.endDate}</Typography>
+											 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>Status: {value.status}</Typography>
+											 				</CardContent>
+										 				</Card>
+										 			</Grid>
+										 		)
+									 	})
+									 }
+						 		</GridList>
+					 		)			 	
+						})
+				 	)
+				}))}
+
+			</div>
+		) : (
 		<div>
-			{(temp.map((n, index) => {
-				 return(
-				 	Object.entries(n).map(([key, value])=>{
-				 		return(
-					 		<Grid container spacing={8} style={{paddingTop: '10px', overflowX: 'scroll'}} key={key}>
-					 			{
-					 				Object.entries(value).map(([ind, value])=>{
-								 			return(
-								 				<Grid item xs key={ind}>
-										 			<Card>
-										 				<CardContent>
-										 					<Typography>{key}</Typography>
-										 				</CardContent>
-									 				</Card>
-									 			</Grid>
-									 		)
-								 	})
-								 }
-					 		</Grid>
-				 		)			 	
-					})
-			 	)
-			}))}
-
-		</div>
-	) : (<div/>)
-
-	return(
-		<div style={{padding: '10px'}}>
-			<Card >
-				<CardContent style={{textAlign: 'center'}}>
-					Time Table
-					
-					<Button variant="outlined" onClick={()=>props.getAllSchedule(123)}>
-						Get All Schedule
-						
-					</Button>
-
+			<Card>
+				<CardContent>
+					<Typography>No available schedules available</Typography>
 				</CardContent>
 			</Card>
-
-			
-			{renderinfo}
-			
 		</div>
-	)
+		)
+
+		return(
+			<div style={{padding: '10px'}}>
+
+				{renderinfo}
+				
+			</div>
+		)
+	}
 }
 
 const mapStateToProps = ({schedule}) => {
@@ -195,4 +119,4 @@ const mapStateToProps = ({schedule}) => {
     return{allSchedule, userSchedule, totalSchedule}
 };
 
-export default connect(mapStateToProps, {getAllSchedule, getUserSchedule})(withStyles(styles)(timetableCard));
+export default connect(mapStateToProps, {getAllSchedule, getUserSchedule, setNotificationSnackbar})(withStyles(styles)(timetableCard));

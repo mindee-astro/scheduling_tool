@@ -25,121 +25,11 @@ const styles = {
 
 }
 
-const temp = [
-	{
-		HHKAHMAD1:[
-			{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	}
-		  ],
-	},
-	{
-		 CPSHEISH:[
-		 	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  	{
-			    "endDate": "endDate",
-			    "rotationID": "rotationID",
-			    "startDate": "startDate",
-			    "status": "pending"
-		  	},
-		  ],
-	}
-];
-
-
 const status = [
 	{label: "Active"},
 	{label: "Pending"},
 	{label: "Deactive"}
 ]
-
-
 
 class apiCard extends Component {
 	constructor(props){
@@ -302,12 +192,12 @@ class apiCard extends Component {
 							<br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
 								<span>Data: <br/>{JSON.stringify(this.state.rotationData)}</span><br/>
-								<Button variant="outlined" onClick={()=>this.handleClick('config.addRotation')}>
+								<Button onClick={()=>this.handleClick('config.addRotation')}>
 									Add new rotation
 								</Button>
 							</div>
 							<br/><br/>
-							<Button variant="outlined" onClick={()=>this.handleClick('config.rotations')}>
+							<Button onClick={()=>this.handleClick('config.rotations')}>
 								List all rotation
 							</Button><br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
@@ -317,7 +207,7 @@ class apiCard extends Component {
 						        />
 						        <br/>
 								<span>Data: <br/>{JSON.stringify(this.state.rotationData)}</span><br/>
-								<Button variant="outlined" onClick={()=>{this.handleClick('config.updateRotation')}}>	
+								<Button onClick={()=>{this.handleClick('config.updateRotation')}}>	
 									Update Rotation
 								</Button>
 							</div>
@@ -327,7 +217,7 @@ class apiCard extends Component {
 						          defaultValue={this.state.rotationID}
 						          onChange={this.handleChange('rotationID')}
 						        />
-								<Button variant="outlined" onClick={()=>{this.handleClick('config.removeRotation')}}>	
+								<Button onClick={()=>{this.handleClick('config.removeRotation')}}>	
 									Delete Rotation
 								</Button>
 							</div>
@@ -341,7 +231,7 @@ class apiCard extends Component {
 							<span>Schedule</span>
 							<br/><br/>
 							
-							<Button variant="outlined" onClick={()=>this.handleClick('schedule.allSchedule')}>
+							<Button onClick={()=>this.handleClick('schedule.allSchedule')}>
 								Get All Schedule
 							</Button>
 							<br/><br/>
@@ -353,7 +243,7 @@ class apiCard extends Component {
 					          margin="normal"
 					          onChange={this.handleChange('userid')}
 					        />
-							<Button variant="outlined" onClick={()=>this.handleClick('schedule.userSchedule')}>
+							<Button onClick={()=>this.handleClick('schedule.userSchedule')}>
 								Get User Schedule
 							</Button>
 						</CardContent>
@@ -365,7 +255,7 @@ class apiCard extends Component {
 						<CardContent style={{textAlign: 'center'}}>
 							Auth
 							<br/><br/>
-							<Button variant="outlined" onClick={()=>this.handleClick('auth.listUser')}>
+							<Button onClick={()=>this.handleClick('auth.listUser')}>
 								Get All Users
 							</Button>
 							<br/><br/>
@@ -384,11 +274,11 @@ class apiCard extends Component {
 						          margin="normal"
 						          onChange={this.handleChange('password')}
 						        />
-								<Button variant="outlined" onClick={()=>this.handleClick('auth.isLoggedIn')} disabled={this.props.isLoggedIn}>
+								<Button onClick={()=>this.handleClick('auth.isLoggedIn')} disabled={this.props.isLoggedIn}>
 									Login
 								</Button>
 							<br/><br/>
-								<Button variant="outlined" onClick={()=>this.handleClick('auth.isLoggedIn?')} disabled={!this.props.isLoggedIn}>
+								<Button onClick={()=>this.handleClick('auth.isLoggedIn?')} disabled={!this.props.isLoggedIn}>
 									Log Out
 								</Button>
 							</div>
@@ -398,7 +288,7 @@ class apiCard extends Component {
 								<span>data: <br/>{JSON.stringify(this.state.data)}
 							  	</span>
 								<br/>
-								<Button variant="outlined" onClick={()=>this.handleClick('auth.updateUser')}>
+								<Button onClick={()=>this.handleClick('auth.updateUser')}>
 									Update User
 								</Button>
 							</div>
@@ -406,29 +296,11 @@ class apiCard extends Component {
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
 								<span>data: <br/>{JSON.stringify(this.state.data)}</span>
 									<br/>
-								<Button variant="outlined" onClick={()=>this.handleClick('auth.createUser')}>
+								<Button onClick={()=>this.handleClick('auth.createUser')}>
 									Create User
 								</Button>
 							</div>
 							<br/><br/>
-						</CardContent>
-					</Card>
-				</div>
-				<div style={{paddingTop: '10px'}}>
-					<Card>
-						<CardContent style={{textAlign: 'center'}}>
-							State Stored (Use redux tools for more)
-							<br/><br/>
-							
-							<span style={{
-								fontFamily: 'Courier New',
-								fontSize: '0.7em'
-							}}>
-								<span style={{color: 'green'}}>{this.state.responseLabel}:</span>
-								<br/>
-								{this.state.response}
-							</span>
-
 						</CardContent>
 					</Card>
 				</div>

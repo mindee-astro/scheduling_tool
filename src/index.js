@@ -1,73 +1,78 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { colorPalette, size, fontFamily } from './themeconfig';
 
 const rootEl = document.getElementById('root');
+
 const theme = createMuiTheme(
 	{
 		palette: {
 	    	type: 'light', // Switching the dark mode on is a single property value change.
+	    	primary: {
+	    		main: colorPalette.primary,
+	    	},
+	    	secondary: {
+	    		main: colorPalette.secondary,
+	    	},
+	    	error: {
+	    		main: colorPalette.error,
+	    	},
+	    	info: {
+	    		main: colorPalette.info,
+	    	},
+		    background: {
+		      default: colorPalette.appBG,
+		    }
 	  	},
 	  	typography: {
-		  	fontFamily: [
-		  	  'roboto',
-		      '-apple-system',
-		      'BlinkMacSystemFont',
-		      '"Segoe UI"',
-		      'Roboto',
-		      '"Helvetica Neue"',
-		      'Arial',
-		      'sans-serif',
-		      '"Apple Color Emoji"',
-		      '"Segoe UI Emoji"',
-		      '"Segoe UI Symbol"',
-		    ].join(','),
+		  	fontFamily: fontFamily,
+		    fontSize: size.standardFont,
+		    caption: {
+		    	fontSize: size.smallFont,
+		    	color: 'black',
+		    },
+		    title: {
+		    	fontSize: size.largeFont,
+		    	color: 'white',
+		    },
+		    subheading: {
+		    	color: 'white',
+		    },
+		    headline: {
+		    	fontSize: size.standardFont,
+		    	color: 'white',
+		    }
+
 		},
 		overrides: {
 		    MuiButton: {
 		      	root: {
-		      		fontFamily: [
-		      		  'roboto',
-				      '-apple-system',
-				      'BlinkMacSystemFont',
-				      '"Segoe UI"',
-				      'Roboto',
-				      '"Helvetica Neue"',
-				      'Arial',
-				      'sans-serif',
-				      '"Apple Color Emoji"',
-				      '"Segoe UI Emoji"',
-				      '"Segoe UI Symbol"',
-				    ].join(','),
-			        borderRadius: 15,
-			        border: 1,
+		      		fontFamily: fontFamily,
+			        borderRadius: size.buttonRadius,
+			        border: 0,
 			        color: 'black',
 			        padding: '0 30px',
+			        backgroundColor: colorPalette.buttonBG,
 			        '&:hover': {
-				    	backgroundColor: 'rgba(0, 100, 0, .3)',
+				    	backgroundColor: colorPalette.buttonHover,
+				    	color: 'white',
+				    },
+				    '&:disabled': {
+				    	backgroundColor: colorPalette.disabledButton,
 				    },
 		      	},
 		    },
 		    MuiCard: {
 		      	root: {
-			        borderRadius: 12,
+			        borderRadius: size.borderRadius,
 			        border: 1,
 			        color: 'black',
+			        backgroundColor: colorPalette.cardBG,
 			        padding: '10px',
 			        boxShadow: '0 3px 5px 2px rgba(100, 100, 100, .3)',
-			        fontFamily: [
-			          'roboto',
-				      '-apple-system',
-				      'BlinkMacSystemFont',
-				      '"Segoe UI"',
-				      'Roboto',
-				      '"Helvetica Neue"',
-				      'Arial',
-				      'sans-serif',
-				      '"Apple Color Emoji"',
-				      '"Segoe UI Emoji"',
-				      '"Segoe UI Symbol"',
-				    ].join(','),
+			        fontFamily: fontFamily,
 		      	},
 		    },
 		    MuiIconButton: {
@@ -82,6 +87,36 @@ const theme = createMuiTheme(
 		    		top: '-10px',
 		    	},
 		    },
+		    MuiDrawer: {
+		      	paper: {
+		      		backgroundColor: colorPalette.sideBar,
+		      	},
+		    },
+		    MuiMenu: {
+		      	paper: {
+		      		backgroundColor: colorPalette.sideBar,
+		      	},
+		    },
+		    MuiListItemIcon: {
+		    	root: {
+		    		color: 'white'
+		    	}
+		    },
+		    MuiTableHead: {
+		    	root: {
+		    		backgroundColor: colorPalette.secondary,
+		    	}
+		    },
+		    MuiTableCell: {
+		    	head: {
+		    		color: 'white',
+		    		fontSize: size.standardFont,
+		    	},
+		    },
+		    MuiTable: {
+		    	root: {
+		    	}
+		    }
 	  	},
 	}
 );
@@ -89,7 +124,7 @@ const theme = createMuiTheme(
 let render = () => {
     const MainApp = require('./MainApp').default;
     ReactDOM.render(
-        (<MuiThemeProvider theme={theme}><MainApp/></MuiThemeProvider>),
+        (<MuiThemeProvider theme={theme}><CssBaseline/><MainApp/></MuiThemeProvider>),
         rootEl
     );
 };

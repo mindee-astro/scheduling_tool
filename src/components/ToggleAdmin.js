@@ -13,17 +13,7 @@ const styles = {
     textTransform: 'none',
     fontSize: 16,
     padding: '6px 12px',
-    border: '1px solid',
-    backgroundColor: '#FFFFFF',
-    borderColor: '#9f74fc',
-	    '&:hover': {
-	      backgroundColor: '#9f74fc',
-	      borderColor: '#9f74fc',
-	    },
-	    '&:focus': {
-	      boxShadow: '0 0 0 0.2rem rgba(0,123,255,.5)',
-	    },
-  	},
+    },
   	bootstrapSelected: {
     boxShadow: 'none',
     textTransform: 'none',
@@ -62,13 +52,11 @@ class AdminToggle extends Component {
 	render() {
 		return (
 			<div>
-				<Button  
-					variant="contained"
+				<Button 
 					onClick={()=>{this.handleToggle("Admin")}}
 			        className={(this.state.accesslevel==="Admin") ? this.state.classes.bootstrapSelected : this.state.classes.bootstrapRoot}
 			    >Admin</Button>
-				<Button  
-					variant="contained"
+				<Button 
 					onClick={()=>{this.handleToggle("Protege")}}
 			        className={(this.state.accesslevel==="Protege") ? this.state.classes.bootstrapSelected : this.state.classes.bootstrapRoot}
 			   	>Protege</Button>
