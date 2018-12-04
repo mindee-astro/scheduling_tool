@@ -9,57 +9,11 @@ import {
 	setNotificationSnackbar
 } from '../actions/index';
 
-const styles = theme => ({
-  snackbar: {
-    marginTop:  '80px',
-  },
-  snackbarContent: {
-  	maxWidth: '80vw',
-  	minWidth: '30vw',
-  	background: '#000080',
-  	opacity: '0.7'
-  },
-  button: {
-  	background: 'white',
-  	opacity: '0.6',
-  	'&:hover': {
-    	opacity: '1',
-    	background: 'white'
-    },
-  },
-  buttonlabel: {
-    textTransform: 'capitalize',
-    fontSize: '12px'
-  },
-});
 
 class NotificationSnackbar extends Component {
 	constructor(props){
 		super(props)
 		this.state={
-			classes:{
-				snackbar: {
-			    marginTop:  '80px',
-			  	},
-			  	snackbarContent: {
-			  	maxWidth: '80vw',
-			  	minWidth: '30vw',
-			  	background: '#000080',
-			  	opacity: '0.7'
-			  	},
-			  	button: {
-			  	background: 'white',
-			  	opacity: '0.6',
-			  	'&:hover': {
-			    	opacity: '1',
-			    	background: 'white'
-			    },
-			  	},
-			  	buttonlabel: {
-			    textTransform: 'capitalize',
-			    fontSize: '12px'
-			  	},
-			},
 			notificationSnackbar:props.notificationSnackbar,
 		}
 	}
@@ -109,4 +63,4 @@ const mapStateToProps = ({page}) => {
 };
 
 
-export default connect(mapStateToProps, {setNotificationSnackbar})(withTheme(styles)(NotificationSnackbar));
+export default connect(mapStateToProps, {setNotificationSnackbar})((NotificationSnackbar));

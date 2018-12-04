@@ -6,9 +6,9 @@ export const colorPalette = {
 	sideBar: '#112E51',
 	cardBG: '#D6D7D9',
 	appBG: '#323A45',
-	buttonBG: 'rgba(252, 88, 64, 0.5)',
-	buttonHover: 'rgba(252, 88, 64, 2.6)',
-	disabledButton: 'rgba(252, 88, 0, 0.1)'
+	buttonBG: '#FC9888',
+	buttonHover: '#E8513B',
+	disabledButton: '#FCC9BE'
 }
 
 export const size = {
@@ -70,3 +70,5 @@ export const scheduleVariation = {
 		},
 	}
 }
+
+// Notification Snackbar custom template ////
