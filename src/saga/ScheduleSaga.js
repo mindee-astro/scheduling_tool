@@ -6,9 +6,230 @@ import { getSchedule , getUserSchedule } from '../api/apicalls';
 
 import { getAllScheduleSuccess , getUserScheduleSuccess } from '../actions/index';
 
+
+// Temporary remap response to dummy data
+const temp = [
+	{
+		HHKAHMAD:[
+			{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "ongoing"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  ],
+	},
+	{
+		 CPSHEISH:[
+		 	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "complete"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "ongoing"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "pending"
+		  	},
+		  ],
+	},
+	{
+		 LEFTGONE:[
+		 	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  	{
+			    "endDate": "endDate",
+			    "rotationID": "rotationID",
+			    "startDate": "startDate",
+			    "status": "suspend"
+		  	},
+		  ],
+	}
+];
+
 const fetchAllScheduleAsync = async () => 
 	await getSchedule()
-		.then(response => response)
+		.then(response => {response.data=temp; return(response)}) // To be remove upon release
 		.catch(error => error)
 
 const fetchUserSchedule = async (userid) => 
@@ -19,7 +240,7 @@ const fetchUserSchedule = async (userid) =>
 function* getAllScheduleAsync() {
 	try {
 		const response = yield call(fetchAllScheduleAsync)
-		yield put(getAllScheduleSuccess(response.data, response))
+		yield put(getAllScheduleSuccess(response.data, response)) 
 	} catch (error) {
 
 	}

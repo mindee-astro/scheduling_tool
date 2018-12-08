@@ -19,19 +19,6 @@ import Paper from '@material-ui/core/Paper';
 
 // };
 
-const ProtegeTable = withStyles(theme => ({
-	head: {
-	//   backgroundColor: theme.palette.common.black,
-	backgroundColor: '#1769aa',
-	  color: theme.palette.common.white,
-	  fontSize: 16,
-	  textAlign: 'center'
-	},
-	body: {
-	  fontSize: 14,
-	  textAlign: 'center'
-	},
-  }))(TableCell);
   
   const styles = theme => ({
 	root: {
@@ -41,6 +28,7 @@ const ProtegeTable = withStyles(theme => ({
 	},
 	table: {
 	  minWidth: 700,
+	  borderRadius: 12,
 	},
 	row: {
 	  '&:nth-of-type(odd)': {
@@ -72,16 +60,16 @@ const ProtegeTable = withStyles(theme => ({
 	const { classes } = props;
   
 	return (
-	  <Paper className={classes.root}>
-		<Table className={classes.table}>
+	  <Paper>
+		<Table>
 		  <TableHead>
 			<TableRow>
-			  <ProtegeTable>Username</ProtegeTable>
-			  <ProtegeTable>Display Name</ProtegeTable>
-			  <ProtegeTable>Join Date</ProtegeTable>
-			  <ProtegeTable>Next Rotation</ProtegeTable>
-			  <ProtegeTable>Next Rotation Start Date</ProtegeTable>
-			  <ProtegeTable>Starting In</ProtegeTable>
+			  <TableCell>Username</TableCell>
+			  <TableCell>Display Name</TableCell>
+			  <TableCell>Join Date</TableCell>
+			  <TableCell>Next Rotation</TableCell>
+			  <TableCell>Next Rotation Start Date</TableCell>
+			  <TableCell>Starting In</TableCell>
 			</TableRow>
 		  </TableHead>
 		  <TableBody>
@@ -96,13 +84,13 @@ const ProtegeTable = withStyles(theme => ({
 				}
 
 			  return (
-				<TableRow className={classes.row} key={row.id}>
-				  <ProtegeTable component="th" scope="row">{row.username}</ProtegeTable>
-				  <ProtegeTable>{row.display_name}</ProtegeTable>
-				  <ProtegeTable>{row.join_date}</ProtegeTable>
-				  <ProtegeTable>{row.next_rotation}</ProtegeTable>
-				  <ProtegeTable className={days_to_start>10?'': classes.redText}>{row.next_startdate}</ProtegeTable>
-				  <ProtegeTable className={days_to_start>10?'': classes.redText}>{starting_in}</ProtegeTable>
+				<TableRow key={row.id}>
+				  <TableCell component="th" scope="row">{row.username}</TableCell>
+				  <TableCell>{row.display_name}</TableCell>
+				  <TableCell>{row.join_date}</TableCell>
+				  <TableCell>{row.next_rotation}</TableCell>
+				  <TableCell className={days_to_start>10?'': classes.redText}>{row.next_startdate}</TableCell>
+				  <TableCell className={days_to_start>10?'': classes.redText}>{starting_in}</TableCell>
 				</TableRow>
 			  );
 			})}

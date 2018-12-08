@@ -1,6 +1,7 @@
 import {
 	TOGGLE_SIDEBAR,
 	SET_NAV_TITLE,
+	SET_NOTIFICATION_SNACKBAR,
 } from '../constants/Actions';
 
 const INIT_STATE = {
@@ -8,7 +9,11 @@ const INIT_STATE = {
 	loggedIn: false,
 	sidebar: false,
 	theme: "default",
-	navTitle: "Home"
+	navTitle: "Home",
+	notificationSnackbar: {
+		isOpen: false,
+		message: {}
+	}
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -24,6 +29,13 @@ export default (state=INIT_STATE, action)=>{
 			return{
 				...state,
 				navTitle: action.payload
+			}
+		}
+
+		case SET_NOTIFICATION_SNACKBAR: {
+			return{
+				...state,
+				notificationSnackbar: action.payload
 			}
 		}
 

@@ -27,33 +27,21 @@ const styles = {
   },
   avatar: {
   	height: '60px',
-  	width: '60px'
+  	width: '60px',
+  	color: 'white',
+  	backgroundColor: 'rgba(0, 0, 0, .3)',
   },
   inactive: {
   	textDecoration: 'none'
   },
+  listitems: {
+  	color: 'white'
+  }
 };
 
-const theme = createMuiTheme({
-  palette: {
-    type: 'dark', 
-  },
-  typography: {
-  	color: 'white',
-  	fontFamily: [
-		      '-apple-system',
-		      'BlinkMacSystemFont',
-		      '"Segoe UI"',
-		      'Roboto',
-		      '"Helvetica Neue"',
-		      'Arial',
-		      'sans-serif',
-		      '"Apple Color Emoji"',
-		      '"Segoe UI Emoji"',
-		      '"Segoe UI Symbol"',
-		    ].join(','),
-  },
-});
+function test(password) {
+	console.log(password.length)
+}
 
 class Sidebar extends Component {
 
@@ -101,23 +89,24 @@ class Sidebar extends Component {
 		const allowedLinks = (
 			(this.props.accesslevel==="Admin") ? (
 				<div>
+					{test("123")}
 	    			<ListItem button onClick={this.handleClick("Proteges")}>
 	    				<ListItemIcon>
 				        	<People />
 				        </ListItemIcon>
-	    				<ListItemText primary="Proteges"/>
+	    					<ListItemText primary="Proteges"/>
 	    			</ListItem>
 	    			<ListItem button onClick={this.handleClick("UsrMgmt")}>
 	    				<ListItemIcon>
 				        	<Settings />
 				        </ListItemIcon>
-	    				<ListItemText primary="User Management"/>
+	    					<ListItemText primary="User Management"/>
 	    			</ListItem>
 	    			<ListItem button onClick={this.handleClick("Rotations")}>
 	    				<ListItemIcon>
 	    					<SchoolIcon/>
 	    				</ListItemIcon>
-	    				<ListItemText primary="Rotations Management"/>
+	    					<ListItemText primary="Rotations Management"/>
 	    			</ListItem>
     			</div>
 			) : (
@@ -126,27 +115,25 @@ class Sidebar extends Component {
 	    				<ListItemIcon>
 	    					<AccountBalanceWalletIcon/>
 	    				</ListItemIcon>
-	    				<ListItemText primary="Modules"/>
+	    					<ListItemText primary="Modules"/>
 	    			</ListItem>
 	    			<ListItem button onClick={this.handleClick("Rotations")}>
 	    				<ListItemIcon>
 	    					<SchoolIcon/>
 	    				</ListItemIcon>
-	    				<ListItemText primary="Rotation Details"/>
+	    					<ListItemText primary="Rotation Details"/>
 	    			</ListItem>
     			</div>
 			)
 		)
 
 		return( 
-			<MuiThemeProvider theme={theme}>
 				<div>
 					<Drawer open={this.props.sidebar} onClose={this.toggledrawer(false)}>
 				        <div
 					        tabIndex={0}
 					        role="button"
 				        >
-				        	{console.log(this.props)}
 				        	<div 
 				        		className = {this.state.classes.list}
 				        		onClick={this.toggledrawer(false)}
@@ -161,16 +148,14 @@ class Sidebar extends Component {
 				        				}}
 				        			>
 				        				<IconButton onClick={this.handleClick('Profile')}>
-					        				<Avatar 
-					        					className={
-					        						this.state.classes.avatar
-					        					}
-					        				>{this.props.displayname[0].toUpperCase()}{this.props.displayname[1].toLowerCase()}</Avatar>
+					        				<Avatar className={this.state.classes.avatar}>
+					        				{this.props.displayname[0].toUpperCase()}{this.props.displayname[1].toLowerCase()}
+					        				</Avatar>
 				        				</IconButton>
 				        			</div>
 						        	<div>
 						        		<List>
-						        			<ListItem button onClick={this.handleClick("Schedules")}>
+						        			<ListItem className={this.state.classes.listitems} button onClick={this.handleClick("Schedules")}>
 						        				<ListItemIcon>
 										        	<TableChart />
 										        </ListItemIcon>
@@ -187,7 +172,6 @@ class Sidebar extends Component {
 				        </div>
 			        </Drawer>
 				</div>
-			</MuiThemeProvider>
 		);
 	}
 }

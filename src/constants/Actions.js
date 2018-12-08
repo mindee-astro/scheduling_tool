@@ -1,6 +1,7 @@
 //Page Actions
 export const TOGGLE_SIDEBAR = 'toggle_sidebar';
 export const SET_NAV_TITLE = 'set_nav_title';
+export const SET_NOTIFICATION_SNACKBAR = 'set_notification_snackbar';
 
 //Auth Actions
 export const SET_DISPLAY_NAME = 'set_display_name';

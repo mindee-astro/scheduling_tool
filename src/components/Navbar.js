@@ -28,7 +28,7 @@ const styles = {
     marginRight: 20,
   },
   appBarDefault: {
-    background: '#60004F',
+    background: 'primary',
   },
   appBarOptional: {
     background: 'linear-gradient(45deg, #0519ff 9%, #9f74fc 97%)',
@@ -48,7 +48,6 @@ class Navbar extends Component {
   
   constructor(props){
     super(props)
-    console.log(props)
     this.state = {
       classes: props.classes,
       anchorEl: null,
@@ -93,19 +92,19 @@ class Navbar extends Component {
             <IconButton className={this.state.classes.menuButton} color="inherit" aria-label="Menu" onClick={this.props.toggleSideBar}>
               <MenuIcon />
             </IconButton>
-            <Typography variant="title" color="inherit" className={this.state.classes.grow} >
+            <Typography variant="title" className={this.state.classes.grow} noWrap>
             	{title} 
             </Typography>
             <div className={this.state.classes.rightGroup}>
-              <Typography variant="subheading" color='inherit' className={this.state.classes.grow} style={{padding: '10px'}}>
+              <Typography variant="headline" color='inherit' className={this.state.classes.grow} style={{padding: '10px'}} noWrap>
                 <span style={{paddingRight: '10px'}}>Hello, {this.props.displayname}</span>
-                <IconButton className={this.state.classes.accButton} color='inherit'
-                    aria-owns={this.state.anchorEl ? 'simple-menu' : null}
-                    aria-haspopup="true"
-                    onClick={this.handleClick}
-                >
-                  <AccountCircle/>
-                </IconButton>
+                  <IconButton className={this.state.classes.accButton} color='inherit'
+                      aria-owns={this.state.anchorEl ? 'simple-menu' : null}
+                      aria-haspopup="true"
+                      onClick={this.handleClick}
+                  >
+                    <AccountCircle/>
+                  </IconButton>
                 <Menu
                   id="simple-menu"
                   anchorEl={this.state.anchorEl}
@@ -113,7 +112,7 @@ class Navbar extends Component {
                   onClose={this.handleClose}
                   PaperProps={{
                     style: {
-                      width: 200,
+                      width: 220,
                     },
                   }}
                 >
