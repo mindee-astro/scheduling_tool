@@ -97,6 +97,8 @@ class rotationCard extends Component {
   }
 
   //TODO: get rotation
+  // ...
+  // ...
 
   saveRotation(rotation) {
     console.log("rotationCard -- saveRotation");
@@ -109,6 +111,58 @@ class rotationCard extends Component {
       <div className={this.state.classes.gridwrapper}>
         <Grid container spacing={24}>
           {/* get rotation: department component */}
+          <Grid item xs={12} md={6} lg={4}>
+            <Card className={classes.card}>
+              <div className={classes.iconPosition}>
+                <IconButton aria-label="edit">
+                  <Edit className={classes.actions} />
+                </IconButton>
+                <IconButton aria-label="delete">
+                  <Delete className={classes.actions} />
+                </IconButton>
+              </div>
+              <div className={classes.cardBottomPadding}>
+                <p className={classes.cardheading}>Department Name</p>
+                <p className={classes.carddata}>{"Project Management"}</p>
+                <p className={classes.cardheading}>Rotation Period</p>
+                <p className={classes.carddata}>{12 + " weeks"}</p>
+                <p className={classes.cardheading}>Champion Name</p>
+                <p className={classes.carddata}>{"Chow Siew Mun"}</p>
+                <p className={classes.cardheading}>Champion Email</p>
+                <p className={classes.carddata}>
+                  {"siew-mun_chow@astro.com.my"}
+                </p>
+                <p className={classes.cardheading}>Max Protégé Capacity</p>
+                <p className={classes.carddata}>{2 + " protégés"}</p>
+              </div>
+            </Card>
+          </Grid>
+          <Grid item xs={12} md={6} lg={4}>
+            <Card className={classes.card}>
+              <div className={classes.iconPosition}>
+                <IconButton aria-label="edit">
+                  <Edit className={classes.actions} />
+                </IconButton>
+                <IconButton aria-label="delete">
+                  <Delete className={classes.actions} />
+                </IconButton>
+              </div>
+              <div className={classes.cardBottomPadding}>
+                <p className={classes.cardheading}>Department Name</p>
+                <p className={classes.carddata}>{"Project Management"}</p>
+                <p className={classes.cardheading}>Rotation Period</p>
+                <p className={classes.carddata}>{12 + " weeks"}</p>
+                <p className={classes.cardheading}>Champion Name</p>
+                <p className={classes.carddata}>{"Chow Siew Mun"}</p>
+                <p className={classes.cardheading}>Champion Email</p>
+                <p className={classes.carddata}>
+                  {"siew-mun_chow@astro.com.my"}
+                </p>
+                <p className={classes.cardheading}>Max Protégé Capacity</p>
+                <p className={classes.carddata}>{2 + " protégés"}</p>
+              </div>
+            </Card>
+          </Grid>
           <Grid item xs={12} md={6} lg={4}>
             <Card className={classes.card}>
               <div className={classes.iconPosition}>
