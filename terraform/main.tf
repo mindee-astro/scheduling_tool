@@ -4,6 +4,20 @@ provider "aws" {
 }
 
 
+# Authentication and authorization
+
+resource "aws_cognito_user_pool" "pool" {
+    name = "${var.cognito_userpool_name}"
+}
+
+resource "aws_cognito_user_pool_client" "client" {
+    name = "${var.cognito_client_name}"
+    user_pool_id = "${aws_cognito_user_pool.pool.id}"
+    generate_secret = false
+}
+
+# Static Hosting 
+
 resource "aws_s3_bucket" "portal_bucket" {
   bucket = "${var.bucket_name}"
   acl    = "public-read"
