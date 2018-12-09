@@ -1,3 +1,5 @@
+import Amplify from 'aws-amplify';
+import config from './config/aws';
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
@@ -120,6 +122,17 @@ const theme = createMuiTheme(
 	  	},
 	}
 );
+
+// Initializes AWS Amplify
+
+Amplify.configure({
+    Auth: {
+        mandatorySignIn: true,
+        region: config.cognito.REGION,
+        userPoolId: config.cognito.USER_POOL_ID,
+        userPoolWebClientId: config.cognito.APP_CLIENT_ID
+    }
+});
 
 let render = () => {
     const MainApp = require('./MainApp').default;
