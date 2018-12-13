@@ -13,16 +13,24 @@ import {
 import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 
+// to do check box 
+import FormLabel from '@material-ui/core/FormLabel';
+import FormControl from '@material-ui/core/FormControl';
+import FormGroup from '@material-ui/core/FormGroup';
+import FormControlLabel from '@material-ui/core/FormControlLabel';
+import allElecMod from './allElectiveModules';
+import Checkbox from '@material-ui/core/Checkbox';
+
+//listing 
+import List from '@material-ui/core/List';
+import ListItemText from '@material-ui/core/ListItemText';
+import { ListItem } from '@material-ui/core';
+
 // icons 
 import HelpIcon from '@material-ui/icons/Help';
 import IconButton from '@material-ui/core/IconButton';
-
-//show selected module page 
-import ShowSelectedMod from './showSelectedMod'; 
-
-// show module selection page 
-import ShowModOpt from './showModOptions'; 
-
+//select modulles 
+import die from './electoMod'; 
 
 const styles = theme => ({
 	card: {
@@ -56,9 +64,8 @@ var coreMod = ['Product Engineering', 'Product Management', 'Project Management'
 
 //list elective modules 
 //for this one, we will call api and get the list
-//const electMod = ['Innovation', 'Architecture', 'Analytics', 'Broadcast', ' IT Security']
-
-var electMod = []
+var electMod = ['Innovation', 'Architecture', 'Analytics', 'Broadcast', ' IT Security']
+//electMod = []
 
 
 // viewing elective choices 
@@ -69,6 +76,7 @@ class ElectiveCard extends React.Component{
 	
 	state = {
 		anchorEl: null,
+		checked: [1],
 		value: '12',
 	};
 
@@ -81,14 +89,81 @@ class ElectiveCard extends React.Component{
 	this.setState({ anchorEl: null });
 	};
 
+	//for select options
+  	handleChange = formSubmitEvent => () => {
+		const { checked } = this.state;
+		const currentIndex = checked.indexOf(formSubmitEvent.name);
+		const newChecked = [...checked];
 
+		if (currentIndex === -1) {
+				this.setState({value: this.state.value - formSubmitEvent.weight});
+			  	newChecked.push(formSubmitEvent.name);
+		} else {
+			this.setState({value: parseInt(formSubmitEvent.weight, 10) + this.state.value});
+		  	newChecked.splice(currentIndex, 1);
+		}
+		this.setState({
+		  checked: newChecked,
+		});
+		
+	};
 
+	selectMod = () => {
+		const {classes} = this.props
+		return(
+			<div> 
+				<div>
+					<Typography component="h2" style={{marginTop:50}}>
+						Elective Modules
+					</Typography>
+				</div>
+				<div className={classes.arrangedCard}>
+					<Typography>
+						Minimum required months are 11. Please select up to 4-5 preferred modules. 
+					</Typography>
+					<Typography variant="body2" style={{marginLeft: 300}}>
+						Months Left
+					</Typography>
+					<Typography variant="title" style={{marginLeft: 50}}>
+						{this.state.value}
+					</Typography>
+				</div>
+				<div>
+					{allElecMod.map(item =>(
+						<List>
+							<ListItem key={item.name} role={undefined} dense button onClick={this.handleChange(item)}>
+							<FormControl>
+							<FormLabel>
+							<FormGroup>
+								<FormControlLabel control={
+									<Checkbox 
+									checked={this.state.checked.indexOf(item.name) !== -1}
+									tabIndex={-1}
+									disableRipple/>
+								}
+								/>
+							</FormGroup>
+							</FormLabel>
+							</FormControl>
+							<ListItemText primary={item.label+" "+"("+item.weight+")"} />
+							</ListItem>
+						</List>
+					))}
+				</div>
+				<div>
+					<Button disabled={this.state.value > 1} variant='outlined' color='secondary' className={classes.button}>
+						Submit Choices
+					</Button>
+				</div> 
+			</div>
+		);
+	};
+			
 	render() {
 		const {classes} = this.props
 		const { anchorEl } = this.state;
 		const open = Boolean(anchorEl);
-		const emptyModList = !electMod.length;
-
+		const isEmpty = !electMod.length; 
 		return(
 			//core modules listing 
 				<div>
@@ -140,10 +215,7 @@ class ElectiveCard extends React.Component{
 						</div>
 					</div>
 					<div>
-						{ emptyModList
-							? <ShowModOpt/>
-							: <ShowSelectedMod electmod= {electMod}/> 
-						}
+						<die/>
 					</div>
 				</div>
 		)
@@ -153,9 +225,6 @@ class ElectiveCard extends React.Component{
 ElectiveCard.propTypes = {
 	classes: PropTypes.object.isRequired,
 	};
-
-export default withStyles(styles)(ElectiveCard);
-
 
 // elective selection
 //class SelectModule extends ElectiveCard {
@@ -173,4 +242,4 @@ export default withStyles(styles)(ElectiveCard);
 //	};
 
 
-//export default withStyles(styles)(ElectiveCard);
+export default withStyles(styles)(ElectiveCard);
