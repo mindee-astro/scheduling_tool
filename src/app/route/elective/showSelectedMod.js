@@ -9,9 +9,8 @@ import {connect} from 'react-redux';
 import {
 } from '../../../actions/index';
 import Typography from '@material-ui/core/Typography';
-import allElecMod from './allElectiveModules';
+import allElectMod from './allElectiveModules';
 
-var electMod = ['Innovation', 'Architecture', 'Analytics', 'Broadcast', ' IT Security']
 const styles = theme => ({
 	card: {
 		display: 'flex',
@@ -36,13 +35,31 @@ const styles = theme => ({
 	},
   });
 
-class showElectMod extends React.Component{
+
+class ShowSelectedMod extends React.Component{
 	constructor(props) {
 		super(props);
     };
+
     
     render(){
-        const {classes} = this.props
+        const {classes} = this.props;
+        var modList = this.props.electmod;
+        var modDict = [];
+        for (var eMod in modList){
+            allElectMod.map(item=>{
+                if (modList[eMod]==item.label){
+                    modDict.push(
+                        {
+                        name: item.label,
+                        weight: item.weight,
+                    }
+                    )
+                }
+            }
+            );
+        };
+
         return(
                 <div>
                     <div>
@@ -51,13 +68,13 @@ class showElectMod extends React.Component{
                         </Typography>
                     </div>
                     <div className={classes.arrangedCard}>
-                            {electMod.map(mod => {
+                            {modDict.map(mod => {
                                 return(
                                     <Card className={classes.card}>
                                         <div>
                                             <CardContent className={classes.controls}>
                                                 <Typography>
-                                                    {mod} (3)
+                                                    {mod.name} ({mod.weight})
                                                 </Typography>
                                             </CardContent>
                                         </div>
@@ -74,8 +91,8 @@ class showElectMod extends React.Component{
         }
     }
     
-showElectMod.propTypes = {
+ShowSelectedMod.propTypes = {
     classes: PropTypes.object.isRequired,
     };
 
-export default withStyles(styles)(showElectMod);
+export default withStyles(styles)(ShowSelectedMod);
