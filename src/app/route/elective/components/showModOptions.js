@@ -2,8 +2,6 @@ import React, {Component} from 'react';
 import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
-import {
-} from '../../../actions/index';
 import Typography from '@material-ui/core/Typography';
 import allElectMod from './allElectiveModules';
 
@@ -33,17 +31,11 @@ const styles = theme => ({
 	arrangedCard: {
 		marginTop: 10,
 		display:'flex', 
-		flexWrap: ' wrap', 
-	},
-	button: {
-		position: 'relative',
-		marginTop: 30,
-		marginLeft: 950,
-		bottom: 10,
+		flexWrap:'wrap',
 	},
   });
 
-class ShowModOpt extends React.Component {
+class ShowModOpt extends Component {
     constructor(props) {
 		super(props);
     };
@@ -74,48 +66,52 @@ class ShowModOpt extends React.Component {
 
     render(){
         const {classes} = this.props
-    return(
+        return(
         <div> 
             <div>
-                <Typography component="h2" style={{marginTop:50}}>
+                <Typography variant="body2" style={{marginTop:50}}>
                     Elective Modules
                 </Typography>
             </div>
             <div className={classes.arrangedCard}>
-                <Typography>
-                    Minimum required months are 11. Please select up to 4-5 preferred modules. 
+                <Typography variant="body1">
+                    <span>Minimum required months are 11. Please select up to 4-5 preferred modules.</span>
+                    <span style={{textAlign: 'right'}}>10</span>
                 </Typography>
-                <Typography variant="body2" style={{marginLeft: 300}}>
+                <br/>
+                <Typography variant="body1" style={{marginLeft: 200}}>
                     Months Left
                 </Typography>
-                <Typography variant="title" style={{marginLeft: 50}}>
+                <Typography variant="body1" style={{marginLeft: 50}}>
                     {this.state.value}
                 </Typography>
             </div>
-            <div>
-                {allElectMod.map(item =>(
-                    <List>
-                        <ListItem key={item.name} role={undefined} dense button onClick={this.handleChange(item)}>
-                        <FormControl>
-                        <FormLabel>
-                        <FormGroup>
-                            <FormControlLabel control={
-                                <Checkbox 
-                                checked={this.state.checked.indexOf(item.name) !== -1}
-                                tabIndex={-1}
-                                disableRipple/>
-                            }
-                            />
+            <div style={{textAlign: 'left', paddingTop: '20px'}}>
+                <FormControl>
+                    <FormLabel>
+                        <FormGroup column>
+                            {allElectMod.map(item =>(
+                                <FormControlLabel control=
+                                    {
+                                        <Checkbox 
+                                            checked={this.state.checked.indexOf(item.name) !== -1}
+                                            tabIndex={-1}
+                                        />
+                                    }
+                                    onChange={this.handleChange(item)}
+                                    label={
+                                        <span>
+                                            {item.label+" "+"("+item.weight+")"}
+                                        </span>
+                                    }
+                                />
+                            ))}
                         </FormGroup>
-                        </FormLabel>
-                        </FormControl>
-                        <ListItemText primary={item.label+" "+"("+item.weight+")"} />
-                        </ListItem>
-                    </List>
-                ))}
+                    </FormLabel>
+                </FormControl>
             </div>
             <div>
-                <Button disabled={this.state.value > 1} variant='outlined' color='secondary' className={classes.button}>
+                <Button disabled={this.state.value > 1}>
                     Submit Choices
                 </Button>
             </div> 
@@ -126,6 +122,6 @@ class ShowModOpt extends React.Component {
 
 ShowModOpt.propTypes = {
     classes: PropTypes.object.isRequired,
-    };
+};
 
 export default withStyles(styles)(ShowModOpt);

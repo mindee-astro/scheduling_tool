@@ -1,3 +1,8 @@
+// Author: Brianna Chang
+// Reviewer: Ahmad Akmaluddin
+// Notes: Moved variable to be handle by state and sagas, to be added to apis i believe 
+
+
 import React, {Component} from 'react';
 import Card from '@material-ui/core/Card';
 import CardContent from '@material-ui/core/CardContent';
@@ -18,11 +23,12 @@ import HelpIcon from '@material-ui/icons/Help';
 import IconButton from '@material-ui/core/IconButton';
 
 //show selected module page 
-import ShowSelectedMod from './showSelectedMod'; 
+import ShowSelectedMod from './components/showSelectedMod'; 
 
 // show module selection page 
-import ShowModOpt from './showModOptions'; 
+import ShowModOpt from './components/showModOptions'; 
 
+import Tooltip from '../../../components/Tooltip';
 
 const styles = theme => ({
 	card: {
@@ -36,27 +42,17 @@ const styles = theme => ({
 	  },
 
 	arrangedCard: {
-		marginTop: 10,
+		justifyContent: 'space-around',
 		display:'flex', 
-		flexWrap: ' wrap', 
+		flexWrap: 'nowrap',
 	},
-	button: {
-		position: 'relative',
-		marginTop: 30,
-		marginLeft: 950,
-		bottom: 10,
-	},
+
 	popover: {
 		pointerEvents: 'none',
-	  },
+	},
   });
 
-//list core modules 
 var coreMod = ['Product Engineering', 'Product Management', 'Project Management', 'Software Engineering'];
-
-//list elective modules 
-//for this one, we will call api and get the list
-//const electMod = ['Innovation', 'Architecture', 'Analytics', 'Broadcast', ' IT Security']
 
 var electMod = []
 
@@ -66,85 +62,49 @@ class ElectiveCard extends React.Component{
 	constructor(props) {
 		super(props);
 	};
-	
-	state = {
-		anchorEl: null,
-		value: '12',
-	};
-
-	// popover
-	handlePopoverOpen = event => {
-		this.setState({ anchorEl: event.currentTarget });
-	};
-	
-	handlePopoverClose = () => {
-	this.setState({ anchorEl: null });
-	};
-
-
 
 	render() {
 		const {classes} = this.props
-		const { anchorEl } = this.state;
-		const open = Boolean(anchorEl);
 		const emptyModList = !electMod.length;
 
 		return(
-			//core modules listing 
 				<div>
-					<div className={classes.arrangedCard}>
-						<Typography component="h2" style={{marginTop:15}}>
-								Core Modules
-						</Typography>
-						<Typography
-							aria-owns={open ? 'mouse-over-popover' : undefined}
-							aria-haspopup="true"
-							onMouseEnter={this.handlePopoverOpen}
-							onMouseLeave={this.handlePopoverClose}
-							>
-							<IconButton>
-								<HelpIcon />
-							</IconButton>
-							</Typography>
-							<Popover
-							id="mouse-over-popover"
-							className={classes.popover}
-							open={open}
-							anchorEl={anchorEl}
-							anchorOrigin={{
-								vertical: 'bottom',
-								horizontal: 'left',
-							}}
-							transformOrigin={{
-								vertical: 'top',
-								horizontal: 'left',
-							}}
-							onClose={this.handlePopoverClose}
-							disableRestoreFocus
-							>
-							<Typography>The number after the rotation name indicates the number of months you will spend in the rotations</Typography>
-							</Popover>
-					</div>
-					<div>
-						<div className={classes.arrangedCard}>
-							{coreMod.map(mod => {
-								return(
-									<Card className={classes.card}>
-											<CardContent>
-												<Typography>
-													{mod} (3)
-												</Typography>
-											</CardContent>
-									</Card>); 
-							})}
-						</div>
-					</div>
-					<div>
-						{ emptyModList
-							? <ShowModOpt/>
-							: <ShowSelectedMod electmod= {electMod}/> 
-						}
-					</div>
+					<Card style={{padding: '10px'}}>
+						<CardContent style={{textAlign: 'center'}}>
+							<div>
+								<Typography variant="body2" style={{marginTop:15}}>
+										<span>
+											Core Modules
+											<Tooltip
+												iconType="help"
+												color="primary"
+												message="The number after the rotation name indicates the number of months you will spend in the rotations"
+											/>
+										</span>
+								</Typography>
+							</div>
+							<div>
+								<div className={classes.arrangedCard}>
+									{coreMod.map(mod => {
+										return(
+											<Card className={classes.card} key={mod}>
+													<CardContent>
+														<Typography variant="body1">
+															{mod} (3)
+														</Typography>
+													</CardContent>
+											</Card>); 
+									})}
+								</div>
+							</div>
+							<div>
+								{ emptyModList
+									? <ShowModOpt/>
+									: <ShowSelectedMod electmod={electMod}/> 
+								}
+							</div>
+						</CardContent>
+					</Card>
 				</div>
 		)
 	}
@@ -155,22 +115,3 @@ ElectiveCard.propTypes = {
 	};
 
 export default withStyles(styles)(ElectiveCard);
-
-
-// elective selection
-//class SelectModule extends ElectiveCard {
-//	constructor(props) {
-//		super(props);
-//	};
-
-//	render() {
-///		const {classes} = this.props
-//	}
-		
-
-//SelectModule.propTypes = {
-//	classes: PropTypes.object.isRequired,
-//	};
-
-
-//export default withStyles(styles)(ElectiveCard);

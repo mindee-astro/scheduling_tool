@@ -1,8 +1,9 @@
 export const colorPalette = {
 	primary: '#205493',
-	secondary: '#28055C',
+	secondary: '#E8513B',
 	error: '#FF1C3C',
 	info: '#25381D',
+	action: '#5559FF',
 	sideBar: '#112E51',
 	cardBG: '#D6D7D9',
 	appBG: '#323A45',

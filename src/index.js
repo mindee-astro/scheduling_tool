@@ -21,16 +21,14 @@ const theme = createMuiTheme(
 	    	error: {
 	    		main: colorPalette.error,
 	    	},
-	    	info: {
-	    		main: colorPalette.info,
-	    	},
 		    background: {
 		      default: colorPalette.appBG,
-		    }
+		    },
 	  	},
 	  	typography: {
 		  	fontFamily: fontFamily,
 		    fontSize: size.standardFont,
+		    color: 'black',
 		    caption: {
 		    	fontSize: size.smallFont,
 		    	color: 'black',
@@ -45,7 +43,16 @@ const theme = createMuiTheme(
 		    headline: {
 		    	fontSize: size.standardFont,
 		    	color: 'white',
-		    }
+		    },
+		    body1: {
+		    	fontSize: size.standardFont,
+		    	color: 'black',
+		    },
+		    body2: {
+		    	fontSize: size.standardFont,
+		    	color: 'black',
+		    	fontWeight: 'bold',
+		    },
 
 		},
 		overrides: {
@@ -73,7 +80,7 @@ const theme = createMuiTheme(
 			        color: 'black',
 			        backgroundColor: colorPalette.cardBG,
 			        padding: '10px',
-			        boxShadow: '0 3px 5px 2px rgba(100, 100, 100, .3)',
+			        boxShadow: '0',
 			        fontFamily: fontFamily,
 		      	},
 		    },
@@ -118,7 +125,7 @@ const theme = createMuiTheme(
 		    MuiTable: {
 		    	root: {
 		    	}
-		    }
+		    },
 	  	},
 	}
 );

@@ -6,8 +6,6 @@ import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
-import {
-} from '../../../actions/index';
 import Typography from '@material-ui/core/Typography';
 import allElectMod from './allElectiveModules';
 
@@ -63,7 +61,7 @@ class ShowSelectedMod extends React.Component{
         return(
                 <div>
                     <div>
-                        <Typography component="h2" style={{marginTop:50}}>
+                        <Typography component="body1" style={{marginTop:50}}>
                             Elective Modules
                         </Typography>
                     </div>
@@ -73,7 +71,7 @@ class ShowSelectedMod extends React.Component{
                                     <Card className={classes.card}>
                                         <div>
                                             <CardContent className={classes.controls}>
-                                                <Typography>
+                                                <Typography variant="body2">
                                                     {mod.name} ({mod.weight})
                                                 </Typography>
                                             </CardContent>
@@ -82,7 +80,7 @@ class ShowSelectedMod extends React.Component{
                             })}
                     </div>
                     <div>
-                        <Button variant='outlined' color='secondary' className={classes.button}>
+                        <Button>
                             Edit Choices
                         </Button>
                     </div> 
