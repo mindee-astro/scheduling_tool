@@ -54,8 +54,13 @@ const styles = theme => ({
 
 var coreMod = ['Product Engineering', 'Product Management', 'Project Management', 'Software Engineering'];
 
+<<<<<<< Updated upstream
+=======
+//list elective modules 
+//for this one, we will call api and get the list
+//const electMod = ['Innovation', 'Architecture', 'Analytics', 'Broadcast', ' IT Security']
+>>>>>>> Stashed changes
 var electMod = []
-
 
 // viewing elective choices 
 class ElectiveCard extends React.Component{
