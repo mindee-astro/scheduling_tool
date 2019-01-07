@@ -9,7 +9,8 @@ import Save from "@material-ui/icons/Save";
 import Cancel from "@material-ui/icons/Cancel";
 import { connect } from "react-redux";
 import Edit from "@material-ui/icons/Edit";
-import Delete from "@material-ui/icons/Delete";
+import Delete from "@material-ui/icons/Delete"
+
 
 // Import update rotation api
 import { updateRotation } from "../actions/index";
