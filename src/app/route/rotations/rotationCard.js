@@ -4,8 +4,8 @@ import { withStyles } from "@material-ui/core/styles";
 import Button from "@material-ui/core/Button";
 import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import NewDepartment from "../../../components/NewDepartment";
-import Department from "../../../components/Department";
+import NewDepartment from "../rotations/components/NewDepartment";
+import Department from "../rotations/components/Department";
 
 import MuiDialogTitle from '@material-ui/core/DialogTitle';
 import Dialog from "@material-ui/core/Dialog";

@@ -13,7 +13,7 @@ import Delete from "@material-ui/icons/Delete"
 
 
 // Import update rotation api
-import { updateRotation } from "../actions/index";
+import { updateRotation } from "../../../../actions/index";
 
 const styles = theme => ({
   input: {

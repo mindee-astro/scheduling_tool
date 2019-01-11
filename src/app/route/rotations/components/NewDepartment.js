@@ -11,7 +11,7 @@ import Cancel from "@material-ui/icons/Cancel";
 import { connect } from "react-redux";
 
 // Import Add rotation api
-import { addRotation } from "../actions/index";
+import { addRotation } from "../../../../actions/index"
 
 const styles = theme => ({
   input: {
