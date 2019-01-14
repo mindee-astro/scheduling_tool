@@ -2,6 +2,8 @@ import {
 	TOGGLE_SIDEBAR,
 	SET_NAV_TITLE,
 	SET_NOTIFICATION_SNACKBAR,
+	SET_DIALOG,
+	SET_DIALOG_ACTION_BUTTON_FLAG,
 } from '../constants/Actions';
 
 const INIT_STATE = {
@@ -13,7 +15,13 @@ const INIT_STATE = {
 	notificationSnackbar: {
 		isOpen: false,
 		message: {}
-	}
+	},
+	PopupIsOpen: false,
+	PopupmessageText: "",
+	PopupbuttonText: "",
+	PopupTitle: "",
+	additionalButtonFlag: false,
+	PopupcloseButtonText: "dismiss",
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -36,6 +44,29 @@ export default (state=INIT_STATE, action)=>{
 			return{
 				...state,
 				notificationSnackbar: action.payload
+			}
+		}
+
+		case SET_DIALOG: {
+			return{
+				...state,
+				PopupIsOpen: action.payload.isOpen,
+				PopupmessageText: action.payload.messageText,
+				PopupTitle: action.payload.title,
+				PopupcloseButtonText: action.payload.closeButtonText,
+				PopupbuttonText: action.payload.additionalButtonText,
+			}
+		}
+
+		case SET_DIALOG_ACTION_BUTTON_FLAG: {
+			return{
+				...state,
+				additionalButtonFlag: action.payload,
+				PopupIsOpen: false,
+				PopupmessageText: "Null",
+				PopupTitle: "Null",
+				PopupcloseButtonText: "Null",
+				PopupbuttonText: "Null",
 			}
 		}
 
