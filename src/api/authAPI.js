@@ -2,7 +2,9 @@ import axios from 'axios';
 
 import { baseUrl } from '../environment';
 
-var instance = axios.create({
+import ResponseSnackbar from '../components/ResponseSnackbar';
+
+const instance = axios.create({
 
     validateStatus: function (status) {
         return status == 200;
@@ -10,7 +12,7 @@ var instance = axios.create({
 });
 
 export const createNewUser = async (data) => {
-	return (axios({
+	return (instance({
 		method: 'POST',
 		url: baseUrl+"user",
 		data: data,
@@ -18,17 +20,16 @@ export const createNewUser = async (data) => {
 }
 
 export const getAllUsers = async () => {
-	return (axios({
+	return (instance({
 		method: 'GET',
 		url: baseUrl+"user"
 	}))
 }
 
 export const updateUser = async (userid, data) => {
-	return (axios({
+	return (instance({
 		method: 'PUT',
 		url: baseUrl+"user/"+userid,
-		//headers: { "Access-Control-Allow-Origin": "*", },
 		data: data
 	}))
 }
