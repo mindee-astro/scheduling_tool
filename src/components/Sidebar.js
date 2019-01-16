@@ -35,7 +35,7 @@ const styles = {
   	textDecoration: 'none'
   },
   listitems: {
-  	color: 'white'
+  	color: 'black'
   }
 };
 
@@ -79,6 +79,9 @@ class Sidebar extends Component {
 		}
 		else if (Title=='API') {
 			this.props.history.push('/api')
+		}
+		else if (Title=='Change Password'){
+			this.props.history.push('/changepassword')
 		}
 		else {
 			this.props.history.push('/schedule')
@@ -164,6 +167,9 @@ class Sidebar extends Component {
 						        			{allowedLinks}
 						        			<ListItem button onClick={this.handleClick("API")}>
 						        				<ListItemText primary="APIs"/>
+						        			</ListItem>
+						        			<ListItem button onClick={this.handleClick("Change Password")}>
+						        				<ListItemText primary="Change Password"/>
 						        			</ListItem>
 						        		</List>
 						        	</div>	

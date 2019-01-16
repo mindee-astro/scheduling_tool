@@ -4,6 +4,7 @@ import {
 	SET_NOTIFICATION_SNACKBAR,
 	SET_DIALOG,
 	SET_DIALOG_ACTION_BUTTON_FLAG,
+	SET_RESPONSE_SNACKBAR,	
 } from '../constants/Actions';
 
 const INIT_STATE = {
@@ -22,6 +23,11 @@ const INIT_STATE = {
 	PopupTitle: "",
 	additionalButtonFlag: false,
 	PopupcloseButtonText: "dismiss",
+	responseSnackbar: {
+		isOpen: false,
+		message: {},
+		type: {},
+	}
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -47,6 +53,7 @@ export default (state=INIT_STATE, action)=>{
 			}
 		}
 
+
 		case SET_DIALOG: {
 			return{
 				...state,
@@ -67,6 +74,11 @@ export default (state=INIT_STATE, action)=>{
 				PopupTitle: "Null",
 				PopupcloseButtonText: "Null",
 				PopupbuttonText: "Null",
+
+		case SET_RESPONSE_SNACKBAR: {
+			return{
+				...state,
+				responseSnackbar: action.payload
 			}
 		}
 

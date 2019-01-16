@@ -7,6 +7,7 @@ import configurationCard from './route/configuration/configuration';
 import protegeCard from './route/protege/protegeCard';
 import rotationCard from './route/rotations/rotationCard';
 import apiCard from './route/api/api';
+import ChangePassword from './route/changePassword/ChangePassword/ChangePassword';
 
 class AppContainer extends Component {
 
@@ -25,6 +26,7 @@ class AppContainer extends Component {
 				<Route path={`${match.url}protege`} component={protegeCard}/>
 				<Route path={`${match.url}rotation`} component={rotationCard}/>
 				<Route path={`${match.url}api`} component={apiCard}/>
+				<Route path={`${match.url}changepassword`} component={ChangePassword}/>
 	        </div>
 		)
 	}

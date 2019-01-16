@@ -4,6 +4,7 @@ import {
 	SET_NOTIFICATION_SNACKBAR,
 	SET_DIALOG,
 	SET_DIALOG_ACTION_BUTTON_FLAG,
+	SET_RESPONSE_SNACKBAR,
 } from '../constants/Actions';
 
 export const toggleSideBar = (boolean) => {
@@ -27,6 +28,7 @@ export const setNotificationSnackbar = (obj) => {
 	}
 }
 
+
 export const setPopup = (obj) => {
 	return{
 		type: SET_DIALOG,
@@ -40,3 +42,11 @@ export const setDialogActionButton = (boolean) => {
 		payload: boolean
 	}
 }
+
+export const setResponseSnackbar = (obj) => {
+	return{
+		type: SET_RESPONSE_SNACKBAR,
+		payload: obj
+	}
+}
+

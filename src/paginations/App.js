@@ -5,6 +5,7 @@ import {NavLink, withRouter} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Sidebar from '../components/Sidebar';
 import Popup from '../components/Popup';
+import ResponseSnackbar from '../components/ResponseSnackbar';
 import NotificationSnackbar from '../components/NotificationSnackbar';
 import {
   toggleSideBar,
@@ -32,6 +33,7 @@ class App extends Component {
     return (
       <div>
         <NotificationSnackbar/>
+        <ResponseSnackbar/>
         <Navbar toggleSideBar={this.toggleSideBar}/>
         <Sidebar/>
         <Popup/>
