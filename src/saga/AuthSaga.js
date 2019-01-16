@@ -2,7 +2,7 @@ import {all, call, fork, put, takeEvery, flush} from 'redux-saga/effects';
 
 import { LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER } from '../constants/Actions';
 
-import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar } from '../actions/index';
+import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup } from '../actions/index';
 
 import { loginUser, getAllUsers, updateUser, createNewUser, logoutUser } from '../api/apicalls'
 
@@ -47,6 +47,12 @@ function* logOutUserAsync(){
 	try { 
 		const response = yield call(sendLogOutUser)
 		yield put(loginUserSuccess(false))
+		yield put(setPopup({
+			isOpen: true,
+			title: "Logged Out",
+			closeButtonText: "Dismiss",
+			messageText: "You are currently logged out, please log in again to access the page"
+		}))
 		yield put(setResponseSnackbar({
 			isOpen: true,
 			message: "Logged Out",

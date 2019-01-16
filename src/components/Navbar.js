@@ -11,10 +11,10 @@ import AccountCircle from '@material-ui/icons/AccountCircle';
 import {connect} from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
+import ListItem from '@material-ui/core/ListItem';
 import {withRouter} from 'react-router-dom';
 import AdminToggle from './ToggleAdmin';
-
-import {getProfileData, getProfileDataSuccess} from '../actions/index';
+import {getProfileData, getProfileDataSuccess, logOutUser} from '../actions/index';
 
 const styles = {
   root: {
@@ -62,9 +62,17 @@ class Navbar extends Component {
     this.setState({ anchorEl: null });
   };
 
-  handleNavigate = (options) => {
+  handleNavigate = (options) =>()=> {
     if (options=='Profile') {
       this.props.history.push('/profile')
+      this.setState({ anchorEl: null })
+    }
+    else if (options=='Change Password') {
+      this.props.history.push('/changepassword')
+      this.setState({ anchorEl: null })
+    }
+    else if (options=='Logout') {
+      this.props.logOutUser()
       this.setState({ anchorEl: null })
     }
   }
@@ -116,8 +124,8 @@ class Navbar extends Component {
                     },
                   }}
                 >
-                  <MenuItem onClick={this.handleClose}>Change Password</MenuItem>
-                  <MenuItem onClick={this.handleClose}>Logout</MenuItem>
+                  <MenuItem onClick={this.handleNavigate("Change Password")}>Change Password</MenuItem>
+                  <MenuItem onClick={this.handleNavigate("Logout")}>Logout</MenuItem>
                   <MenuItem onClick={this.handleClose}>
                     <AdminToggle/>
                   </MenuItem>
@@ -149,4 +157,4 @@ const mapStateToProps = ({page, auth}) => {
   return {displayname, theme, navTitle}
 };
 
-export default withRouter(connect(mapStateToProps, {getProfileData, getProfileDataSuccess})(withStyles(styles)(Navbar)));
+export default withRouter(connect(mapStateToProps, {getProfileData, getProfileDataSuccess, logOutUser})(withStyles(styles)(Navbar)));
