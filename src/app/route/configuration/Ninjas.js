@@ -27,27 +27,41 @@ class Ninjas extends Component{
 
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.handleDeleteclick = this.handleDeleteclick.bind(this);
 
         this.state = {
             anchorEl: null,
             open: false,
+            isPencil: false,
+            isHidden: false,
         }
         
     }
 
-
-
-	handleDeleteclick = (ninja) => {
-		
-		if (ninja.status === "active") {
-			ninja.status = "inactive"
-			console.log('ninja ', ninja.id, ' is dirty')
-		} else if (ninja.status === "inactive") {
-			ninja.status = "active"
-			console.log('ninja ', ninja.id, ' is clean')
-        }
+	handleDeleteclick = (samurai) => {
         
-        this.setState({ninja:ninja});
+        // set up mock
+        var newNinja = Object.assign({}, samurai);
+        //console.log("new mock ninja is ", newNinja)
+
+        console.log('samurai is ', samurai)
+        // console.log(Object.values(newUpdate).toString())
+
+        console.log('before newNinja is ', newNinja)
+
+        this.props.DeleteAProtege(newNinja);
+        //console.log(this.props.AddAProtege(this.state));
+
+		// if (ninja.status === "active") {
+		// 	ninja.status = "inactive"
+		// 	console.log('ninja ', ninja.id, ' is dirty')
+		// } else if (ninja.status === "inactive") {
+		// 	ninja.status = "active"
+		// 	console.log('ninja ', ninja.id, ' is clean')
+        // }
+        
+        // this.setState({ninja:ninja});
+        // console.log('In DeleteClick, ninja is ', ninja);
 
         // console.log(ninja) -- 
         // {id: 1, displayName: "Chris", username: "LWYWEIYE", mentor: "Joel Wong", memail: "joel_wong@astro.com.my", …}
@@ -102,20 +116,28 @@ class Ninjas extends Component{
         // Patch update bro!
         //console.log(Object.keys(newUpdate)); -- displayName
         //console.log(Object.values(newUpdate)); -- newChris
-        console.log(Object.values(newUpdate).toString())
+
+        console.log('samurai is ', samurai)
+        // console.log(Object.values(newUpdate).toString())
+
+        console.log('before newNinja is ', newNinja)
         newNinja[Object.keys(newUpdate)] = Object.values(newUpdate).toString();
+        console.log('after newNinja is ', newNinja)
 
         //console.log("New Ninja is ", newNinja)
         //console.log("Old Ninja is ", newUpdate);
         this.props.EditAProtege(newNinja);
         //console.log(this.props.AddAProtege(this.state));
 
+        var newNinja = {};
+        var newUpdate = {};
+
         this.toggleHidden();
         this.togglePencil();
     
     }
 
-    onClick = () => {
+    toggleClick = () => {
 
         this.toggleHidden();
         this.togglePencil();
@@ -157,7 +179,7 @@ class Ninjas extends Component{
                             {/* Edit OFF */}
                             { !this.state.isPencil && 
                                 <div>
-                                    <Typography variant='title' component='h1' align='left'> { ninja.id }. { ninja.displayName } ({ninja.username}) </Typography> 
+                                    <Typography variant='body1' component='h1' align='left'> { ninja.id }. { ninja.displayName } ({ninja.username}) </Typography> 
                                     <Typography variant='body2' align='left' paragraph> { ninja.status } </Typography>
                                 </div>
                             }
@@ -188,7 +210,7 @@ class Ninjas extends Component{
 
                             {!this.state.isHidden && 
                                 <div> 
-                                    <Button variant="fab" color="disabled" className={classes.button} onClick={this.onClick.bind(this, ninja)}> 
+                                    <Button variant="fab" color="disabled" className={classes.button} onClick={this.toggleClick.bind(this, ninja)}> 
                                         <EditIcon fontSize="medium" /> 
                                     </Button>
 
@@ -205,7 +227,7 @@ class Ninjas extends Component{
                                     </Button>
 
                                     {/* onClick={() => this.onClick(ninja)} --> works too */}
-                                    <Button variant="fab" color="disabled" className={classes.button} onClick={this.onClick.bind(this, ninja)}>  
+                                    <Button variant="fab" color="disabled" className={classes.button} onClick={this.toggleClick.bind(this, ninja)}>  
                                         <CancelIcon fontSize="medium" /> 
                                     </Button>
                                 </div>
@@ -215,32 +237,34 @@ class Ninjas extends Component{
 
                         {/* Username, JoinDate and EndDate here */}
                         <Grid item xs={12} sm={2} align='left'>
-                            <Typography variant='title'> Join Date: </Typography>
+                            <Typography variant='body1'> Join Date: </Typography>
                             <Typography variant='body2' paragraph> { ninja.joinDate } </Typography>
 
-                            <Typography variant='title'> End Date: </Typography>
+                            <Typography variant='body1'> End Date: </Typography>
                             <Typography variant='body2' paragraph> { ninja.endDate } </Typography>
                         </Grid>
 
 
                         {/* Mentor and Mentor's Email here */}
                         <Grid item xs={12} sm={8} align='center'>
-                            <Typography variant='title'> Mentor: </Typography>
+                            <Typography variant='body1'> Mentor: </Typography>
                             <Typography variant='body2' paragraph> { ninja.mentor } </Typography>
 
-                            <Typography variant='title'> Mentor's Email: </Typography>
+                            <Typography variant='body1'> Mentor's Email: </Typography>
                             <Typography variant='body2' paragraph> { ninja.memail } </Typography>
                         </Grid>
 
 
                         {/* Preferences Choices here */}
                         <Grid item xs={12} sm={2} align='left'>
-                            <Typography variant='title'> Electives: </Typography>
+                            <Typography variant='body1'> Electives: </Typography>
                             <Typography variant='body2'> • { ninja.electives[0] } </Typography>
                             <Typography variant='body2'> • { ninja.electives[1] } </Typography>
                             <Typography variant='body2'> • { ninja.electives[2] } </Typography>
                             <Typography variant='body2'> • { ninja.electives[3] } </Typography>
                         </Grid>
+
+                            
 
                     </Grid> </Card> </Paper> <br /> </div>
 
