@@ -13,7 +13,6 @@ import {
 	setResponseSnackbar
 } from '../actions/index';
 import { responseSnackbar } from '../themeconfig';
-import { SnackbarProvider, withSnackbar } from 'notistack';
 
 const styles = theme => ({
   success: responseSnackbar.success,

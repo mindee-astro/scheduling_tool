@@ -17,8 +17,8 @@ export const size = {
 	standardFont: 14,
 	smallFont: 12,
 	largeFont: 20,
-	borderRadius: 12,
-	buttonRadius: 19,
+	borderRadius: 3,
+	buttonRadius: 5,
 }
 
 export const fontFamily = [

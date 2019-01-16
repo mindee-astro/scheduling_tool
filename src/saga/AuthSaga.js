@@ -103,7 +103,7 @@ function* getAllUsersAsync() {
 		yield put(getAllUserSuccess(response.data))
 		yield put(setResponseSnackbar({
 			isOpen: true,
-			message: "Obtained Users",
+			message: "Fetched Users",
 			type: "success"
 		}))
 	} catch (error) {

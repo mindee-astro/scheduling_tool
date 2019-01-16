@@ -73,7 +73,7 @@ const theme = createMuiTheme(
 			        color: 'black',
 			        backgroundColor: colorPalette.cardBG,
 			        padding: '10px',
-			        boxShadow: '0 3px 5px 2px rgba(100, 100, 100, .3)',
+			        boxShadow: '0',
 			        fontFamily: fontFamily,
 		      	},
 		    },
