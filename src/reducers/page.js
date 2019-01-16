@@ -74,6 +74,8 @@ export default (state=INIT_STATE, action)=>{
 				PopupTitle: "Null",
 				PopupcloseButtonText: "Null",
 				PopupbuttonText: "Null",
+			}
+		}
 
 		case SET_RESPONSE_SNACKBAR: {
 			return{
