@@ -2,6 +2,8 @@
 export const TOGGLE_SIDEBAR = 'toggle_sidebar';
 export const SET_NAV_TITLE = 'set_nav_title';
 export const SET_NOTIFICATION_SNACKBAR = 'set_notification_snackbar';
+export const SET_DIALOG = 'set_dialog';
+export const SET_DIALOG_ACTION_BUTTON_FLAG = 'set_dialog_action_button_flag';
 export const SET_RESPONSE_SNACKBAR = 'set_response_snackbar';
 
 //Auth Actions

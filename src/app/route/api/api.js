@@ -18,7 +18,8 @@ import {
 	getAllRotations,
 	addRotation,
 	updateRotation,
-	removeRotation
+	removeRotation,
+	setPopup,
 } from '../../../actions/index';
 
 const styles = {
@@ -64,6 +65,28 @@ class apiCard extends Component {
 			  }
 			]
 		}
+	}
+
+	testUpdate(){
+		this.setState({
+			...this.state,
+			test: true
+		})
+	}
+
+	componentDidMount(){
+		this.props.setPopup({
+			isOpen: true,
+			title: "Test Popup",
+			closeButtonText: "Optional",
+			messageText: "Test"
+		})
+	}
+
+	componentWillUnmount(){
+		this.props.setPopup({
+			isOpen: false,
+		})
 	}
 
 	componentDidUpdate(prevProps, prevState){
@@ -177,12 +200,16 @@ class apiCard extends Component {
 	}
 
 	render(){
+		const test = (this.props.additionalButtonFlag) ?
+		<div> {alert("Additional Button!")} </div> : <div/>
+
 	return(
 			<div>
 				<Card>
 					<CardContent style={{textAlign: 'center'}}>
 						List of API
 					</CardContent>
+					{test}
 				</Card>
 			
 				<div style={{paddingTop: '10px'}}>
@@ -310,11 +337,12 @@ class apiCard extends Component {
 	}
 }
 
-const mapStateToProps = ({schedule, auth, rotation}) => {
+const mapStateToProps = ({schedule, auth, rotation, page}) => {
 	const {allSchedule, userSchedule} = schedule;
 	const {isLoggedIn, listUser} = auth;
 	const {rotations} = rotation;
-    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations};
+	const {additionalButtonFlag} = page;
+    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations, additionalButtonFlag};
 };
 
-export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation})(withStyles(styles)(apiCard));
+export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation, setPopup})(withStyles(styles)(apiCard));

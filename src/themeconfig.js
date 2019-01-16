@@ -17,6 +17,7 @@ export const size = {
 	standardFont: 14,
 	smallFont: 12,
 	largeFont: 20,
+	mediumFont: 18,
 	borderRadius: 3,
 	buttonRadius: 5,
 }

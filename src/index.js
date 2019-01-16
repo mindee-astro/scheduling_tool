@@ -118,6 +118,20 @@ const theme = createMuiTheme(
 		    MuiTable: {
 		    	root: {
 		    	}
+		    },
+		    MuiDialogTitle: {
+		    	root: {
+		      		fontFamily: fontFamily,
+		      		fontSize: size.mediumFont,
+			        color: 'black',
+			    }
+		    },
+		    MuiDialogContentText: {
+		    	root: {
+		      		fontFamily: fontFamily,
+		      		fontSize: size.standardFont,
+			        color: 'black',
+			    }
 		    }
 	  	},
 	}
