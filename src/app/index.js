@@ -16,7 +16,7 @@ class AppContainer extends Component {
 
 		return(
 			<div>
-				<Route exact path={`${match.url}`} render={() => (
+				<Route exact path='/login' exact={true} render={() => (
 			    	<Redirect to={`${match.url}schedule`}/>
 				)}/>
 				<Route path={`${match.url}schedule`} component={timetableCard}/>

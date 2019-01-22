@@ -39,10 +39,6 @@ const styles = {
   }
 };
 
-function test(password) {
-	console.log(password.length)
-}
-
 class Sidebar extends Component {
 
 	constructor(props){
@@ -92,7 +88,6 @@ class Sidebar extends Component {
 		const allowedLinks = (
 			(this.props.accesslevel==="Admin") ? (
 				<div>
-					{test("123")}
 	    			<ListItem button onClick={this.handleClick("Proteges")}>
 	    				<ListItemIcon>
 				        	<People />
