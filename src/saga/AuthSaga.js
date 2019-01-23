@@ -45,7 +45,7 @@ const fetchLoginUser = async (username, password) =>
 
 function* logOutUserAsync(){
 	try { 
-		const response = yield call(sendLogOutUser)
+		//const response = yield call(sendLogOutUser)
 		yield put(loginUserSuccess(false))
 		yield put(setPopup({
 			isOpen: true,
@@ -124,7 +124,7 @@ function* getAllUsersAsync() {
 function* loginUserAsync({payload}) {
 	const {username, password} = payload
 	try { 
-		const response = yield call(fetchLoginUser, username, password)
+		//const response = yield call(fetchLoginUser, username, password)
 		yield put(loginUserSuccess(true))
 		yield put(setResponseSnackbar({
 			isOpen: true,

@@ -18,12 +18,12 @@ import PersonOutlineRounded from '@material-ui/icons/PersonOutlineRounded';
 
 const styles = theme => ({
 	card: {
-		width: '400px',
 		height: 'auto',
-		width: '450px',
+		minWidth: '300px',
+		maxWidth: '40vw',
 		textAlign:'center',
 		margin: 'auto',
-		marginTop: '150px',
+		marginTop: '20vh',
 	},
 	avatar: {
 		textAlign: 'center',
@@ -69,6 +69,7 @@ class Login extends Component{
 						</Avatar>
 						<div style={{paddingTop: '40px'}}/>
 						<TextField
+							required
 					        id="username"
 					        name="username"
 					        label="User Name"
@@ -78,6 +79,7 @@ class Login extends Component{
 					        fullWidth
 				        />
 				        <TextField
+				        	required
 					        id="password"
 					        label="Password"
 					        margin="normal"

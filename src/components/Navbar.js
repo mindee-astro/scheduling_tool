@@ -129,13 +129,6 @@ class Navbar extends Component {
                   <MenuItem onClick={this.handleClose}>
                     <AdminToggle/>
                   </MenuItem>
-                  <MenuItem onClick={this.handleClose}>
-                    <Button 
-                      onClick={this.handleTest}
-                    >
-                      Test API Call
-                    </Button>
-                  </MenuItem>
                 </Menu>
               </Typography>
               
