@@ -26,6 +26,13 @@ import DeleteIcon from '@material-ui/icons/AcUnit';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
 
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+
 
 const styles = theme => ({
 
@@ -84,6 +91,7 @@ class PhuahHim extends Component{
         this.state = {
             expanded: false,
             isPencil: false,
+            deleteDialog: false,
         }
         
     }
@@ -100,9 +108,7 @@ class PhuahHim extends Component{
         // console.log('before newNinja is ', newNinja)
         this.props.passhandleDelete(newNinja);
 
-        // console.log(this.state)
-
-	}
+    }
 
     handleChange = (event) => {
 
@@ -113,23 +119,15 @@ class PhuahHim extends Component{
             [event.target.id] : event.target.value
         });
 
-
-        // console.log(event.target.value)
-        //console.log(event.target.value); //this.state = (event.target.value); -- found in this.state.displayName, this.state.username, etc.
+        
 
     }
 
     handleSubmit = (samurai) => {
-        
-        // Create a copy of existing ninja!
-        //console.log("THIS ROCKS ", samurai);
 
         // set up mock
         var newNinja = Object.assign({}, samurai);
         // console.log("new mock ninja is ", newNinja)
-
-        // Collect the changes from state!
-        // console.log("state is ", this.state)
 
         var newUpdate = Object.assign({}, this.state);
         // console.log("prior update is ", newUpdate)
@@ -137,30 +135,12 @@ class PhuahHim extends Component{
         // Remove stateful (useless) state data
         delete newUpdate.expanded;
         delete newUpdate.isPencil;
-
-        // console.log("new update is ", newUpdate)
-        // Patch update bro!
-
-        // -- displayName
-        // console.log(Object.keys(newUpdate)); 
-        // -- newChris
-        // console.log(Object.values(newUpdate)); 
-
-        // console.log('samurai is ', samurai)
-        // console.log(Object.values(newUpdate).toString())
+        delete newUpdate.deleteDialog;
 
         // console.log('before newNinja is ', newNinja)
         newNinja[Object.keys(newUpdate)] = Object.values(newUpdate).toString();
-        // console.log('after newNinja is ', newNinja)
 
-        // console.log("New Ninja is ", newNinja)
-        // console.log("Old Ninja is ", newUpdate);
         this.props.passhandleSubmit(newNinja);
-        //console.log(this.props.AddAProtege(this.state));
-
-        // var newNinja = {};
-        // var newUpdate = {};
-
         this.togglePencil();
     
     }
@@ -172,6 +152,26 @@ class PhuahHim extends Component{
 		})
     
     }
+
+    openDeleteDialog = () => {
+        
+        this.setState({ deleteDialog: true });
+    
+    };
+    
+    submitDeleteDialog = (samurai) => {
+
+        this.handleDelete(samurai);
+        this.closeDeleteDialog();
+        // console.log(this.state);
+    
+    }
+
+    closeDeleteDialog = () => {
+        
+        this.setState({ deleteDialog: false });
+    
+    };
 
     render() {
 
@@ -199,7 +199,8 @@ class PhuahHim extends Component{
                                         </IconButton>
 
                                         <IconButton>
-                                            <DeleteIcon className={classes.button} onClick={this.handleDelete.bind(this, ninja)} />
+                                            <DeleteIcon className={classes.button} onClick={this.openDeleteDialog.bind(this, ninja)} />
+                                            {/* <DeleteIcon className={classes.button} onClick={this.handleDelete.bind(this, ninja)} /> */}
                                         </IconButton>
                                     </div>   
                                 }
@@ -258,12 +259,15 @@ class PhuahHim extends Component{
                             </CardContent>
                             
                             <CardActions className={classes.actions} disableActionSpacing>
+                                
                                 <IconButton aria-label="Add to favorites">
-                                <FavoriteIcon />
+                                    <FavoriteIcon />
                                 </IconButton>
+                                
                                 <IconButton aria-label="Share">
-                                <ShareIcon />
+                                    <ShareIcon />
                                 </IconButton>
+                                
                                 <IconButton
                                 className={classnames(classes.expand, {
                                     [classes.expandOpen]: this.state.expanded,
@@ -272,8 +276,9 @@ class PhuahHim extends Component{
                                 aria-expanded={this.state.expanded}
                                 aria-label="Show more"
                                 >
-                                <ExpandMoreIcon />
+                                    <ExpandMoreIcon />
                                 </IconButton>
+                            
                             </CardActions>
                             
                             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
@@ -309,7 +314,6 @@ class PhuahHim extends Component{
 
                 {/* Edit ON */}
                 { this.state.isPencil && 
-         
                     <div>
                         
                         <Card className={classes.card}>
@@ -346,6 +350,7 @@ class PhuahHim extends Component{
                             <CardContent>
                                 
                                 <Grid container spacing={16} className={classes.item}>
+                                    
                                     <Grid item className={classes.indentation}> </Grid>
 
                                     <Grid item xs>
@@ -419,6 +424,7 @@ class PhuahHim extends Component{
                                     </Grid>
 
                                     <Grid item className={classes.indentation}> </Grid>
+                               
                                 </Grid>
 
                             </CardContent>
@@ -426,8 +432,35 @@ class PhuahHim extends Component{
                         </Card>
                     
                     <br /> </div>
-                
                 }
+
+                <Dialog
+                open={this.state.deleteDialog}
+                onClose={this.closeDeleteDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                >
+                
+                    <DialogTitle>
+                        SUSPEND PROTEGE
+                    </DialogTitle>
+                    
+                    <DialogContent>
+                        <DialogContentText>
+                            Are you sure you want to suspend "<b> {ninja.displayName} </b>" ?
+                        </DialogContentText>
+                    </DialogContent>
+                    
+                    <DialogActions>
+                        <Button onClick={this.submitDeleteDialog.bind(this, ninja)} color="primary">
+                            Confirm
+                        </Button>
+                        <Button onClick={this.closeDeleteDialog} color="primary" autoFocus>
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                
+                </Dialog>
 
             </div>
 

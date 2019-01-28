@@ -2,7 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Fish from './Fish'
 import Crab from './Crab'
-import { withStyles } from '@material-ui/core';
 
 
 class suspendedProtege extends React.Component {
@@ -10,7 +9,8 @@ class suspendedProtege extends React.Component {
   constructor(props) {
     super(props); 
     this.passhandleSubmit = this.passhandleSubmit.bind(this);
-    this.passhandleDeleteclick = this.passhandleDelete.bind(this);
+    this.passhandleDelete = this.passhandleDelete.bind(this);
+    this.passhandlePermaDelete = this.passhandlePermaDelete.bind(this);
   }
 
   passhandleDelete = (protege) => {
@@ -25,12 +25,20 @@ class suspendedProtege extends React.Component {
 
   }
 
+  passhandlePermaDelete = (protege) => {
+
+    this.props.PermaDeleteAProtege(protege);
+
+  }
+
+
   render() {
     
     const { ninjas } = this.props;
     const goodninjas = ninjas.filter(x => x.status === 'active' || x.status === 'onboarding');
     const badninjas = ninjas.filter(x => x.status === 'inactive');
-    const ninjaList = goodninjas.map(ninja => {
+    
+    const goodninjaList = goodninjas.map(ninja => {
 
       return (
 
@@ -47,7 +55,7 @@ class suspendedProtege extends React.Component {
       return (
 
         <div>
-          <Crab ninja={samurai} passhandleSubmit={this.passhandleSubmit} passhandleDelete={this.passhandleDelete}/>
+          <Crab ninja={samurai} passhandleSubmit={this.passhandleSubmit} passhandleDelete={this.passhandleDelete} passhandlePermaDelete={this.passhandlePermaDelete} />
         </div>
 
       )
@@ -57,7 +65,7 @@ class suspendedProtege extends React.Component {
     return(
 
       <div>
-        <div> { ninjaList } </div>
+        <div> { goodninjaList } </div>
         <div> { badninjaList } </div>
       </div>
     

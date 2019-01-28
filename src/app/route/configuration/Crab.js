@@ -22,9 +22,17 @@ import TextField from '@material-ui/core/TextField'
 // import Button, Icon
 import IconButton from '@material-ui/core/IconButton';
 import EditIcon from '@material-ui/icons/Create';
-import DeleteIcon from '@material-ui/icons/AcUnit';
+import DeleteIcon from '@material-ui/icons/BrightnessLow';
+import PermaDeleteIcon from '@material-ui/icons/Delete';
 import SaveIcon from '@material-ui/icons/Save';
 import CancelIcon from '@material-ui/icons/Cancel';
+
+import Button from '@material-ui/core/Button';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
 
 
 const styles = theme => ({
@@ -73,17 +81,20 @@ const styles = theme => ({
 
 });
 
-class PhuahHim extends Component{
+class PhuahHer extends Component{
 
     constructor(props) {
 
         super(props);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
+        this.handlePermaDelete = this.handlePermaDelete.bind(this);
 
         this.state = {
             expanded: false,
             isPencil: false,
+            deleteDialog: false,
+            permadeleteDialog: false,
         }
         
     }
@@ -93,14 +104,14 @@ class PhuahHim extends Component{
     };
 
 	handleDelete = (samurai) => {
+
+        this.openDeleteDialog();
         
         // set up mock
         var newNinja = Object.assign({}, samurai);
 
         // console.log('before newNinja is ', newNinja)
         this.props.passhandleDelete(newNinja);
-
-        // console.log(this.state)
 
 	}
 
@@ -112,7 +123,6 @@ class PhuahHim extends Component{
         this.setState({
             [event.target.id] : event.target.value
         });
-
 
         // console.log(event.target.value)
         //console.log(event.target.value); //this.state = (event.target.value); -- found in this.state.displayName, this.state.username, etc.
@@ -137,18 +147,20 @@ class PhuahHim extends Component{
         // Remove stateful (useless) state data
         delete newUpdate.expanded;
         delete newUpdate.isPencil;
+        delete newUpdate.deleteDialog;
+        delete newUpdate.permadeleteDialog;
 
-        console.log("new update is ", newUpdate)
+        // console.log("new update is ", newUpdate)
         // Patch update bro!
         //console.log(Object.keys(newUpdate)); -- displayName
         //console.log(Object.values(newUpdate)); -- newChris
 
-        console.log('samurai is ', samurai)
+        // console.log('samurai is ', samurai)
         // console.log(Object.values(newUpdate).toString())
 
-        console.log('before newNinja is ', newNinja)
+        // console.log('before newNinja is ', newNinja)
         newNinja[Object.keys(newUpdate)] = Object.values(newUpdate).toString();
-        console.log('after newNinja is ', newNinja)
+        // console.log('after newNinja is ', newNinja)
 
         //console.log("New Ninja is ", newNinja)
         //console.log("Old Ninja is ", newUpdate);
@@ -162,12 +174,6 @@ class PhuahHim extends Component{
     
     }
 
-    toggleClick = () => {
-
-        this.togglePencil();
-    
-    }
-
     togglePencil() {
 
 		this.setState({
@@ -175,6 +181,62 @@ class PhuahHim extends Component{
 		})
     
     }
+
+    
+    openDeleteDialog = () => {
+        
+        this.setState({ deleteDialog: true });
+    
+    };
+    
+    submitDeleteDialog = (samurai) => {
+        
+        this.handleDelete(samurai);
+        this.closeDeleteDialog();
+        // console.log(this.state);
+    
+    }
+
+    closeDeleteDialog = () => {
+        
+        this.setState({ deleteDialog: false });
+    
+    };
+
+
+
+    handlePermaDelete = (samurai) => {
+
+        this.openPermaDeleteDialog();
+        
+        // set up mock
+        var newNinja = Object.assign({}, samurai);
+
+        // console.log('before newNinja is ', newNinja)
+        this.props.passhandlePermaDelete(newNinja);
+
+	}
+
+    openPermaDeleteDialog = () => {
+        
+        this.setState({ permadeleteDialog: true });
+    
+    };
+    
+    submitPermaDeleteDialog = (samurai) => {
+        
+        this.handlePermaDelete(samurai);
+        this.closePermaDeleteDialog();
+        // console.log(this.state);
+    
+    }
+
+    closePermaDeleteDialog = () => {
+        
+        this.setState({ permadeleteDialog: false });
+    
+    };
+
 
     render() {
 
@@ -198,11 +260,16 @@ class PhuahHim extends Component{
                                 action = {
                                     <div> 
                                         <IconButton>
-                                            <EditIcon className={classes.button} onClick={this.toggleClick.bind(this, ninja)} />
+                                            <EditIcon className={classes.button} onClick={this.togglePencil.bind(this, ninja)} />
                                         </IconButton>
 
                                         <IconButton>
-                                            <DeleteIcon className={classes.button} onClick={this.handleDelete.bind(this, ninja)} />
+                                            <DeleteIcon className={classes.button} onClick={this.openDeleteDialog.bind(this, ninja)} />
+                                            {/* <DeleteIcon className={classes.button} onClick={this.handleDelete.bind(this, ninja)} /> */}
+                                        </IconButton>
+
+                                        <IconButton>
+                                            <PermaDeleteIcon className={classes.button} onClick={this.openPermaDeleteDialog.bind(this, ninja)} />
                                         </IconButton>
                                     </div>   
                                 }
@@ -261,12 +328,15 @@ class PhuahHim extends Component{
                             </CardContent>
                             
                             <CardActions className={classes.actions} disableActionSpacing>
+                                
                                 <IconButton aria-label="Add to favorites">
                                 <FavoriteIcon />
-                                </IconButton>
+                                    </IconButton>
+                                
                                 <IconButton aria-label="Share">
-                                <ShareIcon />
+                                    <ShareIcon />
                                 </IconButton>
+                                
                                 <IconButton
                                 className={classnames(classes.expand, {
                                     [classes.expandOpen]: this.state.expanded,
@@ -275,8 +345,9 @@ class PhuahHim extends Component{
                                 aria-expanded={this.state.expanded}
                                 aria-label="Show more"
                                 >
-                                <ExpandMoreIcon />
+                                    <ExpandMoreIcon />
                                 </IconButton>
+                            
                             </CardActions>
                             
                             <Collapse in={this.state.expanded} timeout="auto" unmountOnExit>
@@ -331,7 +402,7 @@ class PhuahHim extends Component{
 
                                         {/* onClick={() => this.onClick(ninja)} --> works too */}
                                         <IconButton >  
-                                            <CancelIcon className={classes.button} onClick={this.toggleClick.bind(this, ninja)} /> 
+                                            <CancelIcon className={classes.button} onClick={this.togglePencil.bind(this, ninja)} /> 
                                         </IconButton>
                                     </div>
 
@@ -432,6 +503,65 @@ class PhuahHim extends Component{
                 
                 }
 
+
+                <Dialog
+                open={this.state.deleteDialog}
+                onClose={this.closeDeleteDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                >
+                
+                    <DialogTitle>
+                        UNSUSPEND PROTEGE
+                    </DialogTitle>
+                    
+                    <DialogContent>
+                        <DialogContentText>
+                            Are you sure you want to unsuspend "<b> {ninja.displayName} </b>" ?
+                        </DialogContentText>
+                    </DialogContent>
+                    
+                    <DialogActions>
+                        <Button onClick={this.submitDeleteDialog.bind(this, ninja)} color="primary">
+                            Confirm
+                        </Button>
+                        <Button onClick={this.closeDeleteDialog} color="primary" autoFocus>
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                
+                </Dialog>
+
+
+                <Dialog
+                open={this.state.permadeleteDialog}
+                onClose={this.closePermaDeleteDialog}
+                aria-labelledby="alert-dialog-title"
+                aria-describedby="alert-dialog-description"
+                >
+                
+                    <DialogTitle>
+                        PERMENANTLY DELETE PROTEGE
+                    </DialogTitle>
+                    
+                    <DialogContent>
+                        <DialogContentText>
+                            Are you sure you want to delete "<b> {ninja.displayName} </b>" ?
+                        </DialogContentText>
+                    </DialogContent>
+                    
+                    <DialogActions>
+                        <Button onClick={this.submitPermaDeleteDialog.bind(this, ninja)} color="primary">
+                            Confirm
+                        </Button>
+                        <Button onClick={this.closePermaDeleteDialog} color="primary" autoFocus>
+                            Cancel
+                        </Button>
+                    </DialogActions>
+                
+                </Dialog>
+
+
             </div>
 
         )
@@ -440,8 +570,8 @@ class PhuahHim extends Component{
 
 }
 
-PhuahHim.propTypes = {
+PhuahHer.propTypes = {
     classes: PropTypes.object.isRequired,
 };
 
-export default withStyles(styles)(PhuahHim);
+export default withStyles(styles)(PhuahHer);

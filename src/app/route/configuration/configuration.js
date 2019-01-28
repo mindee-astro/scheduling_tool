@@ -4,7 +4,7 @@ import { } from '../../../actions/index';
 import { withStyles } from '@material-ui/core';
 
 // Bring in imports
-import Ninjas from './Ninjas';
+// import Ninjas from './Ninjas';
 import AddMe from './AddMe';
 import Shrimp from './Shrimp';
 
@@ -54,7 +54,6 @@ class configurationCard extends Component {
 		// perform splice cut
 		const cList = ninjaList.splice(count, 1);
 		// console.log("CList is ", cList)
-		// console.log("after cut ", cList);
 
 		let oldninjaList = [...this.state.ninjas, ninja];
 		// console.log("old list is ", oldninjaList)
@@ -68,7 +67,7 @@ class configurationCard extends Component {
 
 	DeleteAProtege = (ninja) => {
 		
-		const oldNinja = this.state.ninjas.find( fruit => fruit.username === ninja.username );
+		// const oldNinja = this.state.ninjas.find( fruit => fruit.username === ninja.username );
 		// console.log("In configuration, old nin is ", oldNinja)
 
 		if (ninja.status === "active") {
@@ -105,13 +104,33 @@ class configurationCard extends Component {
 
 	}
 
+    PermaDeleteAProtege = (ninja) => {
+		
+		const oldNinja = this.state.ninjas.find( fruit => fruit.username === ninja.username );
+		// console.log("Old nin is ", oldNinja)
+
+		// -1 for the stupid count starting from 0
+		var count = (ninja.id) - 1;
+
+		// remainder ninja list
+		const ninjaList = this.state.ninjas;
+		// console.log("Remainder nin is ", ninjaList);
+
+		// perform splice cut
+		const cList = ninjaList.splice(count, 1);
+		// console.log("Removed protege is ", cList)
+
+    	this.setState({ninjas: ninjaList})
+	
+	}
+
 	render() {
 
 		return (
 
 			<div className="App">
 				{/* <div> <Ninjas ninjas={this.state.ninjas} EditAProtege={this.EditAProtege} DeleteAProtege={this.DeleteAProtege} /> </div> */}
-				<div> <Shrimp ninjas={this.state.ninjas} EditAProtege={this.EditAProtege} DeleteAProtege={this.DeleteAProtege} /> <br /> </div>
+				<div> <Shrimp ninjas={this.state.ninjas} EditAProtege={this.EditAProtege} DeleteAProtege={this.DeleteAProtege} PermaDeleteAProtege={this.PermaDeleteAProtege} /> </div>
 				<div> <AddMe AddAProtege={this.AddAProtege} /> </div>
 			</div>
 
