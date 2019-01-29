@@ -10,7 +10,7 @@ import {
 } from '../constants/Actions';
 
 const INIT_STATE = {
-	rotations: {}
+	rotations: []
 }
 
 export default (state=INIT_STATE, action)=>{
@@ -29,6 +29,11 @@ export default (state=INIT_STATE, action)=>{
 			return {
 				...state,
 				rotations: action.payload
+			}
+
+		case REMOVE_ROTATION_SUCCESS:
+			return {
+				...state
 			}
 
 		default: 
