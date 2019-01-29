@@ -34,6 +34,8 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 
+import Prawn from './Prawn';
+
 
 const styles = theme => ({
 
@@ -95,6 +97,7 @@ class PhuahHer extends Component{
             isPencil: false,
             deleteDialog: false,
             permadeleteDialog: false,
+            userConfirm: false,
         }
         
     }
@@ -149,6 +152,7 @@ class PhuahHer extends Component{
         delete newUpdate.isPencil;
         delete newUpdate.deleteDialog;
         delete newUpdate.permadeleteDialog;
+        delete newUpdate.userConfirm;
 
         // console.log("new update is ", newUpdate)
         // Patch update bro!
@@ -204,6 +208,13 @@ class PhuahHer extends Component{
     };
 
 
+    handlePassConfirm = (juice) => {
+
+        console.log(juice)
+        console.log('Hello World')
+        this.setState({ userConfirm: true });
+    
+    }
 
     handlePermaDelete = (samurai) => {
 
@@ -225,6 +236,7 @@ class PhuahHer extends Component{
     
     submitPermaDeleteDialog = (samurai) => {
         
+
         this.handlePermaDelete(samurai);
         this.closePermaDeleteDialog();
         // console.log(this.state);
@@ -547,16 +559,40 @@ class PhuahHer extends Component{
                     <DialogContent>
                         <DialogContentText>
                             Are you sure you want to delete "<b> {ninja.displayName} </b>" ?
+                            <br /> <Prawn ninja={ninja} handlePassConfirm={this.handlePassConfirm} />
                         </DialogContentText>
                     </DialogContent>
                     
                     <DialogActions>
-                        <Button onClick={this.submitPermaDeleteDialog.bind(this, ninja)} color="primary">
-                            Confirm
-                        </Button>
-                        <Button onClick={this.closePermaDeleteDialog} color="primary" autoFocus>
-                            Cancel
-                        </Button>
+
+                        <div>
+
+                        {/* Confirm OFF */}
+                        { !this.state.userConfirm && 
+                            <div>
+                                <Button color="secondary" disabled >
+                                    Confirm
+                                </Button>
+                                <Button onClick={this.closePermaDeleteDialog} color="primary" autoFocus>
+                                    Cancel
+                                </Button>
+                            </div>
+                        }
+
+                        {/* Confirm ON */}
+                        { this.state.userConfirm && 
+                            <div> 
+                                <Button onClick={this.submitPermaDeleteDialog.bind(this, ninja)} color="primary" autoFocus>
+                                    Confirm
+                                </Button>
+                                <Button onClick={this.closePermaDeleteDialog} color="primary">
+                                    Cancel
+                                </Button>
+                            </div>
+                        }
+
+                        </div>
+                    
                     </DialogActions>
                 
                 </Dialog>
@@ -568,6 +604,22 @@ class PhuahHer extends Component{
                 
     }
 
+}
+
+function UserGreeting(props) {
+    return <b> SUCCESS! Stay Awesome Mr. Admin. <br /> </b>;
+}
+
+function GuestGreeting(props) {
+    return <b> Please key in protege's username to confirm. <br /> </b>;
+}
+
+function Greeting(props) {
+    const isLoggedIn = props.isLoggedIn;
+    if (isLoggedIn) {
+        return <UserGreeting />;
+    }
+    return <GuestGreeting />;
 }
 
 PhuahHer.propTypes = {

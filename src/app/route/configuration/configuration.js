@@ -25,21 +25,27 @@ class configurationCard extends Component {
 
 	AddAProtege = (ninja) => {
 
-		console.log('In configuration, ninja is ', ninja);
-		console.log('In configuration, state.ninjas is ', this.state.ninjas);
+		// console.log('In configuration, ninja is ', ninja);
+		// console.log('In configuration, state.ninjas is ', this.state.ninjas);
 
 		let ninjas = [...this.state.ninjas, ninja];
 		
-		console.log('In configuration, state.ninjas is ', this.state.ninjas);
-		//console.log(this.state.ninjas.length)
-		ninja.id = (this.state.ninjas.length) + 1;
+		// last ID on protege array
+		ninja.id = (this.state.ninjas.slice(-1)[0].id) + 1;
+		
+		// console.log(this.state.ninjas.length)
+		// ninja.id = (this.state.ninjas.length) + 1;
 
-    	this.setState({ninjas: ninjas})
+		this.setState({ninjas: ninjas})
+		// console.log('In configuration, state.ninjas is ', ninjas);
+		// console.log('In configuration, this.state.ninjas is ', this.state.ninjas)
 
 	}
 
 	// push updated "ninja"
     EditAProtege = (ninja) => {
+
+		console.log(ninja);
 		
 		const oldNinja = this.state.ninjas.find( fruit => fruit.username === ninja.username );
 		// console.log("old nin is ", oldNinja)
@@ -129,7 +135,6 @@ class configurationCard extends Component {
 		return (
 
 			<div className="App">
-				{/* <div> <Ninjas ninjas={this.state.ninjas} EditAProtege={this.EditAProtege} DeleteAProtege={this.DeleteAProtege} /> </div> */}
 				<div> <Shrimp ninjas={this.state.ninjas} EditAProtege={this.EditAProtege} DeleteAProtege={this.DeleteAProtege} PermaDeleteAProtege={this.PermaDeleteAProtege} /> </div>
 				<div> <AddMe AddAProtege={this.AddAProtege} /> </div>
 			</div>

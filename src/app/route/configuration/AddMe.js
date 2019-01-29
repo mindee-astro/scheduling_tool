@@ -70,16 +70,17 @@ class AddMe extends Component {
 
     constructor() {
         super(); 
-        this.state = { showMessage: false };
-        this.handleSubmit = this.handleSubmit.bind(this);
+        this.state = { _showMessage: false };
         this.state = { id: '', displayName: 'Protege', username: '', mentor: '', memail: '', 
                      joinDate: "", endDate: "", electives: ["Awaiting selection"], status: 'active'};
+
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     _showMessage = (bool) => {
 
         this.setState({
-            showMessage: bool
+            _showMessage: bool
         });
     
     }
@@ -90,19 +91,16 @@ class AddMe extends Component {
             [e.target.id]: e.target.value
         });
 
-        console.log(this.state);
+        // console.log(this.state);
     
     }
 
     handleSubmit = (e) => {
 
-        e.preventDefault();
-        
+        e.preventDefault();        
         const newNinja = this.state;
-        // console.log('state is ', this.state)
-
-        // delete newNinja.showMessage;
-        // console.log('newNinja is ', newNinja)
+        
+        delete newNinja._showMessage;
 
         this.props.AddAProtege(newNinja);
         this._showMessage(false);
@@ -131,7 +129,7 @@ class AddMe extends Component {
                         
                     <Grid>
 
-                        { this.state.showMessage && 
+                        { this.state._showMessage && 
                             ( 
                                 <div className={classes.root}>
 

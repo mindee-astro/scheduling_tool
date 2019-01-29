@@ -85,6 +85,7 @@ class PhuahHim extends Component{
     constructor(props) {
 
         super(props);
+        this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.handleDelete = this.handleDelete.bind(this);
 
@@ -113,13 +114,10 @@ class PhuahHim extends Component{
     handleChange = (event) => {
 
         // while loop here --- includes.id == value -> false, then proceed, else prompt error that duplicate was found!
-        // while (this.state)
-        
-        this.setState({
-            [event.target.id] : event.target.value
-        });
-
-        
+        this.setState({ [event.target.id]: event.target.value });
+        console.log([event.target.id]);
+        console.log(event.target.value);
+        event.preventDefault();
 
     }
 
