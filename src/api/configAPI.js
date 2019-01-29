@@ -1,33 +1,39 @@
 import axios from 'axios';
 
-import { baseUrl } from '../environment';
+import { baseUrl, devUrl, apiKey } from '../environment';
+
+const instance = axios.create({
+	headers: {
+		'x-api-key': apiKey
+	},
+});
 
 export const addRotation = async (data) => {
-	return (axios({
+	return (instance({
 		method: 'POST',
-		url: baseUrl+"config",
+		url: devUrl+"/config",
 		data: data
 	}))
 }
 
 export const getAllRotations = async () => {
-	return (axios({
+	return (instance({
 		method: 'GET',
-		url: baseUrl+"config"
+		url: devUrl+"/config"
 	}))
 }
 
 export const updateRotation = async (rotationID, data) => {
-	return (axios({
+	return (instance({
 		method: 'PUT',
-		url: baseUrl+"config/"+rotationID,
+		url: devUrl+"/config",
 		data: data
 	}))
 }
 
 export const removeRotation = async (rotationID) => {
-	return (axios({
+	return (instance({
 		method: 'DELETE',
-		url: baseUrl+"config/"+rotationID
+		url: devUrl+"/config/"+rotationID
 	}))
 }

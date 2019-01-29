@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import Typography from '@material-ui/core/Typography';
+import html2canvas from 'html2canvas';
 import {
 	getAllSchedule,
 	getUserSchedule,
@@ -106,7 +107,17 @@ class timetableCard extends Component {
 
 		return(
 			<div style={{padding: '10px'}}>
-				<div style={{paddingTop: '60px'}}>
+					<div style={{textAlign: 'right'}}>
+						<span style={{paddingRight: '10px'}}>
+							<Button style={{backgroundColor: '#71DF96', '&:hover': {backgroundColor: '#04691C'}}}>
+								Refresh
+							</Button>
+						</span>
+						<Button>
+							Export To PDF
+						</Button>
+					</div>
+				<div style={{paddingTop: '20px'}}>
 					{renderinfo}
 				</div>
 			</div>
