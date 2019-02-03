@@ -15,12 +15,10 @@ import {
 } from '../../../actions/index';
 
 // to do mouse over behaviour
-import Popover from '@material-ui/core/Popover';
 import Typography from '@material-ui/core/Typography';
 
 // icons 
-import HelpIcon from '@material-ui/icons/Help';
-import IconButton from '@material-ui/core/IconButton';
+import Tooltip from '../../../components/Tooltip'
 
 //show selected module page 
 import ShowSelectedMod from './components/showSelectedMod'; 
@@ -28,7 +26,12 @@ import ShowSelectedMod from './components/showSelectedMod';
 // show module selection page 
 import ShowModOpt from './components/showModOptions'; 
 
-import Tooltip from '../../../components/Tooltip';
+import {
+	getAllSchedule,
+	getUserSchedule,
+	setNotificationSnackbar
+} from '../../../actions/index';
+
 
 const styles = theme => ({
 	card: {
@@ -42,24 +45,25 @@ const styles = theme => ({
 	  },
 
 	arrangedCard: {
-		justifyContent: 'space-around',
 		display:'flex', 
-		flexWrap: 'nowrap',
+	//},
+	//button: {
+	//	position: 'relative',
+	//	marginTop: 30,
+	//	marginLeft: 950,
+	//	bottom: 10,
 	},
-
 	popover: {
 		pointerEvents: 'none',
-	},
+	  },
   });
 
+//list core modules 
 var coreMod = ['Product Engineering', 'Product Management', 'Project Management', 'Software Engineering'];
 
-<<<<<<< Updated upstream
-=======
 //list elective modules 
 //for this one, we will call api and get the list
 //const electMod = ['Innovation', 'Architecture', 'Analytics', 'Broadcast', ' IT Security']
->>>>>>> Stashed changes
 var electMod = []
 
 // viewing elective choices 
@@ -67,56 +71,96 @@ class ElectiveCard extends React.Component{
 	constructor(props) {
 		super(props);
 	};
+	
+	state = {
+		anchorEl: null,
+		value: '12',
+		selectedMod: electMod, 
+	};
+
+	// popover
+	handlePopoverOpen = event => {
+		this.setState({ anchorEl: event.currentTarget });
+	};
+	
+	handlePopoverClose = () => {
+	this.setState({ anchorEl: null });
+	};
+
+
 
 	render() {
 		const {classes} = this.props
+		const { anchorEl } = this.state;
+		const open = Boolean(anchorEl);
 		const emptyModList = !electMod.length;
 
 		return(
-				<div>
-					<Card style={{padding: '10px'}}>
-						<CardContent style={{textAlign: 'center'}}>
-							<div>
-								<Typography variant="body2" style={{marginTop:15}}>
-										<span>
-											Core Modules
-											<Tooltip
-												iconType="help"
-												color="primary"
-												message="The number after the rotation name indicates the number of months you will spend in the rotations"
-											/>
-										</span>
-								</Typography>
+			<div>
+				<Card style={{padding: '10px'}}>
+					<CardContent style={{textAlign: 'center'}}>
+						<div>
+							<Typography variant="body2" style={{marginTop:15}}>
+									<span>
+										Core Modules
+										<Tooltip
+											iconType="help"
+											color="primary"
+											message="The number after the rotation name indicates the number of months you will spend in the rotations"
+										/>
+									</span>
+							</Typography>
+						</div>
+						<div>
+							<div className={classes.arrangedCard}>
+								{coreMod.map(mod => {
+									return(
+										<Card className={classes.card} key={mod}>
+												<CardContent>
+													<Typography variant="body1">
+														{mod} (3)
+													</Typography>
+												</CardContent>
+										</Card>); 
+								})}
 							</div>
-							<div>
-								<div className={classes.arrangedCard}>
-									{coreMod.map(mod => {
-										return(
-											<Card className={classes.card} key={mod}>
-													<CardContent>
-														<Typography variant="body1">
-															{mod} (3)
-														</Typography>
-													</CardContent>
-											</Card>); 
-									})}
-								</div>
-							</div>
-							<div>
-								{ emptyModList
-									? <ShowModOpt/>
-									: <ShowSelectedMod electmod={electMod}/> 
-								}
-							</div>
-						</CardContent>
-					</Card>
-				</div>
-		)
-	}
+						</div>
+						<div>
+							{ emptyModList
+								? <ShowModOpt electMod={electMod}/>
+								: <ShowSelectedMod electmod={electMod}/> 
+							}
+						</div>
+					</CardContent>
+				</Card>
+			</div>
+	)
+}
 }
 
-ElectiveCard.propTypes = {
-	classes: PropTypes.object.isRequired,
-	};
+const mapStateToProps = ({schedule}) => {
+	const {allSchedule, userSchedule, totalSchedule} = schedule
+    return{allSchedule, userSchedule, totalSchedule}
+};
 
-export default withStyles(styles)(ElectiveCard);
+
+export default connect(mapStateToProps, {getAllSchedule, getUserSchedule, setNotificationSnackbar})(withStyles(styles)(ElectiveCard));
+
+
+// elective selection
+//class SelectModule extends ElectiveCard {
+//	constructor(props) {
+//		super(props);
+//	};
+
+//	render() {
+///		const {classes} = this.props
+//	}
+		
+
+//SelectModule.propTypes = {
+//	classes: PropTypes.object.isRequired,
+//	};
+
+
+//export default withStyles(styles)(ElectiveCard);
