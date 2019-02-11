@@ -55,6 +55,7 @@ class Form extends Component {
 
     this.state = {
       password: '',
+      passwordlold:'',
       password_confirmation: '',
       validation: this.validator.valid(),
     }
@@ -91,6 +92,8 @@ class Form extends Component {
     this.setState({
       [event.target.name]: event.target.value,
     });
+
+    console.log ([event.target.name] +':' +event.target.value)
   }
 
   handleFormSubmit = event => {
@@ -102,6 +105,7 @@ class Form extends Component {
 
     if (validation.isValid) {
       alert("Success")
+      
       // handle actual form submission here
     }
   }
