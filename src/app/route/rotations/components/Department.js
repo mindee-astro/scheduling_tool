@@ -51,9 +51,6 @@ const styles = theme => ({
     margin: theme.spacing.unit,
     marginLeft: 0
   },
-  card: {
-    height: 410
-  },
   fullHeight: {
     display: "flex",
     alignContent: "center",
@@ -68,14 +65,14 @@ const styles = theme => ({
   },
   iconPosition: {
     textAlign: "right",
-    paddingTop: 10
+    // paddingTop: 10
   },
   carddata: {
     marginTop: 15,
     marginBottom: 15
   },
   addButton: {
-    lineHeight: "410px"
+    lineHeight: "540px"
   },
   show: {
     display: "block"
@@ -93,7 +90,7 @@ const styles = theme => ({
   dialogButton: {
     borderRadius: 8,
     width: 100
-  },
+  }
 });
 
 class Department extends Component {
@@ -103,112 +100,197 @@ class Department extends Component {
       classes: props.classes,
       deleteDialog: false,
 
-      // Get rotation details 
+      // Get rotation details
       mode: props.mode,
+      pK: props.pK,
+      sK: 'ROTATION',
+      categoryData: props.data,
+      category: props.category,
       name: props.name,
       duration: props.duration,
       championName: props.championName,
       championEmail: props.championEmail,
       capacity: props.capacity,
-      rotationID: props.rotationID
       // rotationDisplay: props.rotationDisplay,
+
+      // Updated rotationd details
+      updatedDepartmentName: "",
+      updatedDuration: 0,
+      updatedChampionName: "",
+      updatedChampionEmail: "",
+      updatedCapacity: 0,
+      updatedpK: "",
+      updatedCategory: "",
+
+      // Auth: Access level
+      accesslevel: props.accesslevel,
+
+
     };
 
     // To enable usage in this page
-    this.originalMode = props.mode
-    
+    this.originalMode = props.mode;
   }
 
 
-
-
-
-  // save() {
-  //   if (this.validate()) {
-  //     console.log("inputs validated, saving this rotation");
-  //     // Format into api interface
-  //     let rotationData ={
-  //         name: this.state.departmentName,
-  //         duration: this.state.rotationPeriod,
-  //         category: "core", //TODO: ask Akmal whether to set this
-  //         capacity: this.state.capacity
-  //       // championEmail: this.state.championEmail TODO: ask Akmal to include in API
-  //       // championName: this.state.championName TODO: ask Akmal to include in API
-  //     }
-  //     console.log(rotationData);
-  //     this.props.addRotation([rotationData]); 
-  //   }
-  // }
-
-  // validate() {
-  //   console.log("validating inputs...");
-  //   return (
-  //     this.state.departmentName &&
-  //     this.state.rotationPeriod &&
-  //     this.state.championName &&
-  //     this.state.championEmail &&
-  //     this.state.capacity
-  //   );
-  // }
-
-  // clearInputs() {
-  //   // Clear existing input value
-  //   this.setState({
-  //     // addButtonState: true,
-  //     departmentName: "",
-  //     rotationPeriod: "",
-  //     championName: "",
-  //     championEmail: "",
-  //     capacity: ""
-  //   });
-  // }
-
-  deleteRotation = async () => {
-    // TODO: ask akmal how to use the removeRotationSuccess to get response
-    await this.props.removeRotation(this.state.rotationID)
-    const response = await this.props.removeRotationSuccess()
-    console.log(response)
-
-    // console.log('Removing rotation with id:', this.state.rotationID)
-    // if (response){
-    //   console.log('Rotation removed, getting all rotations')
-    //   this.props.getAllRotations()
-    // } else {
-    //   return response
-    // }
-
-    // On removeRotationSuccess, close dialogBox
-    this.closeDeleteDialog()
-
-    // Get rotations after rotation is removed
-    // this.props.getAllRotations()
+  save() {
+    if(this.state.accesslevel==="Admin"){
+      if (this.validate()) {
+        console.log("inputs validated, saving this rotation");
+  
+        // Format into api interface
+        let rotationData ={
+          name: this.state.updatedDepartmentName,
+          duration: this.state.updatedDuration,
+          capacity: this.state.updatedCapacity,
+          championName: this.state.updatedChampionName,
+          championEmail: this.state.updatedChampionEmail,
+          category: this.state.updatedCategory,
+          data: this.state.updatedCategory, // Category Data is same as category
+          sK: this.state.sK,
+          pK: this.state.updatedpK
+        }
+  
+        // Print rotation data
+        console.log("rotationData", rotationData);
+  
+        // Differentiate update/add using this.state.pK
+        // Update rotation data
+        if (this.state.pK) {
+          this.props.updateRotation(
+            this.state.updatedpK,
+            rotationData
+          );
+          console.log('getting all rotations....')
+  
+          // Set state to re-render to getAllRotations
+          this.setState({
+            ...this.state,
+            name: this.state.updatedDepartmentName,
+            duration: this.state.updatedDuration,
+            capacity: this.state.updatedCapacity,
+            championName: this.state.updatedChampionName,
+            championEmail: this.state.updatedChampionEmail,
+            category: this.state.updatedCategory,
+            data: this.state.updatedCategory, // Category Data is same as category
+            sK: this.state.sK,
+            pK: this.state.pK
+            
+          })
+  
+          // Refresh page to get all rotations
+          console.log('updated. All rotation successfully fetched!')
+        }
+        else{
+          // Add Rotation Data
+          const addResponse = this.props.addRotation([rotationData]);
+  
+          console.log('adding rotation.....');
+          console.log('addResponse',addResponse)
+  
+          // Set state to re-render to getAllRotations
+          this.setState({
+            ...this.state,
+            name: this.state.updatedDepartmentName,
+            duration: this.state.updatedDuration,
+            capacity: this.state.updatedCapacity,
+            championName: this.state.updatedChampionName,
+            championEmail: this.state.updatedChampionEmail,
+            category: this.state.updatedCategory,
+            data: this.state.updatedCategory, //  data is same as category
+            sK: this.state.sK,
+            pK: this.state.updatedpK
+  
+          });
+  
+          // Refresh page to get all rotations
+          console.log('new rotation added! Fetching all rotations...')
+          // this.props.getAllRotations()
+          
+        }
+        
+        // Exit edit mode
+        this.exitEditMode()
+  
+      }
+    }
   }
 
-  showDeleteDialog = () => {
-    this.setState({ deleteDialog: true});
-  }
-
-  closeDeleteDialog = () => {
-    this.setState({ deleteDialog: false });
+  validate() {
+    console.log('validating inputs')
+    return (
+      this.state.updatedDepartmentName &&
+      this.state.updatedDuration &&
+      this.state.updatedChampionName &&
+      this.state.updatedChampionEmail &&
+      this.state.updatedCapacity &&
+      this.state.updatedCategory &&
+      this.state.updatedpK
+    );
   };
 
+  deleteRotation = () => {
+    if(this.state.accesslevel==="Admin"){
+      this.props.removeRotation(this.state.pK);
+      console.log('removing rotation with ID:', this.state.pK);
+
+      // On removeRotationSuccess, close dialogBox
+      this.closeDeleteDialog();
+
+      console.log("Successfully removed rotation with ID: ", this.state.pK);
+
+      // Get rotations after rotation is removed
+      console.log('fetching all rotations...')  
+    }
+  };
+
+  showDeleteDialog = () => {
+    if(this.state.accesslevel==="Admin"){
+      this.setState({ deleteDialog: true });
+    } 
+  };
+
+  closeDeleteDialog = () => {
+    if(this.state.accesslevel==="Admin"){
+      this.setState({ deleteDialog: false });
+    }
+  };
 
   showEditMode = () => {
-    this.setState({ mode: 2 });
-    // this.setState(state => ({
-    // this.state.editState = !this.state.editState
-    // updatedDepartmentName: state.departmentName,
-    // updatedRotationPeriod: state.rotationPeriod,
-    // updatedChampionName: state.championName,
-    // updatedChampionEmail: state.championEmail,
-    // updatedCapacity: state.capacity
+    if (this.state.accesslevel==="Admin"){
+      this.setState({
+        ...this.state,
+        mode: 2,
+        updatedDepartmentName: this.state.name,
+        updatedDuration: this.state.duration,
+        updatedChampionName: this.state.championName,
+        updatedChampionEmail: this.state.championEmail,
+        updatedCapacity: this.state.capacity,
+        updatedCategory: this.state.category,
+        updatedpK: this.state.pK
+      });
+    }   
   };
 
   exitEditMode = () => {
-    this.setState({ mode: this.originalMode});  
-  }
+    if(this.state.accesslevel==="Admin"){
+      this.setState({
+        // Clear inputs
+        updatedDepartmentName: "",
+        updatedDuration: "",
+        updatedChampionName: "",
+        updatedChampionEmail: "",
+        updatedCapacity: "",
+        updatedCategory: "",
+        updatedpK: "",
+  
+        // Revert to original mode
+        mode: this.originalMode
+      });  
+    }
+  };
 
-  handleInputChange(event) {
+  handleInputChange = event => {
     const target = event.target;
     const value = target.type === "checkbox" ? target.checked : target.value;
     const name = target.name;
@@ -216,38 +298,82 @@ class Department extends Component {
     this.setState({
       [name]: value
     });
-  }
+  };
 
   render() {
-
     let classes = this.state.classes;
 
     // For Display Rotation
-    const rotationHeaders = ['Department Name', 'Rotation Period', 'Champion Name', 'Champion Email', 'Max Capacity']
-    const rotationValues = [this.state.name, this.state.duration + ((this.state.duration>1)? ' weeks':' week'), this.state.championName, this.state.championEmail, this.state.capacity + ((this.props.capacity>1)? ' protégés': ' protégé')];
-    const endAdornment = ['','week(s)','','','protégé(s)']
-    const fieldType = ['text','number','text','text','number']
-    
+    const rotationHeaders = [
+      "Department Name",
+      "Rotation Period",
+      "Champion Name",
+      "Champion Email",
+      "Max Capacity",
+      "Category",
+      "Rotation ID",
+    ];
+    const rotationValues = [
+      this.state.name,
+      this.state.duration + (this.state.duration > 1 ? " weeks" : " week"),
+      this.state.championName,
+      this.state.championEmail,
+      this.state.capacity + (this.props.capacity > 1 ? " protégés" : " protégé"),
+      this.state.category,
+      this.state.pK
+    ];
+    const placeholderValues = [
+      this.state.name,
+      this.state.duration === "undefined" ? 0 : this.state.duration,
+      this.state.championName,
+      this.state.championEmail,
+      this.state.capacity === "undefined" ? 0 : this.state.capacity,
+      this.state.category,
+      this.state.pK
+    ];
+    const endAdornment = ["", "week(s)", "", "", "protégé(s)","","",""];
+    const fieldType = ["text", "number", "text", "text", "number","text","text","text"];
+    const rotationNames = [
+      "updatedDepartmentName",
+      "updatedDuration",
+      "updatedChampionName",
+      "updatedChampionEmail",
+      "updatedCapacity",
+      "updatedCategory",
+      "updatedpK"
+    ];
+    let updatedRotationValues = [
+      this.state.updatedDepartmentName,
+      this.state.updatedDuration,
+      this.state.updatedChampionName,
+      this.state.updatedChampionEmail,
+      this.state.updatedCapacity,
+      this.state.updatedCategory,
+      this.state.updatedpK
+    ];
+
 
     return (
-      // Display Icons 
+      // Display Icons
       <div>
-        <div className={(this.state.mode ===1 || this.state.mode ===2)? classes.iconPosition : classes.hide}>
+        <div
+          className={this.state.accesslevel==="Admin"? (this.state.mode === 1 || this.state.mode === 2? classes.iconPosition: classes.hide):classes.hide}
+        >
           <IconButton
             onClick={this.showEditMode.bind(this)}
             aria-label="edit"
             className={
-              (this.state.mode===1) ? classes.showInline : classes.hide
+              this.state.mode === 1 ? classes.showInline: classes.hide
             }
           >
             <Edit />
           </IconButton>
 
           <IconButton
-            // onClick={this.save.bind(this)} //TODO: connect to save api 
+            onClick={this.save.bind(this)} 
             aria-label="save"
             className={
-              (this.state.mode===2) ? classes.showInline : classes.hide
+              this.state.mode === 2 ? classes.showInline : classes.hide
             }
           >
             <Save />
@@ -257,7 +383,7 @@ class Department extends Component {
             onClick={this.showDeleteDialog.bind(this)}
             aria-label="delete"
             className={
-              (this.state.mode===1) ? classes.showInline : classes.hide
+              this.state.mode === 1 ? classes.showInline: classes.hide
             }
           >
             <Delete />
@@ -266,20 +392,42 @@ class Department extends Component {
           <IconButton
             onClick={this.exitEditMode.bind(this)}
             aria-label="cancel"
-            className={(this.state.mode === 2)? classes.showInline: classes.hide}
+            className={
+              this.state.mode === 2 ? classes.showInline : classes.hide
+            }
           >
             <Cancel />
           </IconButton>
         </div>
-
+        
         {/* Display rotations */}
         <div>
           {rotationHeaders.map((header, index) => {
             return (
+              <div>
+
               <div key={index}>
-                <p className={`${(this.state.mode===1 || this.state.mode ===2)? classes.show : classes.hide} ${classes.cardheading}`}>{header}</p>
-                <p className={`${(this.state.mode === 1) ? classes.show : classes.hide} ${classes.carddata}`}>{rotationValues[index]}</p>
-                <div className={(this.state.mode === 2) ? classes.show : classes.hide}>
+                <p
+                  className={`${
+                    this.state.mode === 1 || this.state.mode === 2
+                      ? classes.show
+                      : classes.hide
+                  } ${classes.cardheading}`}
+                >
+                  {header}
+                </p>
+                <p
+                  className={`${
+                    this.state.mode === 1 ? classes.show : classes.hide
+                  } ${classes.carddata}`}
+                >
+                  {rotationValues[index]}
+                </p>
+                <div
+                  className={
+                    this.state.mode === 2 ? classes.show : classes.hide
+                  }
+                >
                   <Input
                     fullWidth
                     className={classes.input}
@@ -287,28 +435,36 @@ class Department extends Component {
                       "aria-label": header
                       // "aria-label": "Department Name"
                     }}
-                    // value={rotationValues[index]} TODO: check how to change this on input change 
+                    placeholder={placeholderValues[index]}
+                    value={updatedRotationValues[index]}
                     endAdornment={
-                      <InputAdornment position="end">{endAdornment[index]}</InputAdornment> 
+                      <InputAdornment position="end">
+                        {endAdornment[index]}
+                      </InputAdornment>
                     }
-                    name={header}
+                    // name={header}
                     type={fieldType[index]}
-                    // name="departmentName"
+                    name={rotationNames[index]}
+                    disabled={this.state.pK ? index === 6 : false}
                     onChange={this.handleInputChange.bind(this)}
                   />
                 </div>
-                
+              </div>
               </div>
             );
           })}
         </div>
 
         {/* Add rotation */}
-        {/* TODO: connect to add rotation api */}
-        <div onClick={this.showEditMode.bind(this)} className={`${(this.state.mode === 3) ? classes.show : classes.hide} ${classes.fullHeight}`}>
+        <div
+          onClick={this.showEditMode.bind(this)}
+          className={`${this.state.mode === 3 || this.state.accesslevel==="Admin"? classes.show : classes.hide} ${
+            this.state.accesslevel==="Admin"? classes.fullHeight: classes.hide
+            }`}
+        >
           <span className={classes.addButton}>
             <IconButton>
-              <AddCircleOutline style={{ fontSize: 100 }} /> 
+              <AddCircleOutline style={{ fontSize: 100 }} />
             </IconButton>
           </span>
         </div>
@@ -323,22 +479,29 @@ class Department extends Component {
         >
           <DialogTitle>REMOVE ROTATION</DialogTitle>
           <DialogContent>
-            <DialogContentText>Are you sure you want to remove "<b>{this.state.name}</b>" rotation?</DialogContentText>
+            <DialogContentText>
+              Are you sure you want to remove "<b>{this.state.name}</b>"
+              rotation?
+            </DialogContentText>
           </DialogContent>
           <DialogActions className={classes.dialogButtonWrapper}>
             <Button
               onClick={this.closeDeleteDialog}
               className={classes.dialogButton}
               color="primary"
-            >Cancel</Button>
+            >
+              Cancel
+            </Button>
             <Button
-              onClick={this.deleteRotation} //TODO: connect to delete api
+              onClick={this.deleteRotation} 
               className={classes.dialogButton}
               color="primary"
-              autoFocus>Remove</Button>
+              autoFocus
+            >
+              Remove
+            </Button>
           </DialogActions>
         </Dialog>
-
       </div>
     );
   }
@@ -348,8 +511,9 @@ Department.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({}) => {
-  return {};
+const mapStateToProps = ({auth}) => {
+  const {accesslevel} = auth;
+  return {accesslevel}
 };
 
 export default connect(
