@@ -1,7 +1,13 @@
 export const colorPalette = {
+<<<<<<< HEAD
 	primary: '#205493',
 	secondary: '#E8513B',
 	error: '#FF1C3C',
+=======
+	primary: '#112E51',
+	secondary: '#28055C',
+	error: '#9C160E',
+>>>>>>> staging
 	info: '#25381D',
 	action: '#5559FF',
 	sideBar: '#112E51',
@@ -9,15 +15,18 @@ export const colorPalette = {
 	appBG: '#323A45',
 	buttonBG: '#FC9888',
 	buttonHover: '#E8513B',
-	disabledButton: '#FCC9BE'
+	disabledButton: '#FCC9BE',
+	success: '#1BA119',
+	warning: '#FCF003',
 }
 
 export const size = {
 	standardFont: 14,
 	smallFont: 12,
 	largeFont: 20,
-	borderRadius: 12,
-	buttonRadius: 19,
+	mediumFont: 18,
+	borderRadius: 3,
+	buttonRadius: 5,
 }
 
 export const fontFamily = [
@@ -73,3 +82,21 @@ export const scheduleVariation = {
 }
 
 // Notification Snackbar custom template ////
+
+export const responseSnackbar = {
+	success: {
+		backgroundColor: colorPalette.success,
+		color: "white"
+	},
+	error: {
+		backgroundColor: colorPalette.error,
+		color: "white"
+	},
+	info: {
+
+	},
+	warning: {	
+		backgroundColor: colorPalette.warning,
+		color: "black"
+	}
+}

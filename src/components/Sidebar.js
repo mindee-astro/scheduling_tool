@@ -35,13 +35,9 @@ const styles = {
   	textDecoration: 'none'
   },
   listitems: {
-  	color: 'white'
+  	color: 'black'
   }
 };
-
-function test(password) {
-	console.log(password.length)
-}
 
 class Sidebar extends Component {
 
@@ -80,6 +76,9 @@ class Sidebar extends Component {
 		else if (Title=='API') {
 			this.props.history.push('/api')
 		}
+		else if (Title=='Change Password'){
+			this.props.history.push('/changepassword')
+		}
 		else {
 			this.props.history.push('/schedule')
 		}
@@ -89,7 +88,6 @@ class Sidebar extends Component {
 		const allowedLinks = (
 			(this.props.accesslevel==="Admin") ? (
 				<div>
-					{test("123")}
 	    			<ListItem button onClick={this.handleClick("Proteges")}>
 	    				<ListItemIcon>
 				        	<People />
@@ -164,6 +162,9 @@ class Sidebar extends Component {
 						        			{allowedLinks}
 						        			<ListItem button onClick={this.handleClick("API")}>
 						        				<ListItemText primary="APIs"/>
+						        			</ListItem>
+						        			<ListItem button onClick={this.handleClick("Change Password")}>
+						        				<ListItemText primary="Change Password"/>
 						        			</ListItem>
 						        		</List>
 						        	</div>	

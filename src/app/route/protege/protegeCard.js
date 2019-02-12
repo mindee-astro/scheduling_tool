@@ -37,6 +37,9 @@ import Paper from '@material-ui/core/Paper';
 	},
 	redText: {
 		color: 'red'
+	},
+	overflowXTable: {
+		overflowX: 'auto'
 	}
   });
   
@@ -60,7 +63,7 @@ import Paper from '@material-ui/core/Paper';
 	const { classes } = props;
   
 	return (
-	  <Paper>
+	  <Paper className={classes.overflowXTable}>
 		<Table>
 		  <TableHead>
 			<TableRow>

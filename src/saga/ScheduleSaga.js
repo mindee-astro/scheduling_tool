@@ -4,7 +4,7 @@ import {GET_ALL_SCHEDULE, GET_USER_SCHEDULE} from '../constants/Actions';
 
 import { getSchedule , getUserSchedule } from '../api/apicalls';
 
-import { getAllScheduleSuccess , getUserScheduleSuccess } from '../actions/index';
+import { getAllScheduleSuccess , getUserScheduleSuccess, setResponseSnackbar } from '../actions/index';
 
 
 // Temporary remap response to dummy data
@@ -230,19 +230,32 @@ const temp = [
 const fetchAllScheduleAsync = async () => 
 	await getSchedule()
 		.then(response => {response.data=temp; return(response)}) // To be remove upon release
-		.catch(error => error)
+		.catch(error => {
+			return Promise.reject(error)
+		})
 
 const fetchUserSchedule = async (userid) => 
 	await getUserSchedule(userid)
 		.then(response => response)
-		.catch(error => error)
+		.catch(error => {
+			return Promise.reject(error)
+		})
 
 function* getAllScheduleAsync() {
 	try {
 		const response = yield call(fetchAllScheduleAsync)
 		yield put(getAllScheduleSuccess(response.data, response)) 
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: "Fetched Users Schedule",
+			type: "success"
+		}))
 	} catch (error) {
-
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: error.response.status+" "+error.response.statusText,
+			type: "error"
+		}))
 	}
 }
 
@@ -251,8 +264,17 @@ function* getUserScheduleAsync({payload}) {
 	try {
 		const response = yield call (fetchUserSchedule, userid)
 		yield put(getUserScheduleSuccess(response.data))
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: "Fetched User Schedule",
+			type: "success"
+		}))
 	} catch (error) {
-
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: error.response.status+" "+error.response.statusText,
+			type: "error"
+		}))
 	}
 
 }
