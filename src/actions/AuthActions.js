@@ -14,6 +14,9 @@ import {
 	GET_ALL_USER_SUCCESS,
 	LOG_OUT_USER,
 	GET_USER,
+	GET_USER_SUCCESS,
+	AUTH_REQUEST,
+	AUTH_REQUEST_SUCCESS,
 } from '../constants/Actions';
 
 export const setDisplayName = (name) => {
@@ -107,6 +110,27 @@ export const getUser = (userid) => {
 	return {
 		type: GET_USER,
 		payload: userid
+	}
+}
+
+export const getUserSuccess = (data) => {
+	return{
+		type: GET_USER_SUCCESS,
+		payload: data
+	}
+}
+
+export const authToken = (token, userid) => {
+	return{
+		type: AUTH_REQUEST,
+		payload: {token, userid}
+	}
+}
+
+export const authTokenSuccess = (flag) => {
+	return{
+		type: AUTH_REQUEST_SUCCESS,
+		payload: flag
 	}
 }
 

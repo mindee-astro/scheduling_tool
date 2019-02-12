@@ -44,7 +44,7 @@ class timetableCard extends Component {
 	componentDidMount() {
 		this.props.getAllSchedule();
 		this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please go to Modules and select your
-		elective modules by DD/MM/YY<br/>Note: You will no longer be able to edit your choices after this date</span>)})
+		elective modules by {this.props.joindate} <br/>Note: You will no longer be able to edit your choices after this date</span>)})
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -125,9 +125,10 @@ class timetableCard extends Component {
 	}
 }
 
-const mapStateToProps = ({schedule}) => {
+const mapStateToProps = ({schedule, auth}) => {
 	const {allSchedule, userSchedule, totalSchedule} = schedule
-    return{allSchedule, userSchedule, totalSchedule}
+	const {joindate} = auth
+    return{allSchedule, userSchedule, totalSchedule, joindate}
 };
 
 export default connect(mapStateToProps, {getAllSchedule, getUserSchedule, setNotificationSnackbar})(withStyles(styles)(timetableCard));

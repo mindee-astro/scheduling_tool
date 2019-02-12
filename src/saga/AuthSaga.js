@@ -1,10 +1,10 @@
 import {all, call, fork, put, takeEvery, flush} from 'redux-saga/effects';
 
-import { LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER, GET_USER } from '../constants/Actions';
+import { LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER, GET_USER, LOG_IN_USER_SUCCESS, AUTH_REQUEST } from '../constants/Actions';
 
-import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup } from '../actions/index';
+import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup, getUserSuccess, getUser as getUserAction, authToken, authTokenSuccess } from '../actions/index';
 
-import { loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser } from '../api/apicalls'
+import { loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser, authorize } from '../api/apicalls'
 
 const sendLogOutUser = async () => 
 	await logoutUser()
@@ -58,6 +58,13 @@ const fetchUser = async (userid) =>
 				return response
 			}
 		})
+		.catch(error=>{
+			return Promise.reject(error)
+		});
+
+const authorizeCall = async (userid, token) => 
+	await authorize(userid, token)
+		.then(response=>response)
 		.catch(error=>{
 			return Promise.reject(error)
 		});
@@ -143,8 +150,9 @@ function* getAllUsersAsync() {
 function* loginUserAsync({payload}) {
 	const {username, password} = payload
 	try { 
-		//const response = yield call(fetchLoginUser, username, password)
-		yield put(loginUserSuccess(true))
+		const response = yield call(fetchLoginUser, username, password)	
+		yield put(getUserAction(username))
+		yield put(loginUserSuccess(response.data.response))
 		yield put(setResponseSnackbar({
 			isOpen: true,
 			message: "Logged In",
@@ -164,6 +172,7 @@ function* getUserAsync({payload}) {
 	const userid = payload
 	try{
 		const response = yield call(fetchUser, userid)
+		yield put(getUserSuccess(response.data.data))
 		yield put(setResponseSnackbar({
 			isOpen: true,
 			message: response.data.msg,
@@ -174,6 +183,21 @@ function* getUserAsync({payload}) {
 			isOpen: true,
 			message: error.response.status+" "+error.response.statusText,
 			type: "error"
+		}))
+	}
+}
+
+function* authTokenAsync({payload}){
+	const {token, userid} = payload
+	try{
+		yield call(authorizeCall, userid, token)
+		yield put(authTokenSuccess(true))
+	} catch (error) {
+		yield put(authTokenSuccess(false))
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: "Not Logged In",
+			type: "warning"
 		}))
 	}
 }
@@ -202,6 +226,10 @@ export function* getUserFork() {
 	yield takeEvery (GET_USER, getUserAsync)
 }
 
+export function* authTokenFork() {
+	yield takeEvery (AUTH_REQUEST, authTokenAsync)
+}
+
 export default function* rootSaga() {
-	yield all([fork(loginUserFork), fork(getAllUsersFork), fork(updateUserFork), fork(createUserFork), fork(logOutUserFork), fork(getUserFork)])
+	yield all([fork(loginUserFork), fork(getAllUsersFork), fork(updateUserFork), fork(createUserFork), fork(logOutUserFork), fork(getUserFork), fork(authTokenFork)])
 }
