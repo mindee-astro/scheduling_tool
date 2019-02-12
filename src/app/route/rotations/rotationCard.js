@@ -1,38 +1,17 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { withStyles } from "@material-ui/core/styles";
-import Button from "@material-ui/core/Button";
-import Typography from "@material-ui/core/Typography";
 import Grid from "@material-ui/core/Grid";
-import NewDepartment from "../../../components/NewDepartment";
-import Department from "../../../components/Department";
-
-import MuiDialogTitle from '@material-ui/core/DialogTitle';
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
+import Card from "@material-ui/core/Card";
 
 // Import Get rotation api
-import { getAllRotations } from "../../../actions/index";
+import { getAllRotations } from "../../../actions/ConfigActions";
 
 // Other imports
 import { Route } from "react-router-dom";
 import { connect } from "react-redux";
-import {} from "../../../actions/index";
+import Department from "./components/Department";
 
-const DialogTitle = withStyles(theme => ({
-  root: {
-    margin: 0,
-  }
-}))(props => {
-  const { children, classes } = props;
-  return (
-    <MuiDialogTitle disableTypography className={classes.root}>
-      <Typography variant="h6">{children}</Typography>
-      </MuiDialogTitle>
-  );
-});
 
 const styles = theme => ({
   container: {
@@ -40,18 +19,21 @@ const styles = theme => ({
     flexWrap: "wrap"
   },
   gridwrapper: {
-    paddingLeft: 25
+    paddingLeft: 20
   },
-  dialog: {
-    textAlign: 'center'
+  card: {
+    height: 540,
+    padding: 20
   },
-  dialogButtonWrapper: {
-    marginBottom: 30,
-    margin: '0 auto'
+  show: {
+    display: "block"
   },
-  dialogButton: {
-    borderRadius: 8,
-    width: 100
+  hide: {
+    display: "none"
+  },
+  smallCard: {
+    height: 490,
+    padding: 20
   }
 });
 
@@ -60,120 +42,109 @@ class rotationCard extends Component {
     super(props);
     this.state = {
       classes: props.classes,
-      deleteDialog: false,
-      dialogDepartmentName: ''
+
+      // For get rotations
+      rotations: {},
+      rotationDisplay: [],
+      rotationLength: 0,
+
+      // Access level
+      accesslevel: props.accesslevel
     };
+
   }
 
-  getRotations() {
-    //TODO: get rotation
-    // ...
-    // ...
-
-    // Create mock array from getRotations
-    let rotationArray = [
-      {
-        departmentName: "Project Management",
-        rotationPeriod: 12,
-        championName: "Chow Siew Mun",
-        championEmail: "siew-mun_chow@astro.com.my",
-        capacity: 2
-      },
-      {
-        departmentName: "Product Management",
-        rotationPeriod: 12,
-        championName: "Yunus",
-        championEmail: "yunus@astro.com.my",
-        capacity: 2
-      },
-      {
-        departmentName: "Product Engineering",
-        rotationPeriod: 12,
-        championName: "Michael Fu",
-        championEmail: "michael-fu@astro.com.my",
-        capacity: 2
-      },
-      {
-        departmentName: "Software Engineering",
-        rotationPeriod: 12,
-        championName: "Nicholas Ngoo",
-        championEmail: "nic@astro.com.my",
-        capacity: 3
-      }
-    ];
-
-    return rotationArray.map(r => (
-      <Grid item xs={12} md={6} lg={4}>
-        <Department departmentName={r.departmentName} 
-        rotationPeriod={r.rotationPeriod}
-        championName={r.championName}
-        championEmail={r.championEmail}
-        capacity={r.capacity}
-        getRotations={this.getRotations}
-        openDeleteDialog={this.openDeleteDialog}
-        />
-      </Grid>
-    ));
+  componentDidMount() {
+    this.props.getAllRotations();
   }
 
-  openDeleteDialog = (dialogDepartmentName) => {
-    this.setState({ deleteDialog: true });
-    this.setState({dialogDepartmentName: dialogDepartmentName})
-  };
+  componentDidUpdate(prevProps,prevState) {
+    // if (this.props.rotations && prevState.rotations != this.props.rotations && this.props.rotations.length>0){
+    if (prevProps.rotations != this.props.rotations || prevState.rotations != this.state.rotations) {
+      console.log('rotations',this.props.rotations)
+      this.setState({
+        ...this.state,
+        rotations: this.props.rotations.rotations,
+        rotationLength: this.props.rotations.rotations.length
+        // rotationDisplay: this.state.rotations.map(r =>{
+        //   return{
+        //     ...r,
+        //     mode: 1
+        //   }
+        // })
+      });
+    }
+  }
 
-  closeDeleteDialog = () => {
-    this.setState({ deleteDialog: false });
-  };
+  shouldComponentUpdate(nextProps,nextState) {
+    console.log(this.props.rotations !=nextProps || this.state.rotations != nextState)
+    return this.props.rotations !=nextProps || this.state.rotations != nextState
+  }
+
 
   render() {
-    return (
-      <div className={this.state.classes.gridwrapper}>
-        <Grid container spacing={24}>
-          {/* get rotation: department component */}
-          {this.getRotations()}
+    let classes = this.state.classes;
 
+    const renderRotations = (this.state.rotationLength>0)? (
+ 
+      // When rotations array is not empty
+      <div className={classes.gridwrapper}>
+      
+    
+        <Grid container spacing={24}>
+        {/* Display rotation */}
+        {this.state.rotations.map((r, index) => {
+            return (
+              <Grid item xs={12} md={6} lg={4} key={index}>
+                <Card className={this.state.accesslevel==="Admin"? classes.card : classes.smallCard}>
+                  <Department data={r.data} category={r.category} sK={r.sK} pK={r.pK} name={r.name} duration={r.duration} championName={r.championName} championEmail={r.championEmail} capacity={r.capacity} mode={1} />
+                </Card>
+              </Grid>
+            )
+          })}
+
+          {/* Add rotation */}
           <Grid item xs={12} md={6} lg={4}>
-            <NewDepartment getRotations={this.getRotations.bind(this)} />
+            <Card className={this.state.accesslevel==="Admin"? classes.card:classes.hide}>
+              <Department mode={3} />
+            </Card>
           </Grid>
+      
         </Grid>
 
-        {/* Dialog Box for delete button */}
-        <Dialog
-          open={this.state.deleteDialog}
-          onClose={this.closeDeleteDialog}
-          aria-labelledby="alert-dialog-title"
-          aria-describedby="alert-dialog-description"
-          className={this.state.classes.dialog}
-        >
-          <DialogTitle>
-            REMOVE ROTATION
-          </DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Are you sure you want to remove "<b>{this.state.dialogDepartmentName}</b>" rotation?
-            </DialogContentText>
-          </DialogContent>
-          <DialogActions className={this.state.classes.dialogButtonWrapper}>
-            <Button onClick={this.closeDeleteDialog} className={this.state.classes.dialogButton} color="primary">
-              Cancel
-            </Button>
-            <Button onClick={this.closeDeleteDialog} className={this.state.classes.dialogButton} color="primary" autoFocus>
-              Remove
-            </Button>
-          </DialogActions>
-        </Dialog>
-        {/* End of dialog box for delete button */}
       </div>
-    );
-  }
+      
+    ): (<div className={classes.gridwrapper}>
+      
+    {/* When rotations array is empty */}
+    {/* Add rotation */}
+    <Grid container spacing={24}>
+      <Grid item xs={12} md={6} lg={4}>
+        <Card className={this.state.accesslevel==="Admin"? classes.card: classes.hide}>
+          <Department mode={3} />
+        </Card>
+      </Grid>
+  
+    </Grid>
+
+  </div>)
+  return (
+    <div>
+    {renderRotations}
+    
+    </div>
+  )
+  };
 }
 
 rotationCard.propTypes = {
   classes: PropTypes.object.isRequired
 };
 
-const mapStateToProps = ({}) => {
-  return {};
+const mapStateToProps = ({ rotation, auth }) => {
+  const { rotations } = rotation;
+  const { accesslevel } = auth;
+  return { rotations,accesslevel };
 };
 
 export default connect(
