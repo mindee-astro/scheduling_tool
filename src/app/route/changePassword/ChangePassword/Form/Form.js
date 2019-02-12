@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
 import './Form.css';
+import {connect} from 'react-redux'
 import FormValidator from './FormValidator';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import * as actions from '../../../../../saga/AuthSaga'
+
 
 
 
@@ -105,7 +108,7 @@ class Form extends Component {
 
     if (validation.isValid) {
       alert("Success")
-      
+
       // handle actual form submission here
     }
   }
@@ -169,4 +172,20 @@ class Form extends Component {
     )
   }
 }
-export default Form;
+
+const mapStateToProps = state => {
+  return {
+    username:state.auth.username,
+    isAuthenticated:state.auth.isLoggedIn
+  }
+}
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    onLoginCheck: () => dispatch()
+  }
+}
+
+
+
+export default connect(mapStateToProps,mapDispatchToProps)(Form);
