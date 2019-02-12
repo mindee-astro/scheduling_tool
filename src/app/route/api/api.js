@@ -20,6 +20,7 @@ import {
 	updateRotation,
 	removeRotation,
 	setPopup,
+	getUser,
 } from '../../../actions/index';
 
 const styles = {
@@ -193,6 +194,11 @@ class apiCard extends Component {
 						this.props.removeRotation(this.state.rotationID)
 					)
 
+			case 'auth.getUser':
+				return(
+						this.props.getUser(this.state.userid)
+					)
+
 			default:
 				return(
 					this.setState({
@@ -275,6 +281,16 @@ class apiCard extends Component {
 							</Button>
 							<br/><br/>
 							<div style={{borderStyle: 'solid', padding: '10px'}}>
+								<span>User ID : </span><TextField
+						          defaultValue={this.state.userid}
+						          onChange={this.handleChange('userid')}
+						        />
+								<Button onClick={()=>{this.handleClick('auth.getUser')}}>	
+									Get User
+								</Button>
+							</div>
+							<br/><br/>
+							<div style={{borderStyle: 'solid', padding: '10px'}}>
 								<TextField
 						          required
 						          id="standard-required"
@@ -337,4 +353,4 @@ const mapStateToProps = ({schedule, auth, rotation, page}) => {
     return{allSchedule, userSchedule, isLoggedIn, listUser, rotations, additionalButtonFlag};
 };
 
-export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation, setPopup})(withStyles(styles)(apiCard));
+export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation, setPopup, getUser})(withStyles(styles)(apiCard));
