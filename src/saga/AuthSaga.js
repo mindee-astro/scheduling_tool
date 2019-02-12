@@ -1,10 +1,10 @@
 import {all, call, fork, put, takeEvery, flush} from 'redux-saga/effects';
 
-import { LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER } from '../constants/Actions';
+import { LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER, GET_USER } from '../constants/Actions';
 
 import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup } from '../actions/index';
 
-import { loginUser, getAllUsers, updateUser, createNewUser, logoutUser } from '../api/apicalls'
+import { loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser } from '../api/apicalls'
 
 const sendLogOutUser = async () => 
 	await logoutUser()
@@ -39,6 +39,25 @@ const fetchAllUsers = async () =>
 const fetchLoginUser = async (username, password) => 
 	await loginUser(username, password)
 		.then(response=>response)
+		.catch(error=>{
+			return Promise.reject(error)
+		});
+
+const fetchUser = async (userid) => 
+	await getUser(userid)
+		.then(response=>{
+			if (response.data.data == undefined){
+				const error = {
+					response: {
+						status: "Error: ",
+						statusText: "User has no data/ not exist"
+					}
+				}
+				return Promise.reject(error)
+			}else{
+				return response
+			}
+		})
 		.catch(error=>{
 			return Promise.reject(error)
 		});
@@ -141,6 +160,24 @@ function* loginUserAsync({payload}) {
 
 } 
 
+function* getUserAsync({payload}) {
+	const userid = payload
+	try{
+		const response = yield call(fetchUser, userid)
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: response.data.msg,
+			type: "success"
+		}))
+	} catch (error) {
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: error.response.status+" "+error.response.statusText,
+			type: "error"
+		}))
+	}
+}
+
 export function* logOutUserFork() {
 	yield takeEvery( LOG_OUT_USER, logOutUserAsync )
 }
@@ -161,6 +198,10 @@ export function* loginUserFork() {
 	yield takeEvery( LOG_IN_USER, loginUserAsync)
 }
 
+export function* getUserFork() {
+	yield takeEvery (GET_USER, getUserAsync)
+}
+
 export default function* rootSaga() {
-	yield all([fork(loginUserFork), fork(getAllUsersFork), fork(updateUserFork), fork(createUserFork), fork(logOutUserFork)])
+	yield all([fork(loginUserFork), fork(getAllUsersFork), fork(updateUserFork), fork(createUserFork), fork(logOutUserFork), fork(getUserFork)])
 }
