@@ -45,7 +45,19 @@ const fetchLoginUser = async (username, password) =>
 
 const fetchUser = async (userid) => 
 	await getUser(userid)
-		.then(response=>response)
+		.then(response=>{
+			if (response.data.data == undefined){
+				const error = {
+					response: {
+						status: "Error: ",
+						statusText: "User has no data/ not exist"
+					}
+				}
+				return Promise.reject(error)
+			}else{
+				return response
+			}
+		})
 		.catch(error=>{
 			return Promise.reject(error)
 		});
