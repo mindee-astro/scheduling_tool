@@ -25,6 +25,13 @@ export const getAllUsers = async () => {
 	}))
 }
 
+export const getUser = async (userid) => {
+	return (instance({
+		method: 'GET',
+		url: devUrl+"/user/" + userid,
+	}))
+}
+
 export const updateUser = async (userid, data) => {
 	return (instance({
 		method: 'PUT',
