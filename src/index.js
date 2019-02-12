@@ -126,8 +126,6 @@ const theme = createMuiTheme(
 		    	root: {
 		    	}
 		    },
-<<<<<<< HEAD
-=======
 		    MuiDialogTitle: {
 		    	root: {
 		      		fontFamily: fontFamily,
@@ -142,7 +140,6 @@ const theme = createMuiTheme(
 			        color: 'black',
 			    }
 		    }
->>>>>>> staging
 	  	},
 	}
 );

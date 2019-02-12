@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import PropTypes from 'prop-types';
 import { withStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
@@ -11,12 +10,10 @@ import FormControl from '@material-ui/core/FormControl';
 import FormGroup from '@material-ui/core/FormGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import Checkbox from '@material-ui/core/Checkbox';
-
 // to do API 
 import {
-    updateUser,
+    setNotificationSnackbar,
 } from '../../../../actions/index'; 
-import elective from '../elective';
 
 const styles = theme => ({
 	card: {
@@ -36,82 +33,64 @@ const styles = theme => ({
 	},
   });
 
-  const data = {
-    "username": "string",
-    "displayName": "string",
-    "password": "string",
-    "joinDate": "2019-01-16",
-    "electives": [],
-    "status": "active",
-    "mentor": "string"
-  } 
-
 class ShowModOpt extends Component {
     constructor(props) {
-		super(props);
-    };
-
-    state = {
-        checked: [],
-        value:12,
-        currentList: this.props.electMod, 
-    };
-    
-    //for select options
+        super(props)
+        this.state = {
+            checked: [],
+            monthsLeft :12,
+        } 
+    }
+    //when module is select, monthsLeft will change 
+    //the module will be ticked 
   	handleChange = formSubmitEvent => () => {
 		const { checked } = this.state;
 		const currentIndex = checked.indexOf(formSubmitEvent.label);
-		const newChecked = [...checked];
+        const newChecked = [...checked];
 
 		if (currentIndex === -1) { 
-            if (this.state.value >0 ){
-                this.setState({value: this.state.value - formSubmitEvent.weight});
-                if (this.state.value >0){
-                    newChecked.push(formSubmitEvent.label);
-                }
+            if (this.state.monthsLeft>=formSubmitEvent.weight){
+                newChecked.push(formSubmitEvent.label);
+                this.setState({monthsLeft: this.state.monthsLeft - formSubmitEvent.weight})
             }
             else{
+                    this.props.setNotificationSnackbar({isOpen: true, message:(<span>You have reached the maximum number of selected modules.</span>)})
             }
 		} else {
-			this.setState({value: parseInt(formSubmitEvent.weight, 10) + this.state.value});
-		  	newChecked.splice(currentIndex, 1);
+			this.setState({monthsLeft: parseInt(formSubmitEvent.weight, 10) + this.state.monthsLeft})
+		  	newChecked.splice(currentIndex, 1)
 		}
 		this.setState({
 		  checked: newChecked,
 		});
 		
-    };
+    }
     
     onClickButton = e => {
         e.preventDefault();
-        if (this.state.checked != this.state.currentList){
-            data['electives'] = this.state.checked
-            // update User Profile
-            this.props.updateUser('123', data)
-            console.log(data, this.state.checked)
-        }
+        this.props.moduleList(this.state.checked)
     }
 
-    render(){
+    onCancelButton = e => {
+        e.preventDefault();
+        this.props.moduleList()
+    }
+    
+    render() {
         const {classes} = this.props
         return(
         <div> 
-            <div>
-                <Typography variant="body2" style={{marginTop:50}}>
-                    Elective Modules
-                </Typography>
-            </div>
             <div className={classes.arrangedCard}>
                 <Typography variant="body1">
                     <span>Minimum required months are 11. Please select up to 4-5 preferred modules.</span>
-                    <span style={{textAlign: 'right'}}>10</span>
+                    <span style={{textAlign: 'right'}}></span>
                 </Typography>
                 <br/>
                 <Typography variant="body1" style={{marginLeft: 200}}>
                     Months Left
                 </Typography>
                 <Typography variant="body1" style={{marginLeft: 50}}>
-                    {this.state.value}
+                    {this.state.monthsLeft}
                 </Typography>
             </div>
             <div style={{textAlign: 'left', paddingTop: '20px'}}>
@@ -139,18 +118,21 @@ class ShowModOpt extends Component {
                 </FormControl>
             </div>
             <div>
-                <Button disabled={this.state.value > 1}  onClick={this.onClickButton}>
+                <Button disabled={this.state.monthsLeft > 1}  onClick={this.onClickButton.bind(this)}>
                     Submit Choices
                 </Button>
-            </div> 
+                <Button onClick={this.onCancelButton.bind(this)}>
+                    Cancel
+                </Button>
+            </div>
         </div>
     );
     }
 }
 
-const mapStateToProps = ({modules}) => {
-	//const {updateUser} = modules
-    //return{updateUser}
+const mapStateToProps = ({user}) => {
+	//const {userDetails} = user
+   // return{userDetails}
 };
 
-export default connect(mapStateToProps, {updateUser})(withStyles(styles)(ShowModOpt));
+export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles(styles)(ShowModOpt));

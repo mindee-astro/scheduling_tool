@@ -1,13 +1,7 @@
 export const colorPalette = {
-<<<<<<< HEAD
-	primary: '#205493',
-	secondary: '#E8513B',
-	error: '#FF1C3C',
-=======
 	primary: '#112E51',
 	secondary: '#28055C',
 	error: '#9C160E',
->>>>>>> staging
 	info: '#25381D',
 	action: '#5559FF',
 	sideBar: '#112E51',

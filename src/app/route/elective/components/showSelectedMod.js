@@ -9,6 +9,8 @@ import {connect} from 'react-redux';
 import Typography from '@material-ui/core/Typography';
 import allElectMod from './allElectiveModules';
 
+//show module page 
+//user has already selected their electives 
 const styles = theme => ({
 	card: {
 		display: 'flex',
@@ -25,28 +27,24 @@ const styles = theme => ({
 		display:'flex', 
 		flexWrap: ' wrap', 
 	},
-	button: {
-		position: 'relative',
-		marginTop: 30,
-		marginLeft: 950,
-		bottom: 10,
-	},
   });
 
 
 class ShowSelectedMod extends React.Component{
 	constructor(props) {
-		super(props);
+        super(props);
+        this.state={
+            moduleList : this.props.electMod, 
+        }
     };
-
     
     render(){
         const {classes} = this.props;
-        var modList = this.props.electmod;
+        //find the weights for each module 
         var modDict = [];
-        for (var eMod in modList){
+        for (var eMod in this.state.moduleList){
             allElectMod.map(item=>{
-                if (modList[eMod]==item.label){
+                if (this.state.moduleList[eMod]==item.label){
                     modDict.push(
                         {
                         name: item.label,
@@ -60,11 +58,6 @@ class ShowSelectedMod extends React.Component{
 
         return(
                 <div>
-                    <div>
-                        <Typography component="body1" style={{marginTop:50}}>
-                            Elective Modules
-                        </Typography>
-                    </div>
                     <div className={classes.arrangedCard}>
                             {modDict.map(mod => {
                                 return(
@@ -80,7 +73,7 @@ class ShowSelectedMod extends React.Component{
                             })}
                     </div>
                     <div>
-                        <Button>
+                        <Button onClick={this.props.onChange}>
                             Edit Choices
                         </Button>
                     </div> 
