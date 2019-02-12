@@ -43,6 +43,8 @@ function* removeRotationAsync({payload}) {
 			message: "Successfully Removed Rotation",
 			type: "warning"
 		}))
+		// Get all rotations to refresh page
+		yield call(getAllRotationsAsync)
 	} catch (error) {
 		yield put(setResponseSnackbar({
 			isOpen: true,
@@ -61,6 +63,8 @@ function* updateRotationAsync({payload}) {
 			message: "Successfully Updated Rotation",
 			type: "success"
 		}))
+		// Get all rotations to refresh page
+		yield call(getAllRotationsAsync)
 	} catch	(error) {
 		yield put(setResponseSnackbar({
 			isOpen: true,
@@ -79,6 +83,8 @@ function* addRotationAsync({payload}) {
 			message: "Added Rotation",
 			type: "success"
 		}))
+		// Get all rotations to refresh page
+		yield call(getAllRotationsAsync)
 	} catch (error) {
 		yield put(setResponseSnackbar({
 			isOpen: true,

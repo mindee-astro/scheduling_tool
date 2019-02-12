@@ -31,6 +31,11 @@ export default (state=INIT_STATE, action)=>{
 				rotations: action.payload
 			}
 
+		case REMOVE_ROTATION_SUCCESS:
+			return {
+				...state
+			}
+
 		default: 
 			return state
 	}
