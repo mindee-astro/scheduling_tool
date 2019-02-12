@@ -15,7 +15,9 @@ import {
 } from '../../../actions/index';
 import Typography from '@material-ui/core/Typography';
 // help icon
-import Tooltip from '../../../components/Tooltip'
+//import Tooltip from '../../../components/Tooltip'
+import Tooltip from '@material-ui/core/Tooltip'
+import HelpIcon from '@material-ui/icons/Help';
 //show module page 
 import ShowSelectedMod from './components/showSelectedMod'; 
 // show module selection page 
@@ -41,8 +43,13 @@ const styles = theme => ({
 	// arrangement for module cards 
 	arrangedCard: {
 		display:'flex', 
+		flexWrap:'wrap',
 	},
-  });
+	//for tooltip
+	tooltip: {
+		maxWidth: 220,
+		},
+	});
 
 //list down all the core modules 
 var coreMod = ['Product Engineering', 'Product Management', 'Project Management', 'Software Engineering'];
@@ -95,22 +102,21 @@ class ElectiveCard extends React.Component {
 	
 	//update new module list and send to updateUser
 	updateModuleList = list => {
-		//turn off editButtonHit
+		//turn off editMode
 		this.setState({editMode: false})
 		if (list){
 			this.setState({updatedModuleList: list})
 			console.log("updatedModList", this.state.updatedModuleList)
+			//in the case when user just click submit without changing anything, we dont need to update db again. 
 			if (list != this.state.prevModuleList){
 				this.state.listUser['electives'] = list
 				this.props.updateUser(this.state.listUser['pk'], this.state.listUser)
 			}
 		}
-		//in the case when user just click submit without changing anything, we dont need to update db again. 
 	};
 
 	render() {
 		const {classes} = this.props
-
 		//determine which page to show, use emptyModList 
 		return(
 			<div>
@@ -120,11 +126,13 @@ class ElectiveCard extends React.Component {
 							<Typography variant="body2" style={{marginTop:15}}>
 									<span>
 										Core Modules
-										<Tooltip
-											iconType="help"
-											color="primary"
-											message="The number after the rotation name indicates the number of months you will spend in the rotations"
-										/>
+										<Tooltip 
+										title="The number indicates the number of months spent in the rotation"
+										classes={{ tooltip: classes.tooltip }}
+										>
+										<HelpIcon
+										fontSize="small"/>
+										</Tooltip>
 									</span>
 							</Typography>
 						</div>
@@ -150,7 +158,7 @@ class ElectiveCard extends React.Component {
 							</Typography>
 						</div>
 						<div>
-							{this.state.editButtonHit 
+							{this.state.editMode 
 								? <ShowModOpt moduleList={this.updateModuleList.bind(this)} />
 								: <ShowSelectedMod electMod={this.state.prevModuleList}
 								onChange={this.onChange.bind(this)}/> 

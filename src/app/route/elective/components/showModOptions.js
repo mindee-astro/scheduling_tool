@@ -23,11 +23,11 @@ const styles = theme => ({
 		marginLeft: 10,
 		marginTop: 10,
 		justifyContent: 'center',
-		alignItems: 'center',
+        alignItems: 'center',
+        flexWrap:'wrap',
 	  },
 
 	arrangedCard: {
-		marginTop: 10,
 		display:'flex', 
 		flexWrap:'wrap',
 	},
@@ -80,17 +80,12 @@ class ShowModOpt extends Component {
         const {classes} = this.props
         return(
         <div> 
-            <div className={classes.arrangedCard}>
+            <div>
                 <Typography variant="body1">
                     <span>Minimum required months are 11. Please select up to 4-5 preferred modules.</span>
-                    <span style={{textAlign: 'right'}}></span>
                 </Typography>
-                <br/>
-                <Typography variant="body1" style={{marginLeft: 200}}>
-                    Months Left
-                </Typography>
-                <Typography variant="body1" style={{marginLeft: 50}}>
-                    {this.state.monthsLeft}
+                <Typography variant="body1" style={{textAlign:"right"}}>
+                    <span>Months Left &nbsp; &nbsp; &nbsp; &nbsp; {this.state.monthsLeft}</span>
                 </Typography>
             </div>
             <div style={{textAlign: 'left', paddingTop: '20px'}}>
@@ -118,11 +113,11 @@ class ShowModOpt extends Component {
                 </FormControl>
             </div>
             <div>
-                <Button disabled={this.state.monthsLeft > 1}  onClick={this.onClickButton.bind(this)}>
-                    Submit Choices
-                </Button>
-                <Button onClick={this.onCancelButton.bind(this)}>
+                <Button onClick={this.onCancelButton.bind(this)} style={{float: 'right', margin:10}}>
                     Cancel
+                </Button>
+                <Button disabled={this.state.monthsLeft > 1}  onClick={this.onClickButton.bind(this)} style={{float: 'right', margin:10}} >
+                    Submit Choices
                 </Button>
             </div>
         </div>

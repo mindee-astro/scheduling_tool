@@ -66,8 +66,8 @@ class ShowSelectedMod extends React.Component{
                                 return(
                                     <Card className={classes.card}>
                                         <div>
-                                            <CardContent className={classes.controls}>
-                                                <Typography variant="body2">
+                                            <CardContent>
+                                                <Typography variant="body1">
                                                     {mod.name} ({mod.weight})
                                                 </Typography>
                                             </CardContent>
@@ -76,9 +76,11 @@ class ShowSelectedMod extends React.Component{
                             })}
                     </div>
                     <div>
-                        <Button onClick={this.props.onChange}>
+                        <span>
+                        <Button onClick={this.props.onChange} style={{float: 'right'}}>
                             Edit Choices
                         </Button>
+                        </span>
                     </div> 
                 </div>
             );
