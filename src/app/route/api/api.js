@@ -347,10 +347,10 @@ class apiCard extends Component {
 
 const mapStateToProps = ({schedule, auth, rotation, page}) => {
 	const {allSchedule, userSchedule} = schedule;
-	const {isLoggedIn, listUser} = auth;
+	const {isLoggedIn, listUser, userData} = auth;
 	const {rotations} = rotation;
 	const {additionalButtonFlag} = page;
-    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations, additionalButtonFlag};
+    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations, additionalButtonFlag, userData};
 };
 
 export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation, setPopup, getUser})(withStyles(styles)(apiCard));
