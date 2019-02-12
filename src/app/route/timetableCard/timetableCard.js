@@ -8,7 +8,7 @@ import Button from '@material-ui/core/Button';
 import Grid from '@material-ui/core/Grid';
 import GridList from '@material-ui/core/GridList';
 import Typography from '@material-ui/core/Typography';
-import html2canvas from 'html2canvas';
+//import html2canvas from 'html2canvas';
 import {
 	getAllSchedule,
 	getUserSchedule,

@@ -36,12 +36,12 @@ class ShowSelectedMod extends React.Component{
         this.state={
             moduleList : this.props.electMod, 
         }
+        console.log("list that got passed",this.state.moduleList)
     };
-    
     render(){
-        const {classes} = this.props;
+        const {classes} = this.props
         //find the weights for each module 
-        var modDict = [];
+        var modDict = []
         for (var eMod in this.state.moduleList){
             allElectMod.map(item=>{
                 if (this.state.moduleList[eMod]==item.label){
@@ -51,11 +51,14 @@ class ShowSelectedMod extends React.Component{
                         weight: item.weight,
                     }
                     )
+                    console.log("module dictionary:", modDict)
+                }
+                else {
+                    console.log(eMod, "not in the full module list")
                 }
             }
-            );
-        };
-
+            )
+        }
         return(
                 <div>
                     <div className={classes.arrangedCard}>

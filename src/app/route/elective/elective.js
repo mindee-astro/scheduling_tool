@@ -23,7 +23,7 @@ import ShowModOpt from './components/showModOptions';
 // tocall API
 import {
 	updateUser,
-	getAllUser,
+	getUser,
 	setNotificationSnackbar
 } from '../../../actions/index'; 
 
@@ -46,65 +46,71 @@ const styles = theme => ({
 
 //list down all the core modules 
 var coreMod = ['Product Engineering', 'Product Management', 'Project Management', 'Software Engineering'];
-const user = {
-    "data": "active#2010-01-01",
-    "displayName": "Michael Fu",
-    "joinDate": "2010-01-01",
-    "electives": [],
-    "schedule": [],
-    "status": "suspended",
-   "mentorName": "Syahrul",
-    "mentorEmail": "shahrul_sultan@astro.com.my"
- } 
-const electMod = user['electives']
-
+//const user = {
+ //   "data": "active#2010-01-01",
+ //   "displayName": "Michael Fu",
+ //   "joinDate": "2010-01-01",
+ //   "electives": [],
+ //   "schedule": [],
+ //   "status": "suspended",
+ //  "mentorName": "Syahrul",
+ //   "mentorEmail": "shahrul_sultan@astro.com.my"
+ //} 
+//const electMod = user['electives']
 class ElectiveCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
-			prevModuleList: electMod, 
-			editButtonHit: false, 
+			prevModuleList: [], 
+			editMode: false, 
 			updatedModuleList: null, 
 			listUser: {},
 		};
 	};
 
 	componentDidMount(){
-		this.props.getAllUser()
+		this.props.getUser("ffsfu1")
 	}
+
 	componentDidUpdate(prevProps){
 		if (prevProps.listUser != this.props.listUser){
 			this.setState({
 				...this.state,
 				listUser:this.props.listUser
 			})
-			console.log(this.state.listUser)
+			console.log("user fetched", this.state.listUser)
 		}
+		if (prevProps.prevModuleList != this.props.listUser['electives']){
+			this.setState({
+				...this.state,
+					prevModuleList:this.props.listUser['electives']
+			})
+		}
+		console.log("electives:",this.state.prevModuleList)
 	}
 	// when edit choices button is hit, change the editButtonHit to true to show mod selection page
 	onChange = () => {
-		this.setState({editButtonHit:true})
+		this.setState({editMode:true})
 	}
 	
 	//update new module list and send to updateUser
 	updateModuleList = list => {
 		//turn off editButtonHit
-		this.setState({editButtonHit: false})
+		this.setState({editMode: false})
 		if (list){
 			this.setState({updatedModuleList: list})
 			console.log("updatedModList", this.state.updatedModuleList)
 			if (list != this.state.prevModuleList){
-				user['electives'] = list
-				this.props.updateUser('ffsfu', user)
-				this.setState({prevModuleList:list})
+				this.state.listUser['electives'] = list
+				this.props.updateUser(this.state.listUser['pk'], this.state.listUser)
 			}
 		}
-		console.log("user:",user,"prevModList:", this.state.prevModuleList)
 		//in the case when user just click submit without changing anything, we dont need to update db again. 
 	};
 
 	render() {
 		const {classes} = this.props
+
 		//determine which page to show, use emptyModList 
 		return(
 			<div>
@@ -163,4 +169,4 @@ const mapStateToProps = ({auth}) => {
   return{listUser}
 };
 
-export default connect(mapStateToProps, {updateUser,getAllUser, setNotificationSnackbar})(withStyles(styles)(ElectiveCard));
+export default connect(mapStateToProps, {updateUser,getUser, setNotificationSnackbar})(withStyles(styles)(ElectiveCard));
