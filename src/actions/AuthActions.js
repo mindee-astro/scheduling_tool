@@ -100,9 +100,10 @@ export const getAllUserSuccess = (data) => {
 	}
 }
 
-export const logOutUser = () => {
+export const logOutUser = (userid) => {
 	return {
-		type: LOG_OUT_USER
+		type: LOG_OUT_USER,
+		payload: userid
 	}
 }
 

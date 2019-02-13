@@ -19,6 +19,7 @@ const INIT_STATE = {
 	joindate: "DD/MM/YYYY",
 	mentor: "Dummy DATA",
 	electives: [],
+	schedule: [],
 	accesslevel: "",
 	email: "DummyDATA@astro.com.my",
 	mentoremail: "DummyDATA@astro.com.my",
