@@ -58,7 +58,6 @@ var userData = {
 	"displayName": "",
 	"joinDate": "",
 	"electives": [],
-	"schedule": [],
 	"status": 'active',
 	"mentorName":"",
 	"mentorEmail": ""
@@ -108,7 +107,7 @@ class ElectiveCard extends React.Component {
 					"mentorName":this.props.mentor,
 					"mentorEmail": this.props.mentorEmail
 				}
-				this.props.updateUser(this.props.username, this.state.userData)
+				this.props.updateUser(this.props.username, userData)
 			}
 		}
 		console.log('updated User Data List', userData)
