@@ -15,12 +15,12 @@ const styles = theme => ({
 	card: {
 		display: 'flex',
 		width: 230,
-		height: 60,
+		height: 50,
 		marginLeft: 10,
 		marginTop: 10,
 		justifyContent: 'center',
 		alignItems: 'center',
-	  },
+	},
 
 	arrangedCard: {
 		marginTop: 10,
@@ -36,7 +36,7 @@ class ShowSelectedMod extends React.Component{
         this.state={
             moduleList : this.props.electMod, 
         }
-        console.log("list that got passed",this.state.moduleList)
+        console.log("elective choices list",this.state.moduleList)
     };
     render(){
         const {classes} = this.props
@@ -51,14 +51,11 @@ class ShowSelectedMod extends React.Component{
                         weight: item.weight,
                     }
                     )
-                    console.log("module dictionary:", modDict)
-                }
-                else {
-                    console.log(eMod, "not in the full module list")
                 }
             }
             )
         }
+        console.log("Module Dictionary is created:", modDict)
         return(
                 <div>
                     <div className={classes.arrangedCard}>
@@ -76,11 +73,9 @@ class ShowSelectedMod extends React.Component{
                             })}
                     </div>
                     <div>
-                        <span>
                         <Button onClick={this.props.onChange} style={{float: 'right'}}>
                             Edit Choices
                         </Button>
-                        </span>
                     </div> 
                 </div>
             );

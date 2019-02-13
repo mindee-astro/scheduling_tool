@@ -1,5 +1,6 @@
 import React, {Component} from 'react';
 import { withStyles } from '@material-ui/core/styles';
+import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
 import allElectMod from './allElectiveModules';
@@ -14,24 +15,6 @@ import Checkbox from '@material-ui/core/Checkbox';
 import {
     setNotificationSnackbar,
 } from '../../../../actions/index'; 
-
-const styles = theme => ({
-	card: {
-		display: 'flex',
-		width: 230,
-		height: 60,
-		marginLeft: 10,
-		marginTop: 10,
-		justifyContent: 'center',
-        alignItems: 'center',
-        flexWrap:'wrap',
-	  },
-
-	arrangedCard: {
-		display:'flex', 
-		flexWrap:'wrap',
-	},
-  });
 
 class ShowModOpt extends Component {
     constructor(props) {
@@ -68,6 +51,7 @@ class ShowModOpt extends Component {
     
     onClickButton = e => {
         e.preventDefault();
+        console.log("choices selected:", this.state.checked)
         this.props.moduleList(this.state.checked)
     }
 
@@ -125,9 +109,7 @@ class ShowModOpt extends Component {
     }
 }
 
-const mapStateToProps = ({user}) => {
-	//const {userDetails} = user
-   // return{userDetails}
+const mapStateToProps = ({auth}) => {
 };
 
-export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles(styles)(ShowModOpt));
+    export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles()(ShowModOpt));
