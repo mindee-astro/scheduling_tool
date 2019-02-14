@@ -51,10 +51,13 @@ export const loginUser = async (usernm, pwd) => {
 	}))
 }
 
-export const logoutUser = async () => {
+export const logoutUser = async (userid) => {
 	return (instance({
 		method: 'POST',
-		url: baseUrl+"user/logout"
+		url: devUrl+"/logout",
+		data: {
+			username: userid
+		}
 	}))
 }
 

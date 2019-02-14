@@ -6,8 +6,8 @@ import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup, get
 
 import { loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser, authorize } from '../api/apicalls'
 
-const sendLogOutUser = async () => 
-	await logoutUser()
+const sendLogOutUser = async (userid) => 
+	await logoutUser(userid)
 		.then(response=>response)
 		.catch(error=>{
 			return Promise.reject(error)
@@ -69,20 +69,16 @@ const authorizeCall = async (userid, token) =>
 			return Promise.reject(error)
 		});
 
-function* logOutUserAsync(){
+function* logOutUserAsync({payload}){
+	const userid = payload
+	yield put(loginUserSuccess(false))
 	try { 
-		//const response = yield call(sendLogOutUser)
-		yield put(loginUserSuccess(false))
+		yield call(sendLogOutUser, userid)
 		yield put(setPopup({
 			isOpen: true,
 			title: "Logged Out",
 			closeButtonText: "Dismiss",
 			messageText: "You are currently logged out, please log in again to access the page"
-		}))
-		yield put(setResponseSnackbar({
-			isOpen: true,
-			message: "Logged Out",
-			type: "warning"
 		}))
 	} catch (error) {
 		yield put(setResponseSnackbar({
@@ -115,6 +111,7 @@ function* updateUserAsync({payload}) {
 	const {userid, data} = payload
 	try{
 		const response = yield call(sendUpdateUser, userid, data)
+		yield put(getUserAction(userid))
 		yield put(setResponseSnackbar({
 			isOpen: true,
 			message: "Updated User",

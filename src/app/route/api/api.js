@@ -47,16 +47,15 @@ class apiCard extends Component {
 			status: 'active',
 			rotationID: '12345',
 			data: {
-		        "pK": "ffsfu",
+		        "pK": "hhkahmad",
 		        "sK": "USER",
 		        "data": "active#2010-01-01",
-		        "displayName": "Michael Fu",
+		        "displayName": "Ahmad Akmaluddin",
 		        "joinDate": "2010-01-01",
 		        "electives": [],
-		        "schedule": [],
 		        "status": "active",
-		        "mentorName": "Syahrul",
-		        "mentorEmail": "shahrul_sultan@astro.com.my"
+		        "mentorName": "Faris",
+		        "mentorEmail": "whiteout"
     		},
 			rotationData: {
 				    "pK": "EA",
