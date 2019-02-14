@@ -42,8 +42,8 @@ export const updateUser = async (userid, data) => {
 
 export const loginUser = async (usernm, pwd) => {
 	return (instance({
-		method: 'GET',
-		url: baseUrl+"user/login",
+		method: 'POST',
+		url: devUrl+"/login",
 		data: {
 			"username": usernm,
 			"password": pwd
@@ -51,9 +51,23 @@ export const loginUser = async (usernm, pwd) => {
 	}))
 }
 
-export const logoutUser = async () => {
+export const logoutUser = async (userid) => {
 	return (instance({
 		method: 'POST',
-		url: baseUrl+"user/logout"
+		url: devUrl+"/logout",
+		data: {
+			username: userid
+		}
+	}))
+}
+
+export const authorize = async (userid, token) => {
+	return (instance({
+		method: 'POST',
+		url: devUrl+"/authorize",
+		data: {
+			"username": userid,
+			"sessionToken": token
+		}
 	}))
 }

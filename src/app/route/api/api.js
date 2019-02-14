@@ -47,16 +47,15 @@ class apiCard extends Component {
 			status: 'active',
 			rotationID: '12345',
 			data: {
-		        "pK": "ffsfu",
+		        "pK": "hhkahmad",
 		        "sK": "USER",
 		        "data": "active#2010-01-01",
-		        "displayName": "Michael Fu",
+		        "displayName": "Ahmad Akmaluddin",
 		        "joinDate": "2010-01-01",
 		        "electives": [],
-		        "schedule": [],
 		        "status": "active",
-		        "mentorName": "Syahrul",
-		        "mentorEmail": "shahrul_sultan@astro.com.my"
+		        "mentorName": "Faris",
+		        "mentorEmail": "whiteout"
     		},
 			rotationData: {
 				    "pK": "EA",
@@ -347,10 +346,10 @@ class apiCard extends Component {
 
 const mapStateToProps = ({schedule, auth, rotation, page}) => {
 	const {allSchedule, userSchedule} = schedule;
-	const {isLoggedIn, listUser} = auth;
+	const {isLoggedIn, listUser, userData} = auth;
 	const {rotations} = rotation;
 	const {additionalButtonFlag} = page;
-    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations, additionalButtonFlag};
+    return{allSchedule, userSchedule, isLoggedIn, listUser, rotations, additionalButtonFlag, userData};
 };
 
 export default connect(mapStateToProps, {getUserSchedule, getAllSchedule, loginUser, getAllUser, updateUser, createUser, logOutUser, getAllRotations, addRotation, updateRotation, removeRotation, setPopup, getUser})(withStyles(styles)(apiCard));
