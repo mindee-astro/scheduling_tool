@@ -17,8 +17,8 @@ import Typography from '@material-ui/core/Typography';
 //import Tooltip from '../../../components/Tooltip'
 import Tooltip from '@material-ui/core/Tooltip'
 import HelpIcon from '@material-ui/icons/Help';
-//show module page 
-import ShowSelectedMod from './components/showSelectedMod'; 
+//show button 
+import Button from '@material-ui/core/Button';
 // show module selection page 
 import ShowModOpt from './components/showModOptions'; 
 // tocall API
@@ -28,7 +28,6 @@ import {
 	getAllRotations,
 	setNotificationSnackbar
 } from '../../../actions/index'; 
-import { ConsoleLogger } from '@aws-amplify/core';
 
 const styles = theme => ({
 	// design for cards 
@@ -64,13 +63,14 @@ var userData = {
 	"mentorEmail": ""
 }
 
+
+
 class ElectiveCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
 			electives: this.props.electives, 
-			editMode: false, 
-			electDict: [], 
+			editMode: false,  
 			rotations: [],
 		}
 	}
@@ -83,7 +83,7 @@ class ElectiveCard extends React.Component {
 		if (prevProps.electives != this.props.electives){
 			this.setState({
 				...this.state,
-				electives:this.props.electives
+				electives:this.props.electives,
 			})
 		}
 		if (prevProps.rotations != this.props.rotations){
@@ -95,14 +95,11 @@ class ElectiveCard extends React.Component {
 		console.log('all rotations',this.state.rotations)
 		}
 
-	// when edit choices button is hit, change the editButtonHit to true to show mod selection page
-	onChange = () => {
-		this.setState({editMode:true})
-	}
-	
-	//get dictionary rotation list 
-	getModuleDictionary=(module, dict)=>{
+	//get module dictioanry 
+	getModuleDictionary=(module)=>{
+		var dict = []
 		for (var eMod in module){
+			console.log('Emod:', eMod)
 			this.state.rotations.map(item=>{
 				if (module[eMod]==item.pK){
 					dict.push(
@@ -116,6 +113,11 @@ class ElectiveCard extends React.Component {
 			)
 		}
 		console.log("module dictionary is:", dict)
+		return(dict)
+	}
+	// when edit choices button is hit, change the editButtonHit to true to show mod selection page
+	onChange = () => {
+		this.setState({editMode:true})
 	}
 
 	//update new module list and send to updateUser
@@ -158,7 +160,7 @@ class ElectiveCard extends React.Component {
 
 	render() {
 		const {classes} = this.props
-		this.getModuleDictionary(this.state.electives, this.state.electDict)
+		const dict =this.getModuleDictionary(this.state.electives)
 		//determine which page to show, use emptyModList 
 		return(
 			<div>
@@ -204,8 +206,28 @@ class ElectiveCard extends React.Component {
 						<div>
 							{this.state.editMode 
 								? <ShowModOpt moduleList={this.updateModuleList.bind(this)} />
-								: <ShowSelectedMod electMod={this.state.electDict}
-								onChange={this.onChange.bind(this)}/> 
+								: 
+								<div>
+									<div className={classes.arrangedCard}>
+										{dict.map(mod => {
+											return(
+												<Card className={classes.card}>
+													<div>
+														<CardContent>
+															<Typography variant="body1">
+																{mod.name} ({mod.weight})
+															</Typography>
+														</CardContent>
+													</div>
+												</Card>); 
+										})}
+									</div>
+									<div style={{paddingTop:20}}>
+										<Button onClick={this.onChange} style={{float: 'right'}}>
+											Edit Choices
+										</Button>
+									</div> 
+								</div>
 							}
 						</div>
 					</CardContent>

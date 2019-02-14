@@ -23,6 +23,7 @@ class ShowModOpt extends Component {
             monthsLeft :10,
         } 
     }
+
     //when module is select, monthsLeft will change 
     //the module will be ticked 
   	handleChange = formSubmitEvent => () => {

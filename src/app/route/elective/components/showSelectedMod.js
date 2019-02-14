@@ -7,7 +7,6 @@ import Button from '@material-ui/core/Button';
 import {Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import Typography from '@material-ui/core/Typography';
-import allElectMod from './allElectiveModules';
 
 //show module page 
 //user has already selected their electives 
@@ -30,17 +29,45 @@ const styles = theme => ({
 	},
   });
 
+var dict=[]
 
 class ShowSelectedMod extends React.Component{
 	constructor(props) {
         super(props);
         this.state={
-            moduleList : this.props.electMod, 
+            moduleList : [], 
+            rotations:this.props.rotations, 
         }
-        console.log("elective choices list",this.state.moduleList)
     };
+
+	componentDidUpdate(prevProps){
+            this.getModuleDictionary(this.props.electMod) 
+		}
+    
+    //get dictionary rotation list 
+	getModuleDictionary=(module)=>{
+        console.log("rotations in Select", this.state.rotations)
+		for (var eMod in module){
+            console.log('Emod:', eMod)
+			this.state.rotations.map(item=>{
+				if (module[eMod]==item.pK){
+					dict.push(
+						{
+						name: item.name,
+						weight: item.duration,
+					}
+					)
+				}
+			}
+			)
+        }
+        this.setState({moduleList:dict})
+		console.log("module dictionary is:", dict)
+		return(dict)
+	}
     render(){
         const {classes} = this.props
+        console.log("elective choices list",this.state.moduleList)
         return(
                 <div>
                     <div className={classes.arrangedCard}>
@@ -67,8 +94,9 @@ class ShowSelectedMod extends React.Component{
         }
     }
     
-ShowSelectedMod.propTypes = {
-    classes: PropTypes.object.isRequired,
-    };
+const mapStateToProps = ({rotation}) => {
+  // const {rotations} = rotation
+  //  return{rotations}
+};
 
-export default withStyles(styles)(ShowSelectedMod);
+export default connect(mapStateToProps, {})(withStyles()(ShowSelectedMod));
