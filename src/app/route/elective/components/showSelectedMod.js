@@ -25,7 +25,8 @@ const styles = theme => ({
 	arrangedCard: {
 		marginTop: 10,
 		display:'flex', 
-		flexWrap: ' wrap', 
+        flexWrap: ' wrap', 
+        justifyContent: 'center',
 	},
   });
 
@@ -40,26 +41,10 @@ class ShowSelectedMod extends React.Component{
     };
     render(){
         const {classes} = this.props
-        //find the weights for each module 
-        var modDict = []
-        for (var eMod in this.state.moduleList){
-            allElectMod.map(item=>{
-                if (this.state.moduleList[eMod]==item.label){
-                    modDict.push(
-                        {
-                        name: item.label,
-                        weight: item.weight,
-                    }
-                    )
-                }
-            }
-            )
-        }
-        console.log("Module Dictionary is created:", modDict)
         return(
                 <div>
                     <div className={classes.arrangedCard}>
-                            {modDict.map(mod => {
+                            {this.state.moduleList.map(mod => {
                                 return(
                                     <Card className={classes.card}>
                                         <div>
@@ -72,7 +57,7 @@ class ShowSelectedMod extends React.Component{
                                     </Card>); 
                             })}
                     </div>
-                    <div>
+                    <div style={{paddingTop:20}}>
                         <Button onClick={this.props.onChange} style={{float: 'right'}}>
                             Edit Choices
                         </Button>

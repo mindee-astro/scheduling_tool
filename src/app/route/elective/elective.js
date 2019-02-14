@@ -25,8 +25,10 @@ import ShowModOpt from './components/showModOptions';
 //get userID & electives from loaded credentials
 import {
 	updateUser,
+	getAllRotations,
 	setNotificationSnackbar
 } from '../../../actions/index'; 
+import { ConsoleLogger } from '@aws-amplify/core';
 
 const styles = theme => ({
 	// design for cards 
@@ -35,7 +37,7 @@ const styles = theme => ({
 		width: 230,
 		height: 50,
 		marginLeft: 10,
-		marginTop: 10,
+		marginTop: 20,
 		justifyContent: 'center',
 		alignItems: 'center',
 	},
@@ -43,6 +45,7 @@ const styles = theme => ({
 	arrangedCard: {
 		display:'flex', 
 		flexWrap:'wrap',
+		justifyContent: 'center',
 	},
 	//for tooltip
 	tooltip: {
@@ -50,8 +53,6 @@ const styles = theme => ({
 		},
 	});
 
-//list down all the core modules 
-var coreMod = ['Product Engineering', 'Product Management', 'Project Management', 'Software Engineering'];
 //user data 
 var userData = {
 	"data": "",
@@ -62,46 +63,88 @@ var userData = {
 	"mentorName":"",
 	"mentorEmail": ""
 }
+
 class ElectiveCard extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = { 
 			electives: this.props.electives, 
 			editMode: false, 
-		};
-	};
-
+			electDict: [], 
+			rotations: [],
+		}
+	}
 	componentDidMount(){
-		this.setState({electives:this.props.electives})
+		this.props.getAllRotations()
 	}
 
 	componentDidUpdate(prevProps){
+		console.log("electives",this.props.electives)
 		if (prevProps.electives != this.props.electives){
 			this.setState({
 				...this.state,
 				electives:this.props.electives
 			})
-			console.log("user fetched", this.state.electives)
 		}
+		if (prevProps.rotations != this.props.rotations){
+			this.setState({
+				...this.state,
+				rotations:this.props.rotations.rotations
+			})
 		}
+		console.log('all rotations',this.state.rotations)
+		}
+
 	// when edit choices button is hit, change the editButtonHit to true to show mod selection page
 	onChange = () => {
 		this.setState({editMode:true})
 	}
 	
+	//get dictionary rotation list 
+	getModuleDictionary=(module, dict)=>{
+		for (var eMod in module){
+			this.state.rotations.map(item=>{
+				if (module[eMod]==item.pK){
+					dict.push(
+						{
+						name: item.name,
+						weight: item.duration,
+					}
+					)
+				}
+			}
+			)
+		}
+		console.log("module dictionary is:", dict)
+	}
+
 	//update new module list and send to updateUser
 	updateModuleList = list => {
+		//empty list to store electives id 
+		var rot_id =[]
 		//turn off editMode
 		this.setState({editMode: false})
+		// if list passed is null, meaning they cancel submission 
+		// then we dont process
 		if (list){
 			console.log("choices got passed into function:", list)
+			// change the list into rotations ID 
+			for (var elective in list){
+				this.state.rotations.map(check=>{
+					if (list[elective] == check.name){
+						rot_id.push(check.pK)
+					}
+				}
+				)
+			}
+			console.log('rotation_id', rot_id)
 			//in the case when user just click submit without changing anything, we dont need to update db again. 
-			if (list != this.state.electives){
+			if (rot_id != this.state.electives){
 				userData = {
 					"data": "active#2017-09-04",
 					"displayName": this.props.displayname,
 					"joinDate": this.props.joindate,
-					"electives":list,
+					"electives":rot_id,
 					"schedule": [],
 					"status": 'active',
 					"mentorName":this.props.mentor,
@@ -111,10 +154,11 @@ class ElectiveCard extends React.Component {
 			}
 		}
 		console.log('updated User Data List', userData)
-	};
+	}
 
 	render() {
 		const {classes} = this.props
+		this.getModuleDictionary(this.state.electives, this.state.electDict)
 		//determine which page to show, use emptyModList 
 		return(
 			<div>
@@ -136,20 +180,22 @@ class ElectiveCard extends React.Component {
 						</div>
 						<div>
 							<div className={classes.arrangedCard}>
-								{coreMod.map(mod => {
-									return(
+								{this.state.rotations.map(mod => {
+									if (mod.data == 'core'){
+										return(
 										<Card className={classes.card} key={mod}>
 												<CardContent>
 													<Typography variant="body1">
-														{mod} (3)
+														{mod.name} ({mod.duration})
 													</Typography>
 												</CardContent>
 										</Card>); 
+									}
 								})}
 							</div>
 						</div>
 						<div>
-							<Typography variant="body2" style={{marginTop:15}}>
+							<Typography variant="body2" style={{marginTop:40}}>
 									<span>
 										Elective Modules
 									</span>
@@ -158,7 +204,7 @@ class ElectiveCard extends React.Component {
 						<div>
 							{this.state.editMode 
 								? <ShowModOpt moduleList={this.updateModuleList.bind(this)} />
-								: <ShowSelectedMod electMod={this.state.electives}
+								: <ShowSelectedMod electMod={this.state.electDict}
 								onChange={this.onChange.bind(this)}/> 
 							}
 						</div>
@@ -170,9 +216,10 @@ class ElectiveCard extends React.Component {
 };
 
 
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = ({auth, rotation}) => {
 	const {displayname, joindate, electives, mentoremail, mentor, username} = auth
-  return{displayname, joindate, electives, mentoremail, mentor, username}
+	const {rotations} = rotation
+  return{displayname, joindate, electives, mentoremail, mentor, username, rotations}
 };
 
-export default connect(mapStateToProps, {updateUser, setNotificationSnackbar})(withStyles(styles)(ElectiveCard));
+export default connect(mapStateToProps, {updateUser, getAllRotations,setNotificationSnackbar})(withStyles(styles)(ElectiveCard));

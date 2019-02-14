@@ -3,7 +3,6 @@ import { withStyles } from '@material-ui/core/styles';
 import PropTypes from 'prop-types';
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import allElectMod from './allElectiveModules';
 import {connect} from 'react-redux';
 // to do check box 
 import FormLabel from '@material-ui/core/FormLabel';
@@ -21,26 +20,26 @@ class ShowModOpt extends Component {
         super(props)
         this.state = {
             checked: [],
-            monthsLeft :12,
+            monthsLeft :10,
         } 
     }
     //when module is select, monthsLeft will change 
     //the module will be ticked 
   	handleChange = formSubmitEvent => () => {
 		const { checked } = this.state;
-		const currentIndex = checked.indexOf(formSubmitEvent.label);
+		const currentIndex = checked.indexOf(formSubmitEvent.name);
         const newChecked = [...checked];
 
 		if (currentIndex === -1) { 
-            if (this.state.monthsLeft>=formSubmitEvent.weight){
-                newChecked.push(formSubmitEvent.label);
-                this.setState({monthsLeft: this.state.monthsLeft - formSubmitEvent.weight})
+            if (this.state.monthsLeft>=formSubmitEvent.duration){
+                newChecked.push(formSubmitEvent.name);
+                this.setState({monthsLeft: this.state.monthsLeft - formSubmitEvent.duration})
             }
             else{
                     this.props.setNotificationSnackbar({isOpen: true, message:(<span>You have reached the maximum number of selected modules.</span>)})
             }
 		} else {
-			this.setState({monthsLeft: parseInt(formSubmitEvent.weight, 10) + this.state.monthsLeft})
+			this.setState({monthsLeft: parseInt(formSubmitEvent.duration, 10) + this.state.monthsLeft})
 		  	newChecked.splice(currentIndex, 1)
 		}
 		this.setState({
@@ -65,33 +64,41 @@ class ShowModOpt extends Component {
         return(
         <div> 
             <div>
-                <Typography variant="body1">
+                <Typography variant="body1" style={{margin:"10px 0"}}>
                     <span>Minimum required months are 11. Please select up to 4-5 preferred modules.</span>
                 </Typography>
-                <Typography variant="body1" style={{textAlign:"right"}}>
-                    <span>Months Left &nbsp; &nbsp; &nbsp; &nbsp; {this.state.monthsLeft}</span>
+            </div>
+            <div style={{display:"flex", float:"right"}}>
+                <Typography variant="body1" style={{textAlign:"right", paddingTop:10, paddingRight:10}}>
+                    <span>Months Left</span>
+                </Typography>
+                <Typography variant="body1" style={{textAlign:"right", fontWeight:"bold", color:"white", padding:10, backgroundColor:"#112E51"}}>
+                <span>{this.state.monthsLeft}</span>
                 </Typography>
             </div>
-            <div style={{textAlign: 'left', paddingTop: '20px'}}>
+            <div style={{textAlign: 'left', paddingTop: '50px'}}>
                 <FormControl>
                     <FormLabel>
                         <FormGroup column>
-                            {allElectMod.map(item =>(
+                            {this.props.rotations.rotations.map(item =>{
+                                if (item.data == 'elective'){
+										return(
                                 <FormControlLabel control=
                                     {
                                         <Checkbox 
-                                            checked={this.state.checked.indexOf(item.label) !== -1}
+                                            checked={this.state.checked.indexOf(item.name) !== -1}
                                             tabIndex={-1}
                                         />
                                     }
                                     onChange={this.handleChange(item)}
                                     label={
                                         <span>
-                                            {item.label+" "+"("+item.weight+")"}
+                                            {item.name+" "+"("+item.duration+")"}
                                         </span>
                                     }
                                 />
-                            ))}
+                            )}
+                            })}
                         </FormGroup>
                     </FormLabel>
                 </FormControl>
@@ -109,7 +116,9 @@ class ShowModOpt extends Component {
     }
 }
 
-const mapStateToProps = ({auth}) => {
+const mapStateToProps = ({rotation}) => {
+    const {rotations} = rotation
+    return{rotations}
 };
 
-    export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles()(ShowModOpt));
+export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles()(ShowModOpt));
