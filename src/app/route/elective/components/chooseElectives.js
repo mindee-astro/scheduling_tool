@@ -15,7 +15,7 @@ import {
     setNotificationSnackbar,
 } from '../../../../actions/index'; 
 
-class ShowModOpt extends Component {
+class ChooseElectives extends Component {
     constructor(props) {
         super(props)
         this.state = {
@@ -26,21 +26,21 @@ class ShowModOpt extends Component {
 
     //when module is select, monthsLeft will change 
     //the module will be ticked 
-  	handleChange = formSubmitEvent => () => {
+  	handleChange = event => () => {
 		const { checked } = this.state;
-		const currentIndex = checked.indexOf(formSubmitEvent.name);
+		const currentIndex = checked.indexOf(event.name);
         const newChecked = [...checked];
 
 		if (currentIndex === -1) { 
-            if (this.state.monthsLeft>=formSubmitEvent.duration){
-                newChecked.push(formSubmitEvent.name);
-                this.setState({monthsLeft: this.state.monthsLeft - formSubmitEvent.duration})
+            if (this.state.monthsLeft>=event.duration){
+                newChecked.push(event.name);
+                this.setState({monthsLeft: this.state.monthsLeft - event.duration})
             }
             else{
-                    this.props.setNotificationSnackbar({isOpen: true, message:(<span>You have reached the maximum number of selected modules.</span>)})
+                    this.props.setNotificationSnackbar({isOpen: true, message:(<span>You have not enough credit to choose the module. Please deselect some to release more credits.</span>)})
             }
 		} else {
-			this.setState({monthsLeft: parseInt(formSubmitEvent.duration, 10) + this.state.monthsLeft})
+			this.setState({monthsLeft: parseInt(event.duration, 10) + this.state.monthsLeft})
 		  	newChecked.splice(currentIndex, 1)
 		}
 		this.setState({
@@ -51,7 +51,6 @@ class ShowModOpt extends Component {
     
     onClickButton = e => {
         e.preventDefault();
-        console.log("choices selected:", this.state.checked)
         this.props.moduleList(this.state.checked)
     }
 
@@ -65,15 +64,15 @@ class ShowModOpt extends Component {
         return(
         <div> 
             <div>
-                <Typography variant="body1" style={{margin:"10px 0"}}>
+                <Typography variant='body1' style={{margin:'10px 0'}}>
                     <span>Minimum required months are 11. Please select up to 4-5 preferred modules.</span>
                 </Typography>
             </div>
-            <div style={{display:"flex", float:"right"}}>
-                <Typography variant="body1" style={{textAlign:"right", paddingTop:10, paddingRight:10}}>
+            <div style={{display:'flex', float:'right'}}>
+                <Typography variant='body1' style={{textAlign:'right', paddingTop:10, paddingRight:10}}>
                     <span>Months Left</span>
                 </Typography>
-                <Typography variant="body1" style={{textAlign:"right", fontWeight:"bold", color:"white", padding:10, backgroundColor:"#112E51"}}>
+                <Typography variant='body1' style={{textAlign:'right', fontWeight:'bold', color:'white', padding:10, backgroundColor:'#112E51'}}>
                 <span>{this.state.monthsLeft}</span>
                 </Typography>
             </div>
@@ -94,7 +93,7 @@ class ShowModOpt extends Component {
                                     onChange={this.handleChange(item)}
                                     label={
                                         <span>
-                                            {item.name+" "+"("+item.duration+")"}
+                                            {item.name+' '+'('+item.duration+')'}
                                         </span>
                                     }
                                 />
@@ -122,4 +121,4 @@ const mapStateToProps = ({rotation}) => {
     return{rotations}
 };
 
-export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles()(ShowModOpt));
+export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles()(ChooseElectives));

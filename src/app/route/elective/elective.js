@@ -20,7 +20,7 @@ import HelpIcon from '@material-ui/icons/Help';
 //show button 
 import Button from '@material-ui/core/Button';
 // show module selection page 
-import ShowModOpt from './components/showModOptions'; 
+import ChooseElectives from './components/chooseElectives'; 
 // tocall API
 //get userID & electives from loaded credentials
 import {
@@ -54,13 +54,13 @@ const styles = theme => ({
 
 //user data 
 var userData = {
-	"data": "",
-	"displayName": "",
-	"joinDate": "",
-	"electives": [],
-	"status": 'active',
-	"mentorName":"",
-	"mentorEmail": ""
+	'data': '',
+	'displayName': '',
+	'joinDate': '',
+	'electives': [],
+	'status': 'active',
+	'mentorName':'',
+	'mentorEmail': ''
 }
 
 
@@ -70,6 +70,7 @@ class ElectiveCard extends React.Component {
 		super(props);
 		this.state = { 
 			electives: this.props.electives, 
+			// a mode to switch between pages 
 			editMode: false,  
 			rotations: [],
 		}
@@ -79,7 +80,8 @@ class ElectiveCard extends React.Component {
 	}
 
 	componentDidUpdate(prevProps){
-		console.log("electives",this.props.electives)
+		// update electives list whenever new list is received
+		console.log('electives',this.props.electives)
 		if (prevProps.electives != this.props.electives){
 			this.setState({
 				...this.state,
@@ -87,21 +89,20 @@ class ElectiveCard extends React.Component {
 			})
 		}
 		if (prevProps.rotations != this.props.rotations){
+			// update rotation list whenever new list is received
 			this.setState({
 				...this.state,
 				rotations:this.props.rotations.rotations
 			})
 		}
-		console.log('all rotations',this.state.rotations)
 		}
 
-	//get module dictioanry 
+	//get a dictionary that has the name of the modules and the duration to be spent in the modules  
 	getModuleDictionary=(module)=>{
 		var dict = []
-		for (var eMod in module){
-			console.log('Emod:', eMod)
+		for (var single in module){
 			this.state.rotations.map(item=>{
-				if (module[eMod]==item.pK){
+				if (module[single]==item.pK){
 					dict.push(
 						{
 						name: item.name,
@@ -112,7 +113,7 @@ class ElectiveCard extends React.Component {
 			}
 			)
 		}
-		console.log("module dictionary is:", dict)
+		console.log('Dictionary created for',module, ':', dict)
 		return(dict)
 	}
 	// when edit choices button is hit, change the editButtonHit to true to show mod selection page
@@ -122,40 +123,46 @@ class ElectiveCard extends React.Component {
 
 	//update new module list and send to updateUser
 	updateModuleList = list => {
-		//empty list to store electives id 
+		//empty list to store all the selected electives id 
 		var rot_id =[]
 		//turn off editMode
 		this.setState({editMode: false})
 		// if list passed is null, meaning they cancel submission 
 		// then we dont process
 		if (list){
-			console.log("choices got passed into function:", list)
+			console.log('User has submitted the choices:',list)
 			// change the list into rotations ID 
-			for (var elective in list){
+			for (var i in list){
 				this.state.rotations.map(check=>{
-					if (list[elective] == check.name){
+					if (list[i] == check.name){
 						rot_id.push(check.pK)
 					}
 				}
 				)
 			}
-			console.log('rotation_id', rot_id)
+			console.log('list of rotation id for',list, 'is:', rot_id)
 			//in the case when user just click submit without changing anything, we dont need to update db again. 
-			if (rot_id != this.state.electives){
+			if (JSON.stringify(rot_id.sort()) === JSON.stringify(this.state.electives.sort())){
+				console.log('User has selected the same set of choices.')
+			}
+			else{
 				userData = {
-					"data": "active#2017-09-04",
-					"displayName": this.props.displayname,
-					"joinDate": this.props.joindate,
-					"electives":rot_id,
-					"schedule": [],
-					"status": 'active',
-					"mentorName":this.props.mentor,
-					"mentorEmail": this.props.mentorEmail
+					'data': 'active#2017-09-04',
+					'displayName': this.props.displayname,
+					'joinDate': this.props.joindate,
+					'electives':rot_id,
+					'schedule': [],
+					'status': 'active',
+					'mentorName':this.props.mentor,
+					'mentorEmail': this.props.mentorEmail
 				}
 				this.props.updateUser(this.props.username, userData)
 			}
 		}
-		console.log('updated User Data List', userData)
+		else{
+			console.log('User did not select their choices.')
+		}
+		console.log('Updated user data list:', userData)
 	}
 
 	render() {
@@ -167,15 +174,15 @@ class ElectiveCard extends React.Component {
 				<Card>
 					<CardContent style={{textAlign: 'center'}}>
 						<div>
-							<Typography variant="body2">
+							<Typography variant='body2'>
 									<span>
 										Core Modules
 										<Tooltip 
-										title="The number indicates the number of months spent in the rotation"
+										title='The number indicates the number of months spent in the rotation'
 										classes={{ tooltip: classes.tooltip }}
 										>
 										<HelpIcon
-										fontSize="small"/>
+										fontSize='small'/>
 										</Tooltip>
 									</span>
 							</Typography>
@@ -187,7 +194,7 @@ class ElectiveCard extends React.Component {
 										return(
 										<Card className={classes.card} key={mod}>
 												<CardContent>
-													<Typography variant="body1">
+													<Typography variant='body1'>
 														{mod.name} ({mod.duration})
 													</Typography>
 												</CardContent>
@@ -197,7 +204,7 @@ class ElectiveCard extends React.Component {
 							</div>
 						</div>
 						<div>
-							<Typography variant="body2" style={{marginTop:40}}>
+							<Typography variant='body2' style={{marginTop:40}}>
 									<span>
 										Elective Modules
 									</span>
@@ -205,7 +212,7 @@ class ElectiveCard extends React.Component {
 						</div>
 						<div>
 							{this.state.editMode 
-								? <ShowModOpt moduleList={this.updateModuleList.bind(this)} />
+								? <ChooseElectives moduleList={this.updateModuleList.bind(this)} />
 								: 
 								<div>
 									<div className={classes.arrangedCard}>
@@ -214,7 +221,7 @@ class ElectiveCard extends React.Component {
 												<Card className={classes.card}>
 													<div>
 														<CardContent>
-															<Typography variant="body1">
+															<Typography variant='body1'>
 																{mod.name} ({mod.weight})
 															</Typography>
 														</CardContent>
