@@ -457,8 +457,8 @@ class Department extends Component {
         {/* Add rotation */}
         <div
           onClick={this.showEditMode.bind(this)}
-          className={`${this.state.mode === 3 || this.state.accesslevel==="Admin"? classes.show : classes.hide} ${
-            this.state.accesslevel==="Admin"? classes.fullHeight: classes.hide
+          className={`${this.state.mode === 3 || this.state.accesslevel==="admin"? classes.show : classes.hide} ${
+            this.state.accesslevel==="admin"? classes.fullHeight: classes.hide
             }`}
         >
           <span className={classes.addButton}>
