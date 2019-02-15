@@ -205,7 +205,6 @@ class Department extends Component {
   
           // Refresh page to get all rotations
           console.log('new rotation added! Fetching all rotations...')
-          // this.props.getAllRotations()
           
         }
         
