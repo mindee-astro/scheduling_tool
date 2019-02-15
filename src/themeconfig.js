@@ -3,6 +3,7 @@ export const colorPalette = {
 	secondary: '#28055C',
 	error: '#9C160E',
 	info: '#25381D',
+	action: '#5559FF',
 	sideBar: '#112E51',
 	cardBG: '#D6D7D9',
 	appBG: '#323A45',
