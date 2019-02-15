@@ -220,7 +220,7 @@ export function* loginUserFork() {
 }
 
 export function* getUserFork() {
-	yield takeEvery (GET_USER, getUserAsync)
+	yield takeEvery ( GET_USER, getUserAsync)
 }
 
 export function* authTokenFork() {
