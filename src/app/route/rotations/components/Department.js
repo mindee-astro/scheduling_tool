@@ -111,7 +111,6 @@ class Department extends Component {
       championName: props.championName,
       championEmail: props.championEmail,
       capacity: props.capacity,
-      // rotationDisplay: props.rotationDisplay,
 
       // Updated rotationd details
       updatedDepartmentName: "",
@@ -188,25 +187,8 @@ class Department extends Component {
           console.log('adding rotation.....');
           console.log('addResponse',addResponse)
   
-          // Set state to re-render to getAllRotations
-          this.setState({
-            ...this.state,
-            name: this.state.updatedDepartmentName,
-            duration: this.state.updatedDuration,
-            capacity: this.state.updatedCapacity,
-            championName: this.state.updatedChampionName,
-            championEmail: this.state.updatedChampionEmail,
-            category: this.state.updatedCategory,
-            data: this.state.updatedCategory, //  data is same as category
-            sK: this.state.sK,
-            pK: this.state.updatedpK
-  
-          });
-  
           // Refresh page to get all rotations
           console.log('new rotation added! Fetching all rotations...')
-          // this.props.getAllRotations()
-          
         }
         
         // Exit edit mode
@@ -277,10 +259,10 @@ class Department extends Component {
       this.setState({
         // Clear inputs
         updatedDepartmentName: "",
-        updatedDuration: "",
+        updatedDuration: 0,
         updatedChampionName: "",
         updatedChampionEmail: "",
-        updatedCapacity: "",
+        updatedCapacity: 0,
         updatedCategory: "",
         updatedpK: "",
   
@@ -458,8 +440,8 @@ class Department extends Component {
         {/* Add rotation */}
         <div
           onClick={this.showEditMode.bind(this)}
-          className={`${this.state.mode === 3 || this.state.accesslevel==="Admin"? classes.show : classes.hide} ${
-            this.state.accesslevel==="Admin"? classes.fullHeight: classes.hide
+          className={`${this.state.mode === 3 || this.state.accesslevel==="admin"? classes.show : classes.hide} ${
+            this.state.accesslevel==="admin"? classes.fullHeight: classes.hide
             }`}
         >
           <span className={classes.addButton}>

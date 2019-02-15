@@ -61,23 +61,15 @@ class rotationCard extends Component {
   componentDidUpdate(prevProps,prevState) {
     // if (this.props.rotations && prevState.rotations != this.props.rotations && this.props.rotations.length>0){
     if (prevProps.rotations != this.props.rotations || prevState.rotations != this.state.rotations) {
-      console.log('rotations',this.props.rotations)
       this.setState({
         ...this.state,
         rotations: this.props.rotations.rotations,
         rotationLength: this.props.rotations.rotations.length
-        // rotationDisplay: this.state.rotations.map(r =>{
-        //   return{
-        //     ...r,
-        //     mode: 1
-        //   }
-        // })
       });
     }
   }
 
   shouldComponentUpdate(nextProps,nextState) {
-    console.log(this.props.rotations !=nextProps || this.state.rotations != nextState)
     return this.props.rotations !=nextProps || this.state.rotations != nextState
   }
 
