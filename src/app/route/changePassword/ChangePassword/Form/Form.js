@@ -5,7 +5,10 @@ import FormValidator from './FormValidator';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
-import * as actions from '../../../../../saga/AuthSaga'
+import {
+    changePassword,
+    logOutUser
+} from '../../../../../actions/index';
 
 
 
@@ -107,9 +110,13 @@ class Form extends Component {
     this.submitted = true;
 
     if (validation.isValid) {
-      alert("Success")
-
-      // handle actual form submission here
+      console.log("Submitted")
+      // this.props.logOutUser()
+      this.props.changePassword({
+          username: this.props.username,
+          oldPassword: this.state.passwordold,
+          newPassword: this.state.password
+      })
     }
   }
 
@@ -180,12 +187,4 @@ const mapStateToProps = state => {
   }
 }
 
-const mapDispatchToProps = (dispatch) => {
-  return {
-    onLoginCheck: () => dispatch()
-  }
-}
-
-
-
-export default connect(mapStateToProps,mapDispatchToProps)(Form);
+export default connect(mapStateToProps, {changePassword, logOutUser})(Form);

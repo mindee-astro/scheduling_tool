@@ -5,7 +5,7 @@ import { baseUrl, devUrl, apiKey } from '../environment';
 export const getSchedule = async () => {
 	return (axios({
 		method: 'GET',
-		url: devUrl+"/schedule?scheduleId=workingSchedule",
+		url: devUrl+"/schedule?scheduleId=latestSchedule",
 		headers: {'x-api-key': apiKey}
 	}))
 }

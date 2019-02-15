@@ -11,6 +11,8 @@ export const SET_DISPLAY_NAME = 'set_display_name';
 export const GET_DISPLAY_NAME = 'get_display_name';
 export const LOG_IN_USER = 'log_in_user';
 export const LOG_IN_USER_SUCCESS = 'log_in_user_success';
+export const CHANGE_PASSWORD = 'change_password';
+export const CHANGE_PASSWORD_SUCCESS = 'change_password_success';
 export const CREATE_USER = 'create_user';
 export const CREATE_USER_SUCCESS = 'create_user_success';
 export const UPDATE_USER = 'update_user';
@@ -22,6 +24,10 @@ export const SET_PROFILE_DATA = 'set_profile_data';
 export const SET_PROFILE_DATA_SUCCESS = 'set_profile_data_success';
 export const GET_ALL_USER = 'get_all_user';
 export const GET_ALL_USER_SUCCESS = 'get_all_user_success';
+export const GET_USER = 'get_user';
+export const GET_USER_SUCCESS = 'get_user_success';
+export const AUTH_REQUEST = 'auth_request';
+export const AUTH_REQUEST_SUCCESS = 'auth_request_success';
 export const LOG_OUT_USER = 'log_out_user';
 
 //Schedule Actions
