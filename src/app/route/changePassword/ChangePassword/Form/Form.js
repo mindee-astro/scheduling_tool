@@ -1,9 +1,15 @@
 import React, { Component } from 'react';
 import './Form.css';
+import {connect} from 'react-redux'
 import FormValidator from './FormValidator';
 import TextField from '@material-ui/core/TextField'
 import Button from '@material-ui/core/Button';
 import Typography from '@material-ui/core/Typography';
+import {
+    changePassword,
+    logOutUser
+} from '../../../../../actions/index';
+
 
 
 
@@ -104,9 +110,13 @@ class Form extends Component {
     this.submitted = true;
 
     if (validation.isValid) {
-      alert("Success")
-      
-      // handle actual form submission here
+      console.log("Submitted")
+      // this.props.logOutUser()
+      this.props.changePassword({
+          username: this.props.username,
+          oldPassword: this.state.passwordold,
+          newPassword: this.state.password
+      })
     }
   }
 
@@ -169,4 +179,12 @@ class Form extends Component {
     )
   }
 }
-export default Form;
+
+const mapStateToProps = state => {
+  return {
+    username:state.auth.username,
+    isAuthenticated:state.auth.isLoggedIn
+  }
+}
+
+export default connect(mapStateToProps, {changePassword, logOutUser})(Form);

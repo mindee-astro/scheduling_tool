@@ -10,6 +10,14 @@ const instance = axios.create({
 	},
 });
 
+export const changeUserPassword = async (data) => {
+	return (instance({
+		method: 'POST',
+		url: devUrl+"/changepassword",
+		data: data,
+	}))
+}
+
 export const createNewUser = async (data) => {
 	return (instance({
 		method: 'POST',

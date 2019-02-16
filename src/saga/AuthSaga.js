@@ -1,13 +1,21 @@
+import { push } from 'react-router-redux';
 import {all, call, fork, put, takeEvery, flush} from 'redux-saga/effects';
 
-import { LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER, GET_USER, LOG_IN_USER_SUCCESS, AUTH_REQUEST } from '../constants/Actions';
+import { CHANGE_PASSWORD, CHANGE_PASSWORD_SUCCESS, LOG_IN_USER, GET_ALL_USER, UPDATE_USER, CREATE_USER, LOG_OUT_USER, GET_USER, LOG_IN_USER_SUCCESS, AUTH_REQUEST } from '../constants/Actions';
 
 import { loginUserSuccess, getAllUserSuccess, setResponseSnackbar, setPopup, getUserSuccess, getUser as getUserAction, authToken, authTokenSuccess } from '../actions/index';
 
-import { loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser, authorize } from '../api/apicalls'
+import { changeUserPassword, loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser, authorize } from '../api/apicalls'
 
 const sendLogOutUser = async (userid) => 
 	await logoutUser(userid)
+		.then(response=>response)
+		.catch(error=>{
+			return Promise.reject(error)
+		});
+
+const changePassword = async (data) => 
+	await changeUserPassword(data)
 		.then(response=>response)
 		.catch(error=>{
 			return Promise.reject(error)
@@ -69,9 +77,30 @@ const authorizeCall = async (userid, token) =>
 			return Promise.reject(error)
 		});
 
+function* changePasswordAsync({payload}) {
+    console.log('Change password async')
+	const {data} = payload
+	try{
+		const response = yield call(changePassword, data)
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: "Changed Password",
+			type: "success"
+		}))
+        yield put(push('/schedule'))
+	} catch (error) {
+		yield put(setResponseSnackbar({
+			isOpen: true,
+			message: error.response.status+" "+error.response.statusText,
+			type: "error"
+		}))
+	}
+}
+
 function* logOutUserAsync({payload}){
 	const userid = payload
 	yield put(loginUserSuccess(false))
+
 	try { 
 		yield call(sendLogOutUser, userid)
 		yield put(setPopup({
@@ -199,6 +228,10 @@ function* authTokenAsync({payload}){
 	}
 }
 
+export function* changePasswordFork() {
+	yield takeEvery( CHANGE_PASSWORD, changePasswordAsync )
+}
+
 export function* logOutUserFork() {
 	yield takeEvery( LOG_OUT_USER, logOutUserAsync )
 }
@@ -228,5 +261,5 @@ export function* authTokenFork() {
 }
 
 export default function* rootSaga() {
-	yield all([fork(loginUserFork), fork(getAllUsersFork), fork(updateUserFork), fork(createUserFork), fork(logOutUserFork), fork(getUserFork), fork(authTokenFork)])
+	yield all([fork(changePasswordFork), fork(loginUserFork), fork(getAllUsersFork), fork(updateUserFork), fork(createUserFork), fork(logOutUserFork), fork(getUserFork), fork(authTokenFork)])
 }

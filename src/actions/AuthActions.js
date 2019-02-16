@@ -17,6 +17,8 @@ import {
 	GET_USER_SUCCESS,
 	AUTH_REQUEST,
 	AUTH_REQUEST_SUCCESS,
+    CHANGE_PASSWORD,
+    CHANGE_PASSWORD_SUCCESS
 } from '../constants/Actions';
 
 export const setDisplayName = (name) => {
@@ -73,6 +75,19 @@ export const updateUserSuccess = () => {
 		type: UPDATE_USER_SUCCESS
 	}
 } 
+
+export const changePassword = (data) => {
+	return {
+		type: CHANGE_PASSWORD,
+		payload: {data}
+	}
+}
+
+export const changePasswordSuccess = () => {
+	return {
+		type: CHANGE_PASSWORD_SUCCESS
+	}
+}
 
 export const createUser = (data) => {
 	return {
