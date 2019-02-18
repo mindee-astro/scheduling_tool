@@ -26,10 +26,12 @@ import ChooseElectives from './components/chooseElectives';
 import {
 	updateUser,
 	getAllRotations,
+	getUser,
 	setNotificationSnackbar
 } from '../../../actions/index'; 
 
 const styles = theme => ({
+
 	// design for cards 
 	card: {
 		display: 'flex',
@@ -73,21 +75,16 @@ class ElectiveCard extends React.Component {
 			// a mode to switch between pages 
 			editMode: false,  
 			rotations: [],
+			submittedList: []
 		}
 	}
 	componentDidMount(){
 		this.props.getAllRotations()
+		this.setState({electives:this.props.electives})
 	}
 
 	componentDidUpdate(prevProps){
 		// update electives list whenever new list is received
-		console.log('electives',this.props.electives)
-		if (prevProps.electives != this.props.electives){
-			this.setState({
-				...this.state,
-				electives:this.props.electives,
-			})
-		}
 		if (prevProps.rotations != this.props.rotations){
 			// update rotation list whenever new list is received
 			this.setState({
@@ -95,7 +92,7 @@ class ElectiveCard extends React.Component {
 				rotations:this.props.rotations.rotations
 			})
 		}
-		}
+	}
 
 	//get a dictionary that has the name of the modules and the duration to be spent in the modules  
 	getModuleDictionary=(module)=>{
@@ -156,6 +153,7 @@ class ElectiveCard extends React.Component {
 					'mentorName':this.props.mentor,
 					'mentorEmail': this.props.mentorEmail
 				}
+				this.setState({submittedList:rot_id})
 				this.props.updateUser(this.props.username, userData)
 			}
 		}
@@ -166,6 +164,13 @@ class ElectiveCard extends React.Component {
 	}
 
 	render() {
+		if(this.props.status == 200){
+			if (JSON.stringify(this.state.electives.sort()) === JSON.stringify(this.state.submittedList.sort())){
+			}
+			else {
+				this.setState({electives:this.state.submittedList})
+			}
+		}
 		const {classes} = this.props
 		const dict =this.getModuleDictionary(this.state.electives)
 		//determine which page to show, use emptyModList 
@@ -182,7 +187,10 @@ class ElectiveCard extends React.Component {
 										classes={{ tooltip: classes.tooltip }}
 										>
 										<HelpIcon
-										fontSize='small'/>
+										style={{
+											fontSize:'21px',
+										paddingTop: '10px'
+										}}/>
 										</Tooltip>
 									</span>
 							</Typography>
@@ -216,13 +224,13 @@ class ElectiveCard extends React.Component {
 								: 
 								<div>
 									<div className={classes.arrangedCard}>
-										{dict.map(mod => {
+										{dict.map(elect => {
 											return(
-												<Card className={classes.card}>
+												<Card className={classes.card} key={elect}>
 													<div>
 														<CardContent>
 															<Typography variant='body1'>
-																{mod.name} ({mod.weight})
+																{elect.name} ({elect.weight})
 															</Typography>
 														</CardContent>
 													</div>
@@ -246,9 +254,9 @@ class ElectiveCard extends React.Component {
 
 
 const mapStateToProps = ({auth, rotation}) => {
-	const {displayname, joindate, electives, mentoremail, mentor, username} = auth
+	const {displayname, joindate, electives, mentoremail, mentor, username, status} = auth
 	const {rotations} = rotation
-  return{displayname, joindate, electives, mentoremail, mentor, username, rotations}
+  return{displayname, joindate, electives, mentoremail, mentor, username, rotations, status}
 };
 
-export default connect(mapStateToProps, {updateUser, getAllRotations,setNotificationSnackbar})(withStyles(styles)(ElectiveCard));
+export default connect(mapStateToProps, {getUser, updateUser, getAllRotations,setNotificationSnackbar})(withStyles(styles)(ElectiveCard));
