@@ -15,6 +15,9 @@ import {
 	setNotificationSnackbar
 } from '../../../actions/index';
 import { scheduleVariation } from '../../../themeconfig'
+// by Brianna Chang 19-FEB
+// configure deadline for submitting choices 
+import moment from "moment"
 
 const styles = {
 	root: {	
@@ -42,13 +45,14 @@ class timetableCard extends Component {
 
 	componentDidMount() {
 		this.props.getAllSchedule();
+		const duedate = moment(this.props.joindate).add(84, 'days').format("YYYY-MM-DD");
 		if (this.props.electives.length){
 			console.log('electives is not empty', this.props.electives)
 		}
 		else{
 			console.log("electives is empty")
 			this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please go to Modules and select your
-				elective modules by {this.props.joindate} <br/>Note: You will no longer be able to edit your choices after this date</span>)})
+				elective modules by {duedate} <br/>Note: You will no longer be able to edit your choices after this date</span>)})
 		}
 	}
 

@@ -29,6 +29,8 @@ import {
 	getUser,
 	setNotificationSnackbar
 } from '../../../actions/index'; 
+//configure date to show edit choices button 
+import moment from "moment"
 
 const styles = theme => ({
 
@@ -73,12 +75,17 @@ class ElectiveCard extends React.Component {
 		this.state = { 
 			electives: this.props.electives, 
 			// a mode to switch between pages 
-			editMode: false,  
+			editMode: false, 
+			showEditButton: true,  
 			rotations: [],
 			submittedList: []
 		}
 	}
 	componentDidMount(){
+		const duedate = moment(this.props.joindate).add(84, 'days').format("YYYY-MM-DD");
+		if (moment(duedate).isBefore(moment())){
+			this.setState({showEditButton: false})
+		}
 		this.props.getAllRotations()
 		this.setState({electives:this.props.electives})
 	}
@@ -164,7 +171,7 @@ class ElectiveCard extends React.Component {
 	}
 
 	render() {
-		if(this.props.status == 200){
+		if(this.props.updateuserresponse == 200){
 			if (JSON.stringify(this.state.electives.sort()) === JSON.stringify(this.state.submittedList.sort())){
 			}
 			else {
@@ -238,7 +245,7 @@ class ElectiveCard extends React.Component {
 										})}
 									</div>
 									<div style={{paddingTop:20}}>
-										<Button onClick={this.onChange} style={{float: 'right'}}>
+										<Button diasbled={!this.state.showEditButton} onClick={this.onChange} style={{float: 'right'}}>
 											Edit Choices
 										</Button>
 									</div> 
@@ -254,9 +261,9 @@ class ElectiveCard extends React.Component {
 
 
 const mapStateToProps = ({auth, rotation}) => {
-	const {displayname, joindate, electives, mentoremail, mentor, username, status} = auth
+	const {displayname, joindate, electives, mentoremail, mentor, username, updateuserresponse} = auth
 	const {rotations} = rotation
-  return{displayname, joindate, electives, mentoremail, mentor, username, rotations, status}
+  return{displayname, joindate, electives, mentoremail, mentor, username, rotations, updateuserresponse}
 };
 
 export default connect(mapStateToProps, {getUser, updateUser, getAllRotations,setNotificationSnackbar})(withStyles(styles)(ElectiveCard));

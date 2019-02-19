@@ -87,7 +87,7 @@ export default (state=INIT_STATE, action)=>{
 		case UPDATE_USER_SUCCESS:
 			return{
 				...state,
-				status: action.payload.data
+				updateuserresponse: action.payload.data
 			}
 
 		default:
