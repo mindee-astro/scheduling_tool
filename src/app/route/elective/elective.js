@@ -251,7 +251,7 @@ class ElectiveCard extends React.Component {
 										})}
 									</div>
 									<div style={{paddingTop:20}}>
-										<Button isabled={!this.state.showEditButton} onClick={this.onChange} style={{float: 'right'}}>
+										<Button disabled={!this.state.showEditButton} onClick={this.onChange} style={{float: 'right'}}>
 											Edit Choices
 										</Button>
 									</div> 
