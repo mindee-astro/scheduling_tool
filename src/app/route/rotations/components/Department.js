@@ -297,7 +297,7 @@ class Department extends Component {
     ];
     const rotationValues = [
       this.state.name,
-      this.state.duration + (this.state.duration > 1 ? " weeks" : " week"),
+      this.state.duration + (this.state.duration > 1 ? " months" : " month"),
       this.state.championName,
       this.state.championEmail,
       this.state.capacity + (this.props.capacity > 1 ? " protégés" : " protégé"),
@@ -313,7 +313,7 @@ class Department extends Component {
       this.state.category,
       this.state.pK
     ];
-    const endAdornment = ["", "week(s)", "", "", "protégé(s)","","",""];
+    const endAdornment = ["", "month(s)", "", "", "protégé(s)","","",""];
     const fieldType = ["text", "number", "text", "text", "number","text","text","text"];
     const rotationNames = [
       "updatedDepartmentName",
