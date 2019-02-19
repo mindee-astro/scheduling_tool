@@ -15,6 +15,9 @@ import {
 	setNotificationSnackbar
 } from '../../../actions/index';
 import { scheduleVariation } from '../../../themeconfig'
+// by Brianna Chang 19-FEB
+// configure deadline for submitting choices 
+import moment from "moment"
 
 const styles = {
 	root: {	
@@ -42,8 +45,15 @@ class timetableCard extends Component {
 
 	componentDidMount() {
 		this.props.getAllSchedule();
-		this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please go to Modules and select your
-		elective modules by {this.props.joindate} <br/>Note: You will no longer be able to edit your choices after this date</span>)})
+		const duedate = moment(this.props.joindate).add(84, 'days').format("YYYY-MM-DD");
+		if (this.props.electives.length){
+			console.log('electives is not empty', this.props.electives)
+		}
+		else{
+			console.log("electives is empty")
+			this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please go to Modules and select your
+				elective modules by {duedate} <br/>Note: You will no longer be able to edit your choices after this date</span>)})
+		}
 	}
 
 	componentDidUpdate(prevProps, prevState) {
@@ -62,7 +72,6 @@ class timetableCard extends Component {
 	}
 
 	render() {
-
 		const renderinfo = (this.state.protegeNum>=1) ? (
 			<div>
 				{(this.state.allSchedule.map((n, index) => {
@@ -78,7 +87,7 @@ class timetableCard extends Component {
  										 				<Grid item xs key={ind} style={{paddingTop: '10px', maxWidth: '180px'}}>
  												 			<Card style={scheduleVariation['ongoing']}>
  												 				<CardContent>
- 												 					<Typography style={scheduleVariation['ongoing'].primary} noWrap>{key}</Typography>
+ 												 					<Typography style={scheduleVariation['ongoing'].primary} noWrap>{key.toUpperCase()}</Typography>
  												 					<Typography variant='caption' style={scheduleVariation['ongoing']} noWrap>{value.rotationId}</Typography>
  												 					<Typography variant='caption' style={scheduleVariation['ongoing']} noWrap>Start: {value.startDate}</Typography>
  												 					<Typography variant='caption' style={scheduleVariation['ongoing']} noWrap>End: {value.endDate}</Typography>
@@ -129,8 +138,8 @@ class timetableCard extends Component {
 
 const mapStateToProps = ({schedule, auth}) => {
 	const {allSchedule, userSchedule, totalSchedule} = schedule
-	const {joindate} = auth
-    return{allSchedule, userSchedule, totalSchedule, joindate}
+	const {joindate, electives} = auth
+    return{allSchedule, userSchedule, totalSchedule, joindate, electives}
 };
 
 export default connect(mapStateToProps, {getAllSchedule, getUserSchedule, setNotificationSnackbar})(withStyles(styles)(timetableCard));
