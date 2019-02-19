@@ -60,6 +60,14 @@ class ChooseElectives extends Component {
     }
     
     render() {
+        let rotation_dict
+        if (this.props.rotations){
+            rotation_dict = this.props.rotations.rotations
+        }
+        else{
+            rotation_dict =[] 
+            this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please make sure you are connected to internet.</span>)})
+        }
         const {classes} = this.props
         return(
         <div> 
@@ -80,7 +88,7 @@ class ChooseElectives extends Component {
                 <FormControl>
                     <FormLabel>
                         <FormGroup column>
-                            {this.props.rotations.rotations.map(item =>{
+                            {rotation_dict.map(item =>{
                                 if (item.data == 'elective'){
 										return(
                                 <FormControlLabel control=
