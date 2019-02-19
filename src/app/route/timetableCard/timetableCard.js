@@ -72,7 +72,7 @@ class timetableCard extends Component {
 	}
 
 	render() {
-		const renderinfo = (this.state.protegeNum>=1) ? (
+		const renderinfo = (this.state.allSchedule.length>=1) ? (
 			<div>
 				{(this.state.allSchedule.map((n, index) => {
 					 return(
@@ -85,13 +85,13 @@ class timetableCard extends Component {
  							 				Object.entries(value).map(([ind, value])=>{
  										 			return(
  										 				<Grid item xs key={ind} style={{paddingTop: '10px', maxWidth: '180px'}}>
- 												 			<Card style={scheduleVariation['ongoing']}>
+ 												 			<Card style={scheduleVariation[value.status]}>
  												 				<CardContent>
- 												 					<Typography style={scheduleVariation['ongoing'].primary} noWrap>{key.toUpperCase()}</Typography>
- 												 					<Typography variant='caption' style={scheduleVariation['ongoing']} noWrap>{value.rotationId}</Typography>
- 												 					<Typography variant='caption' style={scheduleVariation['ongoing']} noWrap>Start: {value.startDate}</Typography>
- 												 					<Typography variant='caption' style={scheduleVariation['ongoing']} noWrap>End: {value.endDate}</Typography>
- 												 					<Typography variant='caption' style={scheduleVariation['ongoing']} noWrap>Status: {value.status}</Typography>
+ 												 					<Typography style={scheduleVariation[value.status].primary} noWrap>{key.toUpperCase()}</Typography>
+ 												 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>{value.rotationId}</Typography>
+ 												 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>Start: {value.startDate}</Typography>
+ 												 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>End: {value.endDate}</Typography>
+ 												 					<Typography variant='caption' style={scheduleVariation[value.status]} noWrap>Status: {value.status}</Typography>
  												 				</CardContent>
  											 				</Card>
  											 			</Grid>
