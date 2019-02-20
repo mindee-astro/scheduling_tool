@@ -27,7 +27,10 @@ const styles = theme => ({
 	},
 	table: {
 		minWidth: 700,
-		borderRadius: 12,
+		borderRadius: 12
+	},
+	tablecell: {
+		fontSize: '14px'
 	},
 	row: {
 		'&:nth-of-type(odd)': {
@@ -145,7 +148,7 @@ class CustomizedTable extends Component {
 							}
 						
 							return (
-								<TableRow key={index}>
+								<TableRow key={index} className={classes.tablecell}>
 									<TableCell component="th" scope="row">{row.pK}</TableCell>
 									<TableCell>{row.displayName}</TableCell>
 									<TableCell>{row.joinDate}</TableCell>
