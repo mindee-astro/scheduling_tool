@@ -61,8 +61,8 @@ class CustomizedTable extends Component {
 		if(this.props.listUser !=prevProps.listUser || this.state.listUser !=prevState.listUser){
 			this.setState({
 				...this.state,
-				listUser: this.props.listUser.rotations,
-				listUserLength: this.props.listUser.rotations.length
+				listUser: this.props.listUser.users,
+				listUserLength: this.props.listUser.users.length
 			})
 		}
 		if (this.props.allSchedule && prevState.allSchedule != this.props.allSchedule && this.props.allSchedule.length > 0){
