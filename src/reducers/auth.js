@@ -26,7 +26,6 @@ const INIT_STATE = {
 	email: "DummyDATA@astro.com.my",
 	mentoremail: "DummyDATA@astro.com.my",
 	data: "",
-	sessionToken: "NULL",
 	idToken: "NULL",
 	listUser: {},
 	isLoggedIn: false,

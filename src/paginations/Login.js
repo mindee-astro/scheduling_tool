@@ -11,9 +11,16 @@ import TextField from '@material-ui/core/TextField';
 import InputLabel from '@material-ui/core/InputLabel';
 import Input from '@material-ui/core/Input';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
+import ComplexDialog from '../components/ComplexDialog';
+import Typography from '@material-ui/core/Typography';
 import {
-	loginUser
+	loginUser,
+	setResponseSnackbar
 } from '../actions/index';
+import {
+	forgotPassword,
+	confirmForgotPassword
+} from '../api/authAPI';
 import PersonOutlineRounded from '@material-ui/icons/PersonOutlineRounded';
 
 const styles = theme => ({
@@ -32,6 +39,15 @@ const styles = theme => ({
   		width: '90px',
   		backgroundColor: theme.palette.primary.main,
   		color: 'white',
+	},
+	buttonLayout: {
+		flexWrap: 'wrap',
+	    justifyContent: 'space-around',
+	    overflow: 'hidden',
+	    textAlign: 'right',
+	},
+	button: {
+		margin: '5px'
 	}
 });
 
@@ -42,7 +58,79 @@ class Login extends Component{
 			classes: props.classes,
 			username: '',
 			password: '',
+			popupIsOpen: false,
+			email: '',
+			verificationCode: '',
+			requestForgetPasswordFlag: false,
+			validUserName: false,
+			newpassword: '',
+			confirmpassword: '',
 		}
+
+		this.closePopupCallBack = this.closePopupCallBack.bind(this)
+		this.handleAction = this.handleAction.bind(this)
+		this.handleChange = this.handleChange.bind(this)
+	}
+
+	closePopupCallBack=()=>{
+		this.setState({
+			...this.state,
+			popupIsOpen: false,
+			requestForgetPasswordFlag: false,
+		})
+	}
+
+	handleAction=async(name)=>{
+		if (name =="Confirm1"){
+			await forgotPassword(this.state.username)
+							.then(response=>{
+								this.setState({
+									...this.state,
+									popupIsOpen:false,
+									requestForgetPasswordFlag: true,
+								})
+							})
+							.catch(error=>{
+								this.setState({
+									...this.state,
+									username: ' ',
+									popupIsOpen:true,
+									requestForgetPasswordFlag: false,
+								})
+							})
+		}
+
+
+		else if (name == "HaveCode"){
+			this.setState({
+				...this.state,
+				popupIsOpen: false,
+				requestForgetPasswordFlag: true
+			})
+		}
+
+		else if (name =="Confirm2"){
+			await confirmForgotPassword(this.state.username, this.state.verificationCode, this.state.newpassword)
+							.then(response=>{
+								this.setState({
+									...this.state,
+									popupIsOpen: false,
+									requestForgetPasswordFlag: false,
+								})
+							})
+							.catch(error=>{
+								
+							})
+		}
+				 
+	}
+
+	handleForgotPassword=()=>{
+		this.setState({
+			...this.state,
+			popupIsOpen: true,
+			requestForgetPasswordFlag: false,
+		})
 	}
 
 	handleChange=name=>event=>{
@@ -53,15 +141,36 @@ class Login extends Component{
 	}
 
 	render(){
-		const { loginUser } = this.props;
+		const { loginUser, classes } = this.props;
 
 		const loginButton = (this.state.username.length > 0 && this.state.password.length > 0) ? (false) : (true)
 
+		const equalPassword = (this.state.newpassword == this.state.confirmpassword) && this.state.newpassword!='' && this.state.verificationCode!=''
+
+		const passwordText = (!equalPassword) ? "Verification Code Missing or Password Mismatch" : "" 
+
 		return(
+			<React.Fragment>
 			<div style={{textAlign: 'center'}}>
-				{console.log()}
-				<Popup/>
-				<ResponseSnackbar/>
+				<ComplexDialog 
+					isOpen={this.state.popupIsOpen} 
+					callbackClose={this.closePopupCallBack} 
+					title={<span>Forgot Password</span>} 
+					content={<span><TextField onChange={this.handleChange("username")} placeholder="Astro Username" variant="outlined" fullWidth value={this.state.username} InputLabelProps={{shrink: true,}} label="Astro Username"/></span>}
+					actions={<span className={classes.buttonLayout}><Button onClick={()=>{this.handleAction("Confirm1")}} className={classes.button}>Confirm</Button><Button onClick={()=>{this.handleAction("HaveCode")}} className={classes.button}>i have the code</Button><Button onClick={this.closePopupCallBack} className={classes.button}>Cancel</Button></span>}
+				/>
+				<ComplexDialog
+					isOpen={this.state.requestForgetPasswordFlag}
+					callbackClose={this.closePopupCallBack} 
+					title={<span>Check your mailbox</span>} 
+					content={<span>
+						<TextField onChange={this.handleChange("verificationCode")} placeholder="Enter your verification code" variant="outlined" fullWidth className={classes.button} InputLabelProps={{shrink: true,}} label="Verification Code"/>
+						<TextField onChange={this.handleChange("newpassword")} type="password" placeholder="Enter your new password" variant="outlined" fullWidth className={classes.button} InputLabelProps={{shrink: true,}} label="New Password"/>
+						<TextField onChange={this.handleChange("confirmpassword")} type="password" placeholder="Confirm your new password" variant="outlined" fullWidth className={classes.button} InputLabelProps={{shrink: true,}} label="Confirm New Password"/>
+						<Typography color="error" variant="caption">{passwordText}</Typography>
+					</span>}
+					actions={<span className={classes.buttonLayout}><Button onClick={()=>{this.handleAction("Confirm2")}} className={classes.button} disabled={!equalPassword}>Confirm</Button><Button onClick={this.closePopupCallBack} className={classes.button}>Cancel</Button></span>}
+				/>
 				<Card className={this.state.classes.card}>
 					<CardContent>
 						<Avatar className={this.state.classes.avatar}>
@@ -75,6 +184,10 @@ class Login extends Component{
 					        label="User Name"
 					        margin="normal"
 					        variant="outlined"
+					        placeholder="User Name"
+					        InputLabelProps={{
+				               shrink: true,
+				            }}
 					        onChange={this.handleChange("username")}
 					        fullWidth
 				        />
@@ -85,15 +198,25 @@ class Login extends Component{
 					        margin="normal"
 					        variant="outlined"
 					        type="password"
+					        placeholder="Password"
+					        InputLabelProps={{
+				               shrink: true,
+				            }}
 					        onChange={this.handleChange("password")}
 					        fullWidth
 				        />
-				        <Button onClick={()=>{loginUser(this.state.username, this.state.password)}} disabled={loginButton}>
+				        <span className={classes.buttonLayout}>
+				        <Button onClick={()=>{loginUser(this.state.username, this.state.password)}} disabled={loginButton} className={classes.button}>
 							Login
 						</Button>
+						<Button onClick={this.handleForgotPassword} className={classes.button}>
+							Forgot Password
+						</Button>
+						</span>
 					</CardContent>
 				</Card>
 			</div>
+			</React.Fragment>
 		)
 	}
 }
@@ -103,4 +226,4 @@ const mapStateToProps = ({}) => {
 	return {}
 }
 
-export default connect(mapStateToProps, {loginUser})(withStyles(styles)(Login));
+export default connect(mapStateToProps, {loginUser, setResponseSnackbar})(withStyles(styles)(Login));

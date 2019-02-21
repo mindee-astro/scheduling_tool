@@ -185,9 +185,11 @@ function* loginUserAsync({payload}) {
 			type: "success"
 		}))
 	} catch (error) {
+		console.log(error)
+		yield put(loginUserSuccess(false))
 		yield put(setResponseSnackbar({
 			isOpen: true,
-			message: error.response.status+" "+error.response.statusText,
+			message: "Incorrect Password",
 			type: "error"
 		}))
 	}

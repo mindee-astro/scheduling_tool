@@ -79,3 +79,25 @@ export const authorize = async (userid, token) => {
 		}
 	}))
 }
+
+export const forgotPassword = async (userid) => {
+	return (instance({
+		method: 'POST',
+		url: devUrl+"/forgotpassword",
+		data: {
+			"username": userid,
+		}
+	}))
+}
+
+export const confirmForgotPassword = async (userid, confirmCode, newPassword) => {
+	return (instance({
+		method: 'POST',
+		url: devUrl+"/confirmforgotpassword",
+		data: {
+			"username": userid,
+			"confirmationCode": confirmCode,
+			"newPassword": newPassword,
+		}
+	}))
+}

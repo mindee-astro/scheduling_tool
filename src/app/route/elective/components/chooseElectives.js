@@ -121,4 +121,4 @@ const mapStateToProps = ({rotation}) => {
     return{rotations}
 };
 
-export default connect(mapStateToProps, {setNotificationSnackbar})(withStyles()(ChooseElectives));
+export default connect(mapStateToProps, {setNotificationSnackbar})((ChooseElectives));

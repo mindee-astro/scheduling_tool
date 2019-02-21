@@ -25,8 +25,8 @@ const INIT_STATE = {
 	PopupcloseButtonText: "dismiss",
 	responseSnackbar: {
 		isOpen: false,
-		message: {},
-		type: {},
+		message: "",
+		type: "error",
 	}
 }
 

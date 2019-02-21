@@ -3,6 +3,8 @@ import {Redirect, Route} from 'react-router-dom';
 import {connect} from 'react-redux';
 import App from './App';
 import Login from './Login';
+import Popup from '../components/Popup';
+import ResponseSnackbar from '../components/ResponseSnackbar';
 import { 
 	authToken,
 } from '../actions/index';
@@ -19,17 +21,18 @@ class EntryApp extends Component{
 			<div>
 				<Route path={`${match.url}`} component={App}/>	
 			</div>
-		) : (
+		) : (location.pathname!='/login') ? (
 			<div>
 				<Redirect to={'/login'}/>
 				<Route path='/login' component={Login}/>
 			</div>
-		)
+		) : <Route path='/login' component={Login}/>
 		
 
 		return(
 			<React.Fragment>
-				{console.log(location)}
+				<ResponseSnackbar/>
+				<Popup/>
 				{checkLoggedIn}			
 			</React.Fragment>
 		)
