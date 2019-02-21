@@ -119,7 +119,11 @@ class Login extends Component{
 								})
 							})
 							.catch(error=>{
-								
+								this.props.setResponseSnackbar({
+									isOpen: true,
+									message: "Invalid Code",
+									type: "error"
+								})
 							})
 		}
 				 
