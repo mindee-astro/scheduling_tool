@@ -78,7 +78,7 @@ class ElectiveCard extends React.Component {
 			editMode: false, 
 			showEditButton: true,  
 			rotations: [],
-			submittedList: []
+			submittedList: [],
 		}
 	}
 	componentDidMount(){
@@ -94,10 +94,15 @@ class ElectiveCard extends React.Component {
 		// update electives list whenever new list is received
 		if (prevProps.rotations != this.props.rotations){
 			// update rotation list whenever new list is received
-			this.setState({
-				...this.state,
-				rotations:this.props.rotations.rotations
-			})
+			if (this.props.rotations){
+				this.setState({
+					...this.state,
+					rotations:this.props.rotations.rotations
+				})
+			}
+			else{
+				this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please make sure you are connected to internet.</span>)})
+			}
 		}
 	}
 
@@ -180,6 +185,7 @@ class ElectiveCard extends React.Component {
 		}
 		const {classes} = this.props
 		const dict =this.getModuleDictionary(this.state.electives)
+		//const dict =[]
 		//determine which page to show, use emptyModList 
 		return(
 			<div>
@@ -245,7 +251,7 @@ class ElectiveCard extends React.Component {
 										})}
 									</div>
 									<div style={{paddingTop:20}}>
-										<Button diasbled={!this.state.showEditButton} onClick={this.onChange} style={{float: 'right'}}>
+										<Button disabled={!this.state.showEditButton} onClick={this.onChange} style={{float: 'right'}}>
 											Edit Choices
 										</Button>
 									</div> 
