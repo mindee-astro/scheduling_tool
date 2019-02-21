@@ -49,7 +49,8 @@ const DialogTitle = withStyles(theme => ({
 const styles = theme => ({
   input: {
     margin: theme.spacing.unit,
-    marginLeft: 0
+    marginLeft: 0,
+    fontSize: 14
   },
   fullHeight: {
     display: "flex",
@@ -59,7 +60,7 @@ const styles = theme => ({
   },
   cardheading: {
     margin: 0,
-    fontSize: 16,
+    fontSize: 14,
     fontWeight: "bold",
     color: "#1769aa"
   },
@@ -68,11 +69,11 @@ const styles = theme => ({
     // paddingTop: 10
   },
   carddata: {
-    marginTop: 15,
-    marginBottom: 15
+    marginTop: 12,
+    marginBottom: 12
   },
   addButton: {
-    lineHeight: "540px"
+    lineHeight: "530px"
   },
   show: {
     display: "block"
@@ -388,7 +389,7 @@ class Department extends Component {
             return (
 
               <div key={header + index}>
-                <p
+                <Typography variant='body1'
                   className={`${
                     this.state.mode === 1 || this.state.mode === 2
                       ? classes.show
@@ -396,14 +397,14 @@ class Department extends Component {
                   } ${classes.cardheading}`}
                 >
                   {header}
-                </p>
-                <p
+                </Typography>
+                <Typography variant='body1'
                   className={`${
                     this.state.mode === 1 ? classes.show : classes.hide
                   } ${classes.carddata}`}
                 >
                   {rotationValues[index]}
-                </p>
+                </Typography>
                 <div
                   className={
                     this.state.mode === 2 ? classes.show : classes.hide

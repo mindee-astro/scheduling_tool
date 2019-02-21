@@ -22,7 +22,7 @@ const styles = theme => ({
     paddingLeft: 20
   },
   card: {
-    height: 560,
+    height: 530,
     padding: 20
   },
   show: {

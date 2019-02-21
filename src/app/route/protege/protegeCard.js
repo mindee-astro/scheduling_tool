@@ -27,7 +27,10 @@ const styles = theme => ({
 	},
 	table: {
 		minWidth: 700,
-		borderRadius: 12,
+		borderRadius: 12
+	},
+	tablecell: {
+		fontSize: '14px'
 	},
 	row: {
 		'&:nth-of-type(odd)': {
@@ -61,8 +64,8 @@ class CustomizedTable extends Component {
 		if(this.props.listUser !=prevProps.listUser || this.state.listUser !=prevState.listUser){
 			this.setState({
 				...this.state,
-				listUser: this.props.listUser.rotations,
-				listUserLength: this.props.listUser.rotations.length
+				listUser: this.props.listUser.users,
+				listUserLength: this.props.listUser.users.length
 			})
 		}
 		if (this.props.allSchedule && prevState.allSchedule != this.props.allSchedule && this.props.allSchedule.length > 0){
@@ -145,7 +148,7 @@ class CustomizedTable extends Component {
 							}
 						
 							return (
-								<TableRow key={index}>
+								<TableRow key={index} className={classes.tablecell}>
 									<TableCell component="th" scope="row">{row.pK}</TableCell>
 									<TableCell>{row.displayName}</TableCell>
 									<TableCell>{row.joinDate}</TableCell>
