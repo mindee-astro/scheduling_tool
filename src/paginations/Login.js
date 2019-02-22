@@ -82,7 +82,7 @@ class Login extends Component{
 
 	handleAction=async(name)=>{
 		if (name =="Confirm1"){
-			await forgotPassword(this.state.username)
+			await forgotPassword(this.state.username.toLowerCase())
 							.then(response=>{
 								this.setState({
 									...this.state,
@@ -210,7 +210,7 @@ class Login extends Component{
 					        fullWidth
 				        />
 				        <span className={classes.buttonLayout}>
-				        <Button onClick={()=>{loginUser(this.state.username, this.state.password)}} disabled={loginButton} className={classes.button}>
+				        <Button onClick={()=>{loginUser(this.state.username.toLowerCase(), this.state.password)}} disabled={loginButton} className={classes.button}>
 							Login
 						</Button>
 						<Button onClick={this.handleForgotPassword} className={classes.button}>

@@ -160,12 +160,6 @@ class Sidebar extends Component {
 						        				<ListItemText primary="Schedule"/>
 						        			</ListItem>
 						        			{allowedLinks}
-						        			<ListItem button onClick={this.handleClick("API")}>
-						        				<ListItemText primary="APIs"/>
-						        			</ListItem>
-						        			<ListItem button onClick={this.handleClick("Change Password")}>
-						        				<ListItemText primary="Change Password"/>
-						        			</ListItem>
 						        		</List>
 						        	</div>	
 						        </div>

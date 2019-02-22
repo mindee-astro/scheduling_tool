@@ -7,6 +7,8 @@ import { loginUserSuccess, updateUserSuccess, getAllUserSuccess, setResponseSnac
 
 import { changeUserPassword, loginUser, getAllUsers, updateUser, createNewUser, logoutUser, getUser, authorize } from '../api/apicalls'
 
+var timestamp = new Date().getUTCHours() + ' : ' + new Date().getUTCMinutes();
+
 const sendLogOutUser = async (userid) => 
 	await logoutUser(userid)
 		.then(response=>response)
@@ -100,7 +102,8 @@ function* changePasswordAsync({payload}) {
 function* logOutUserAsync({payload}){
 	const userid = payload
 	yield put(loginUserSuccess(false))
-
+	localStorage.setItem('userid', null)
+	localStorage.setItem('sessionToken', null)
 	try { 
 		yield call(sendLogOutUser, userid)
 		yield put(setPopup({
@@ -177,6 +180,8 @@ function* loginUserAsync({payload}) {
 	const {username, password} = payload
 	try { 
 		const response = yield call(fetchLoginUser, username, password)	
+		localStorage.setItem('userid', username)
+		localStorage.setItem('sessionToken', response.data.response.sessionToken)
 		yield put(getUserAction(username))
 		yield put(loginUserSuccess(response.data.response))
 		yield put(setResponseSnackbar({

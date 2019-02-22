@@ -7,11 +7,18 @@ import Popup from '../components/Popup';
 import ResponseSnackbar from '../components/ResponseSnackbar';
 import { 
 	authToken,
+	getUser,
 } from '../actions/index';
 
+
 class EntryApp extends Component{
+	componentDidMount(){
+		this.props.authToken(localStorage.getItem('sessionToken'), localStorage.getItem('userid'))
+		this.props.getUser(localStorage.getItem('userid'))	
+	}
+
 	componentDidUpdate(){
-		this.props.authToken(this.props.sessionToken, this.props.username)
+		this.props.authToken(localStorage.getItem('sessionToken'), localStorage.getItem('userid'))
 	}
 
 	render(){
@@ -44,4 +51,4 @@ const mapStateToProps = ({auth}) => {
 	return {isLoggedIn, username, sessionToken};
 };
 
-export default connect(mapStateToProps, {authToken})(EntryApp);
+export default connect(mapStateToProps, {authToken, getUser})(EntryApp);

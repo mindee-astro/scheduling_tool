@@ -56,7 +56,6 @@ class ResponseSnackbar extends Component{
 		const Icon = variantIcon[this.props.responseSnackbar.type];
 		return(
 			<React.Fragment>
-				{console.log(this.props)}
 				<Snackbar
 					anchorOrigin={{  vertical:'top', horizontal:'right' }}
 					open={this.props.responseSnackbar.isOpen}

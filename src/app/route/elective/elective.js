@@ -122,7 +122,6 @@ class ElectiveCard extends React.Component {
 			}
 			)
 		}
-		console.log('Dictionary created for',module, ':', dict)
 		return(dict)
 	}
 	// when edit choices button is hit, change the editButtonHit to true to show mod selection page
@@ -139,7 +138,6 @@ class ElectiveCard extends React.Component {
 		// if list passed is null, meaning they cancel submission 
 		// then we dont process
 		if (list){
-			console.log('User has submitted the choices:',list)
 			// change the list into rotations ID 
 			for (var i in list){
 				this.state.rotations.map(check=>{
@@ -149,10 +147,8 @@ class ElectiveCard extends React.Component {
 				}
 				)
 			}
-			console.log('list of rotation id for',list, 'is:', rot_id)
 			//in the case when user just click submit without changing anything, we dont need to update db again. 
 			if (JSON.stringify(rot_id.sort()) === JSON.stringify(this.state.electives.sort())){
-				console.log('User has selected the same set of choices.')
 			}
 			else{
 				userData = {
@@ -170,9 +166,7 @@ class ElectiveCard extends React.Component {
 			}
 		}
 		else{
-			console.log('User did not select their choices.')
 		}
-		console.log('Updated user data list:', userData)
 	}
 
 	render() {
@@ -210,10 +204,10 @@ class ElectiveCard extends React.Component {
 						</div>
 						<div>
 							<div className={classes.arrangedCard}>
-								{this.state.rotations.map(mod => {
+								{this.state.rotations.map((mod, index) => {
 									if (mod.data == 'core'){
 										return(
-										<Card className={classes.card} key={mod}>
+										<Card className={classes.card} key={index}>
 												<CardContent>
 													<Typography variant='body1'>
 														{mod.name} ({mod.duration})
@@ -237,9 +231,9 @@ class ElectiveCard extends React.Component {
 								: 
 								<div>
 									<div className={classes.arrangedCard}>
-										{dict.map(elect => {
+										{dict.map((elect, index) => {
 											return(
-												<Card className={classes.card} key={elect}>
+												<Card className={classes.card} key={index}>
 													<div>
 														<CardContent>
 															<Typography variant='body1'>

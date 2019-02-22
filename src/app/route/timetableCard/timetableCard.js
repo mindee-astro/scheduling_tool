@@ -47,10 +47,8 @@ class timetableCard extends Component {
 		this.props.getAllSchedule();
 		const duedate = moment(this.props.joindate).add(84, 'days').format("YYYY-MM-DD");
 		if (this.props.electives.length){
-			console.log('electives is not empty', this.props.electives)
 		}
 		else{
-			console.log("electives is empty")
 			this.props.setNotificationSnackbar({isOpen: true, message:(<span>Please go to Modules and select your
 				elective modules by {duedate} <br/>Note: You will no longer be able to edit your choices after this date</span>)})
 		}
@@ -76,7 +74,7 @@ class timetableCard extends Component {
 			<div>
 				{(this.state.allSchedule.map((n, index) => {
 					 return(
-					 	<div className={this.state.classes.root}>
+					 	<div className={this.state.classes.root} key={index}>
 					 	{
 					 		Object.entries(n).map(([key, value])=>{
  						 		return(
@@ -116,18 +114,21 @@ class timetableCard extends Component {
 		</div>
 		)
 
+		const buttonArray = (
+			<div style={{textAlign: 'right'}}>
+				<span style={{paddingRight: '10px'}}>
+					<Button style={{backgroundColor: '#71DF96', '&:hover': {backgroundColor: '#04691C'}}}>
+						Refresh
+					</Button>
+				</span>
+				<Button>
+					Export To PDF
+				</Button>
+			</div>
+		)
+
 		return(
 			<div style={{padding: '10px'}}>
-					<div style={{textAlign: 'right'}}>
-						<span style={{paddingRight: '10px'}}>
-							<Button style={{backgroundColor: '#71DF96', '&:hover': {backgroundColor: '#04691C'}}}>
-								Refresh
-							</Button>
-						</span>
-						<Button>
-							Export To PDF
-						</Button>
-					</div>
 				<div style={{paddingTop: '20px'}}>
 					{renderinfo}
 				</div>
