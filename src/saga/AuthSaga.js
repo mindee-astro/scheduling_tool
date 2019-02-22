@@ -101,7 +101,7 @@ function* changePasswordAsync({payload}) {
 
 function* logOutUserAsync({payload}){
 	const userid = payload
-	yield put(loginUserSuccess(false))
+	yield put(loginUserSuccess({flag: false}))
 	localStorage.setItem('userid', null)
 	localStorage.setItem('sessionToken', null)
 	try { 

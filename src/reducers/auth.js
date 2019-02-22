@@ -56,6 +56,7 @@ export default (state=INIT_STATE, action)=>{
 				...state,
 				sessionToken: action.payload.sessionToken,
 				idToken: action.payload.idToken,
+				isLoggedIn: action.payload.flag,
 			}
 
 		case AUTH_REQUEST_SUCCESS:
