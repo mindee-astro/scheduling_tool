@@ -13,6 +13,7 @@ import Input from '@material-ui/core/Input';
 import { FormGroup, ControlLabel, FormControl } from 'react-bootstrap';
 import ComplexDialog from '../components/ComplexDialog';
 import Typography from '@material-ui/core/Typography';
+import icon from '../assets/rocket-icon-vector.png';
 import {
 	loginUser,
 	setResponseSnackbar
@@ -147,11 +148,13 @@ class Login extends Component{
 	render(){
 		const { loginUser, classes } = this.props;
 
-		const loginButton = (this.state.username.length > 0 && this.state.password.length > 0) ? (false) : (true)
+		const loginButton = (this.state.username.length >= 8 && this.state.password.length > 0) ? (false) : (true)
 
 		const equalPassword = (this.state.newpassword == this.state.confirmpassword) && this.state.newpassword!='' && this.state.verificationCode!=''
 
 		const passwordText = (!equalPassword) ? "Verification Code Missing or Password Mismatch" : "" 
+
+		const validUserName = (this.state.username.length >= 8)? "" : "Enter a valid username"
 
 		return(
 			<React.Fragment>
@@ -160,7 +163,10 @@ class Login extends Component{
 					isOpen={this.state.popupIsOpen} 
 					callbackClose={this.closePopupCallBack} 
 					title={<span>Forgot Password</span>} 
-					content={<span><TextField onChange={this.handleChange("username")} placeholder="Astro Username" variant="outlined" fullWidth value={this.state.username} InputLabelProps={{shrink: true,}} label="Astro Username"/></span>}
+					content={<span>
+						<TextField onChange={this.handleChange("username")} placeholder="Astro Username (eg. SJTSOONJ)" variant="outlined" fullWidth value={this.state.username} InputLabelProps={{shrink: true,}} label="Astro Username"/>
+						<Typography color="error" variant="caption">{validUserName}</Typography>
+					</span>}
 					actions={<span className={classes.buttonLayout}><Button onClick={()=>{this.handleAction("Confirm1")}} className={classes.button} disabled={this.state.username===""}>Confirm</Button><Button onClick={()=>{this.handleAction("HaveCode")}} className={classes.button} disabled={this.state.username===""}>i have the code</Button><Button onClick={this.closePopupCallBack} className={classes.button}>Cancel</Button></span>}
 				/>
 				<ComplexDialog
@@ -178,21 +184,22 @@ class Login extends Component{
 				<Card className={this.state.classes.card}>
 					<CardContent>
 						<Avatar className={this.state.classes.avatar}>
-							<PersonOutlineRounded/>
+							<img src={icon} className={this.state.classes.avatar}/>
 						</Avatar>
 						<div style={{paddingTop: '40px'}}/>
 						<TextField
 							required
 					        id="username"
 					        name="username"
-					        label="User Name"
+					        label="Username"
 					        margin="normal"
 					        variant="outlined"
-					        placeholder="User Name"
+					        placeholder="Astro Username (eg. SJTSOONJ)"
 					        InputLabelProps={{
 				               shrink: true,
 				            }}
 					        onChange={this.handleChange("username")}
+					        value={this.state.username}
 					        fullWidth
 				        />
 				        <TextField
@@ -209,7 +216,9 @@ class Login extends Component{
 					        onChange={this.handleChange("password")}
 					        fullWidth
 				        />
+				        <Typography color="error" variant="caption">{validUserName}</Typography>
 				        <span className={classes.buttonLayout}>
+				        
 				        <Button onClick={()=>{loginUser(this.state.username.toLowerCase(), this.state.password)}} disabled={loginButton} className={classes.button}>
 							Login
 						</Button>

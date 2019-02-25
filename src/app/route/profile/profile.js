@@ -14,14 +14,6 @@ const styles = {
 		fontSize: '1em',
 		paddingBottom: '20px'
 	},
-	fieldName: {
-		fontSize: '0.8em',
-		color: '#9f74fc'
-	},
-	text: {
-		fontSize: '0.8em',
-		color: '#000000'	
-	}
 };
 
 
@@ -50,22 +42,26 @@ class profileCard extends Component {
 	 				<Grid item xs={(this.state.width>850) ? 6 : 12}>
 	 					<Card>
 	 						<CardContent>
-	 							<Typography className={this.state.classes.title}>Profile Information</Typography>
-	 							<Typography className={this.state.classes.fieldName}>Name : <span style={{color: 'black'}}>{this.props.displayname}</span></Typography>
-	 							<Typography className={this.state.classes.fieldName}>User Name : <span style={{color: 'black'}}>{this.props.username}</span></Typography>
-	 							<Typography className={this.state.classes.fieldName}>Email : <span style={{color: 'black'}}>{this.props.email}</span></Typography>
-	 							<Typography className={this.state.classes.fieldName}>Mentor : <span style={{color: 'black'}}>{this.props.mentor}</span></Typography>
-	 							<Typography className={this.state.classes.fieldName}>Mentor Email : <span style={{color: 'black'}}>{this.props.mentoremail}</span></Typography>
+	 							<Typography variant="title" color="primary">Profile Information</Typography>
+	 							<span><br/></span>
+	 							<Typography variant="caption" color="primary">Name : <span style={{color: 'black'}}>{this.props.displayname}</span></Typography>
+	 							<Typography variant="caption" color="primary">User Name : <span style={{color: 'black'}}>{this.props.username}</span></Typography>
+	 							<Typography variant="caption" color="primary">Email : <span style={{color: 'black'}}>{this.props.email}</span></Typography>
+	 							<Typography variant="caption" color="primary">Mentor : <span style={{color: 'black'}}>{this.props.mentor}</span></Typography>
+	 							<Typography variant="caption" color="primary">Mentor Email : <span style={{color: 'black'}}>{this.props.mentoremail}</span></Typography>
 	 						</CardContent>
 	 					</Card>
 	 				</Grid>
 	 				<Grid item xs>
 	 					<Card>
 	 						<CardContent>
-	 							<Typography className={this.state.classes.title}>Module Selection</Typography>
-	 							<Typography className={this.state.classes.text}>
-	 								{this.props.data}
-	 							</Typography>
+	 							<Typography variant="title" color="primary">Modules</Typography>
+	 							<span><br/></span>
+	 							{this.props.electives.map((n, index)=>{
+	 								return(
+	 									<Typography variant="caption" key={index}>{n}</Typography>
+	 								)
+	 							})}
 	 						</CardContent>
 	 					</Card>
 	 				</Grid>
@@ -76,8 +72,8 @@ class profileCard extends Component {
 }
 
 const mapStateToProps = ({auth}) => {
-	const {username,displayname,joindate,mentor,accesslevel,email,mentoremail,data} = auth;
-    return{username,displayname,joindate,mentor,accesslevel,email,mentoremail,data}
+	const {username,displayname,joindate,mentor,accesslevel,email,mentoremail,data,electives} = auth;
+    return{username,displayname,joindate,mentor,accesslevel,email,mentoremail,data,electives}
 };
 
 export default connect(mapStateToProps)(withStyles(styles)(profileCard));
