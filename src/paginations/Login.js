@@ -167,7 +167,7 @@ class Login extends Component{
 						<TextField onChange={this.handleChange("username")} placeholder="Astro Username (eg. SJTSOONJ)" variant="outlined" fullWidth value={this.state.username} InputLabelProps={{shrink: true,}} label="Astro Username"/>
 						<Typography color="error" variant="caption">{validUserName}</Typography>
 					</span>}
-					actions={<span className={classes.buttonLayout}><Button onClick={()=>{this.handleAction("Confirm1")}} className={classes.button} disabled={this.state.username===""}>Confirm</Button><Button onClick={()=>{this.handleAction("HaveCode")}} className={classes.button} disabled={this.state.username===""}>i have the code</Button><Button onClick={this.closePopupCallBack} className={classes.button}>Cancel</Button></span>}
+					actions={<span className={classes.buttonLayout}><Button onClick={()=>{this.handleAction("Confirm1")}} className={classes.button} disabled={this.state.username.length<8}>Confirm</Button><Button onClick={()=>{this.handleAction("HaveCode")}} className={classes.button} disabled={this.state.username.length<8}>i have the code</Button><Button onClick={this.closePopupCallBack} className={classes.button}>Cancel</Button></span>}
 				/>
 				<ComplexDialog
 					isOpen={this.state.requestForgetPasswordFlag}
