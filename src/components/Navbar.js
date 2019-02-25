@@ -8,12 +8,18 @@ import Button from '@material-ui/core/Button';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 import AccountCircle from '@material-ui/icons/AccountCircle';
+import AccountBalanceWalletIcon from '@material-ui/icons/AccountBalanceWallet';
 import {connect} from 'react-redux';
 import Menu from '@material-ui/core/Menu';
 import MenuItem from '@material-ui/core/MenuItem';
 import ListItem from '@material-ui/core/ListItem';
 import {withRouter} from 'react-router-dom';
 import AdminToggle from './ToggleAdmin';
+import HomeIcon from '@material-ui/icons/Home';
+import SchoolIcon from '@material-ui/icons/School';
+import TableChart from '@material-ui/icons/TableChart';
+import People from '@material-ui/icons/People';
+import Settings from '@material-ui/icons/Settings';
 import {getProfileData, getProfileDataSuccess, logOutUser} from '../actions/index';
 
 const styles = {
@@ -42,7 +48,7 @@ const styles = {
   }
 };
 
-
+var val = "Placeholder"
 
 class Navbar extends Component {
   
@@ -84,17 +90,17 @@ class Navbar extends Component {
 
   render(){
 
-    const title = (this.props.location.pathname == '/elective') ? (<span>Modules</span>) : 
-    (this.props.location.pathname == '/schedule') ? (<span>Schedules</span>) : 
-    (this.props.location.pathname == '/welcome') ? (<span>Home</span>) :
-    (this.props.location.pathname == '/profile') ? (<span>Profile</span>) :
-    (this.props.location.pathname == '/configuration') ? (<span>User Management</span>) :
-    (this.props.location.pathname == '/protege') ? (<span>Proteges</span>) : 
-    (this.props.location.pathname == '/rotation') ? (<span>Rotations</span>) :
+    const title = (this.props.location.pathname == '/elective') ? (window.innerWidth <= 500) ? (<AccountBalanceWalletIcon/>) : (<span>Modules</span>)  : 
+    (this.props.location.pathname == '/schedule') ? (window.innerWidth <= 500) ? (<TableChart />) : (<span>Schedules</span>) : 
+    (this.props.location.pathname == '/profile') ? (window.innerWidth <= 500) ? (<People />) : (<span>Profile</span>) :
+    (this.props.location.pathname == '/configuration') ? (window.innerWidth <= 500) ? (<Settings />) : (<span>User Management</span>) :
+    (this.props.location.pathname == '/protege') ? (window.innerWidth <= 500) ? (<People />) : (<span>Proteges</span>) : 
+    (this.props.location.pathname == '/rotation') ? (window.innerWidth <= 500) ? (<SchoolIcon />) : (<span>Rotations</span>) :
     (<span/>)
 
     return (
       <div className={this.state.classes.root}>
+        {console.log(val)}
         <AppBar position="fixed" className={(this.props.theme==='default') ? this.state.classes.appBarDefault : this.state.classes.appBarOptional}>
           <Toolbar>
             <IconButton className={this.state.classes.menuButton} color="inherit" aria-label="Menu" onClick={this.props.toggleSideBar}>
