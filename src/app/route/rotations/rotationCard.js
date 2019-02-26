@@ -18,9 +18,6 @@ const styles = theme => ({
     display: "flex",
     flexWrap: "wrap"
   },
-  gridwrapper: {
-    paddingLeft: 20
-  },
   card: {
     height: 530,
     padding: 20
@@ -80,7 +77,7 @@ class rotationCard extends Component {
     const renderRotations = (this.state.rotationLength>0)? (
  
       // When rotations array is not empty
-      <div className={classes.gridwrapper}>
+      <div>
       
     
         <Grid container spacing={24}>
@@ -106,7 +103,7 @@ class rotationCard extends Component {
 
       </div>
       
-    ): (<div className={classes.gridwrapper}>
+    ): (<div>
       
     {/* When rotations array is empty */}
     {/* Add rotation */}
